@@ -1,0 +1,25 @@
+{
+    "files.associations": {
+        "minishell.h": "c",
+        "libft.h": "c",
+        "garrptr.h": "c",
+        "__node_handle": "c",
+        "stdio.h": "c",
+        "__locale": "c",
+        "ios": "c",
+        "string": "c",
+        "iosfwd": "c",
+        "get_next_line.h": "c",
+        "__functional_base": "c",
+        "array": "c",
+        "istream": "c",
+        "locale": "c",
+        "memory": "c",
+        "tuple": "c",
+        "utility": "c",
+        "command_table_generator.h": "c",
+        "algorithm": "c",
+        "dlists.h": "c",
+        "time.h": "c"
+    }
+}
