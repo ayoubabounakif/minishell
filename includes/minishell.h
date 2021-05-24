@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/03/17 16:54:27 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/24 20:49:05 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 # include "../dlist/dlists.h"
 # include "../parser/command_table_generator.h"
 
+#include <curses.h>
+#include <unistd.h>
+#include <term.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 # define STDIN  0
 # define STDOUT 1

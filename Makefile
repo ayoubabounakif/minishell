@@ -1,4 +1,4 @@
-SRCS = 420sh.c \
+SRCS = repl_loop.c \
 \
 ./parser/mask.c \
 ./parser/pipelines.c \
