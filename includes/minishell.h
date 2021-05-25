@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/24 20:49:05 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/25 11:38:56 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,16 @@ int			execute_command(int in, int out, t_command *command, char **envp);
 ** Utils
 */
 void		redir_in_out(int in, int out);
+
+
+typedef t_dlist (*t_parser_func)(char *parsing_text);
+typedef void (*t_exec_func)(t_dlist command_tables, char **envp);
+
+typedef struct s_repl_loop_data t_repl_loop_data;
+struct s_repl_loop_data
+{
+    t_parser_func parser_func;
+    t_exec_func exec_func;
+    char **envp;
+};
 #endif

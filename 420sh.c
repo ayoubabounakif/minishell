@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   420sh.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/07 11:40:23 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/05/25 14:11:33 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int		main(int ac, char **av, char **envp)
 	int			n = 1;
 	t_dlist 	parsed_line;
 
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
+	/* signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler); */
 	while (1)
 	{
 		ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT);
