@@ -5,7 +5,7 @@ SRCS = 420sh.c \
 ./parser/redirection_splitting/*.c \
 ./parser/command_table/*.c \
 ./parser/command_table_generator.c \
-\
+./parser/quotes_proccessing.c\
 ./builtins/builtins.c \
 ./builtins/utils.c \
 \

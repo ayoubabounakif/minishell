@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   420sh.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/07 11:40:23 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/05/25 16:32:48 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,8 @@ int		main(int ac, char **av, char **envp)
 		}
 		execute_parsed_line(parsed_line, envp);
 	}
+	//char *str = remove_quotes_from_string(ft_strdup("\"fuck\""));
+	/* char *str = remove_quotes_from_string(ft_strdup("\"\""));
+	printf("|%s|", str); */
 	return (EXIT_SUCCESS);
 }

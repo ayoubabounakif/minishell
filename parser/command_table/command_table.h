@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:01:06 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/21 13:37:52 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/25 16:23:48 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "../../CPCA/generic_parrays/garrptr.h"
 # include "../pipelines.h"
 # include "../../dlist/dlists.h"
-
+# include "../quotes_proccessing.h"
 /*
 ** private struct and methods
 */

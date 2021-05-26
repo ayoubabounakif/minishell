@@ -18,6 +18,7 @@ t_commands_table	cmd_table(t_pipeline pl, char **env)
 	
 	ct = malloc(sizeof(struct s_commands_table));	
 	ct->tokens_unproccessed = tokens(pl);
+	process_tokens_from_quotes(ct->tokens_unproccessed);
 	ct->tokens = empty_arrptr_create(NULL);
 	ct->input_files = empty_arrptr_create(NULL);
 	ct->output_files = empty_arrptr_create(NULL);
