@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 19:05:40 by aabounak          #+#    #+#             */
-/*   Updated: 2021/04/02 17:59:15 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/26 17:31:13 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,18 @@ char		get_mask_char_inside_dq(t_state *state, char *s, int i)
 	}
 	if (state->env_variable_dq == 1)
 	{
-		if (ft_isalpha(s[i]) || s[i] == '?')
+		if (ft_isalnum(s[i]) || s[i] == '?')
 		{
-			if (s[i] == '?')
+			if (s[i] == '?' || s[i] == ' ')
 				state->env_variable_dq = 0;
 			return ('V');
 		}
-		state->env_variable = 0;
+		else if(s[i] == ' ')
+		{
+			state->env_variable_dq = 0;
+			return (' ');
+		}
+		//state->env_variable = 0;
 	}
 	if (s[i] == '$')
 	{
@@ -131,8 +136,3 @@ char	*get_mask(char *s)
 	dst[i] = 0;
 	return (dst);
 }
-
-/* t_arrptr	split_using_mask(char *str, char *str_mask, char del)
-{
-	
-} */

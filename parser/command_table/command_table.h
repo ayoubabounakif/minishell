@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:01:06 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/25 16:23:48 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/26 14:50:04 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../pipelines.h"
 # include "../../dlist/dlists.h"
 # include "../quotes_proccessing.h"
+# include "../env_variables.h"
 /*
 ** private struct and methods
 */
