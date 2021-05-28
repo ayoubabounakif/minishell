@@ -22,6 +22,7 @@
         "dlists.h": "c",
         "time.h": "c",
         "quotes_proccessing.h": "c",
-        "pipelines.h": "c"
+        "pipelines.h": "c",
+        "env_variables.h": "c"
     }
 }

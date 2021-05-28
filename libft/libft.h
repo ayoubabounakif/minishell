@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 12:58:09 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/23 20:41:29 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/05/28 17:21:48 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void			cstr_to_rstr_without_n_rs(char *src, t_rstr dst);
 ** make a clone of a resizble string
 */
 t_rstr			rstr_clone(t_rstr src);
+
 
 char 			*ft_strjoin_c(char *str, char c);
 char			*ft_strjoin_c_beggining(char *s, char c);
