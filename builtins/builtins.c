@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:49:10 by aabounak          #+#    #+#             */
-/*   Updated: 2021/03/31 17:49:11 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/05/28 11:15:03 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,4 +198,5 @@ void		execute_parsed_line(t_dlist parsed_line, char **envp)
 		execute_pipeline(parsed_line->cursor_n->value, envp);
 		dlist_move_cursor_to_next(parsed_line);
 	}
+	dlist_destroy(parsed_line);
 }

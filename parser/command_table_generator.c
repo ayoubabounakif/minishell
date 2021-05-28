@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:48:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/21 14:31:50 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/28 11:09:19 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,17 @@ t_dlist      cmd_tables_list(char *parsing_text)
     is_it_time_for_a_new_list = 0;
     is_it_end_of_list = 0;
     tmp_list_of_command_tables_non_splitted = cmd_tables_list_(parsing_text);
-    list_of_command_tables_lists = dlist_empty_create(NULL, NULL, NULL);
-    a_command_table_list = dlist_empty_create(NULL, NULL, NULL);
+    list_of_command_tables_lists = dlist_empty_create(dlist_destroy, NULL, NULL);
+    a_command_table_list = dlist_empty_create(command_table_destroy, NULL, NULL);
     dlist_move_cursor_to_head(tmp_list_of_command_tables_non_splitted);
     while (tmp_list_of_command_tables_non_splitted->cursor_n != tmp_list_of_command_tables_non_splitted->sentinel)
     {
-        //printf("test\n");
         cmd_tab = tmp_list_of_command_tables_non_splitted->cursor_n->value;
-        //printf("%s\n", cmd_tab->tokens[0]);
         if (is_it_time_for_a_new_list)
         {
             dlist_pushback(list_of_command_tables_lists, a_command_table_list);
-            a_command_table_list = dlist_empty_create(NULL, NULL, NULL);        
+            a_command_table_list = dlist_empty_create(command_table_destroy, NULL, NULL);        
             is_it_time_for_a_new_list = 0;
-            //printf("donc\n");
         }
         if (is_it_end_of_list)
         {
@@ -121,7 +118,3 @@ t_dlist      cmd_tables_list(char *parsing_text)
     }
     return (list_of_command_tables_lists);
 }
-/* void		cmd_tables_list_destroy_(t_dlist cmds_array)
-{
-
-} */

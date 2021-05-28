@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 09:23:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/04/16 13:42:47 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/28 11:19:36 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_dlist			dlist_empty_create(t_destroy destroy, t_compare compare, t_printer pri
 /*
 **	dlist distructor
 */
-void			dlist_destroy(t_dlist l);
+void			dlist_destroy(void *l_);
 
 /*
 ** dlist element's insertion methods

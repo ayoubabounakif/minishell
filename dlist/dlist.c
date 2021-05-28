@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:17:36 by khafni            #+#    #+#             */
-/*   Updated: 2021/03/16 12:09:42 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/28 11:19:44 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_dlist			dlist_empty_create(t_destroy destroy_f, t_compare compare_f, t_printer
 	return (l);
 }
 
-void			dlist_destroy(t_dlist l_)
+void			dlist_destroy(void *l_)
 {
 	t_dlist			l;
 	t_dlist_cell	c;
