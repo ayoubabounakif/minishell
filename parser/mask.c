@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 19:05:40 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/26 17:31:13 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/29 20:30:05 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char		get_mask_character(t_state *state, char *s, int i)
 		return (get_mask_char_inside_dq(state, s, i));	
 	if (state->env_variable == 1)
 	{
-		if (ft_isalpha(s[i]) || s[i] == '?')
+		if (ft_isalnum(s[i]) || s[i] == '?')
 		{
 			if (s[i] == '?')
 				state->env_variable = 0;

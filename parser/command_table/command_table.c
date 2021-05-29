@@ -18,8 +18,8 @@ t_commands_table	cmd_table(t_pipeline pl, char **env)
 	
 	ct = malloc(sizeof(struct s_commands_table));	
 	ct->tokens_unproccessed = tokens(pl);
-	process_tokens_from_quotes(ct->tokens_unproccessed);
-	//print_the_env_variables(ct->tokens_unproccessed);
+	process_tokens_from_quotes(ct->tokens_unproccessed);	
+	expand_env_variables(ct->tokens_unproccessed);	
 	ct->tokens = empty_arrptr_create(NULL);
 	ct->input_files = empty_arrptr_create(NULL);
 	ct->output_files = empty_arrptr_create(NULL);
@@ -220,9 +220,9 @@ void                cmd_table_fill_tokens(t_commands_table cmdt)
 	{
 		if (is_normal_token(cmdt))
 			arrptr_add(cmdt->tokens, ft_strdup(up->tokens->cursor_n->value));	
+		printf("\n|%s|\n", up->tokens_masks->cursor_n->value);
 		dlist_move_cursor_to_next(up->tokens);
 		dlist_move_cursor_to_next(up->tokens_masks);
-
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/28 19:44:30 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/29 17:48:29 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,11 @@ int		main(int ac, char **av, char **envp)
 		}
 		execute_parsed_line(parsed_line, envp);
 	}
+
+	//char *s = "ls -l $BIGVAR $donc dddd";
+	//printf("%s\n", str_find_and_replace(s, "$donc", "potato"));
+	//printf("%s\n", rstr_find_and_replace(cstr_to_rstr(s), "$donc", "potato"));
+	//printf("%s\n", find_env_vars_in_a_token(s, get_mask(s)));
+
 	return (EXIT_SUCCESS);
 }
