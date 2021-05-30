@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int __echo__(char **tokens, t_dlist env_list)
+int __echo__(t_command *command, t_dlist env_list)
 {
 	(void)env_list;
 	int i;
@@ -20,19 +20,21 @@ int __echo__(char **tokens, t_dlist env_list)
 
 	i = 1;
 	flag = 0;
-	while (tokens[i])
+	while (command->tokens[i])
 	{
 		if (i > 1)
-			ft_putchar_fd(' ', STDOUT);
-		while (strcmp(tokens[i], "-n") == 0)
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		while (strcmp(command->tokens[i], "-n") == 0)
 		{
 			flag = 1;
 			i++;
 		}
-		ft_putstr_fd(tokens[i], STDOUT);
+		ft_putstr_fd(command->tokens[i], STDOUT_FILENO);
 		i++;
 	}
 	if (flag == 0)
-		ft_putchar_fd('\n', STDOUT);
-	return (1);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	if (command->is_pipe == 1)
+		exit(0);
+	return (0);
 }

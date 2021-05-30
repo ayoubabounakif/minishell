@@ -12,16 +12,16 @@
 
 #include "../includes/minishell.h"
 
-int __pwd__(char **tokens, t_dlist env_list)
+int __pwd__(t_command *command, t_dlist env_list)
 {
 	(void)env_list;
 	char cwd[1024];
 
-	if (tokens[1] != NULL)
-		ft_putstr_fd("aksh: pwd doesn't take no options.\n", STDERR);
+	if (command->tokens[1] != NULL)
+		ft_putstr_fd("aksh: pwd doesn't take no options.\n", STDERR_FILENO);
 	else
 	{
-		chdir(tokens[1]);
+		chdir(command->tokens[1]);
 		getcwd(cwd, sizeof(cwd));
 		printf("Current working directory: %s\n", cwd);
 	}

@@ -14,14 +14,14 @@
 
 void	redir_in_out(int in, int out)
 {
-	if (in != STDIN)
+	if (in != STDIN_FILENO)
 	{
-		dup2(in, STDIN);
+		dup2(in, STDIN_FILENO);
 		close(in);
 	}
-	if (out != STDOUT)
+	if (out != STDOUT_FILENO)
 	{
-		dup2(out, STDOUT);
+		dup2(out, STDOUT_FILENO);
 		close(out);
 	}
 }

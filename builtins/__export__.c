@@ -125,22 +125,22 @@ int		export_helper(char *token, t_dlist env_list)
 }
 
 // Consider that NULL and Empty strings are not the same.
-int	__export__(char **tokens, t_dlist env_list)
+int	__export__(t_command *command, t_dlist env_list)
 {
 	int		flag;
 	int		i;
 
 	flag = 1;
-	if (tab_len(tokens) > 1)
+	if (tab_len(command->tokens) > 1)
 	{
 		i = 1;
-		while (tokens[i])
+		while (command->tokens[i])
 		{
-			flag = export_helper(tokens[i], env_list);
+			flag = export_helper(command->tokens[i], env_list);
 			i++;
 		}
 	}
-	else if (tab_len(tokens) == 1)
-		__export_env__(tokens, env_list);
+	else if (tab_len(command->tokens) == 1)
+		__export_env__(command->tokens, env_list);
 	return (flag);
 }

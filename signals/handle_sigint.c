@@ -15,12 +15,12 @@
 void	handle_sigint(int sig)
 {
 	if (kill(g_vars.pid, sig) == 0)
-		ft_putstr_fd("\n", STDOUT);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	else
 	{
-		ft_putstr_fd("\n\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT);
-		ft_putstr_fd("\x1B[32m", STDOUT);
-		ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT);
+		ft_putstr_fd("\n\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT_FILENO);
+		ft_putstr_fd("\x1B[32m", STDOUT_FILENO);
+		ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT_FILENO);
 	}
     return ;
 }

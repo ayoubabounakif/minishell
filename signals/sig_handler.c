@@ -18,22 +18,22 @@ static void	process(int sign_num)
 	{
 		if (sign_num == SIGQUIT)
 		{
-			ft_putstr_fd("Quit: 3\n", STDOUT);
+			ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
 			g_vars.exit_code = 131;
 		}
 		else if (sign_num == SIGINT)
 		{
-			ft_putchar_fd('\n', STDOUT);
+			ft_putchar_fd('\n', STDOUT_FILENO);
 			g_vars.exit_code = 130;
 		}
 	}
 	else if (sign_num == SIGINT)
 	{
-		ft_putchar_fd('\n', STDOUT);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 		g_vars.exit_code = 1;
-		ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT);
-		ft_putstr_fd("\x1B[32m", STDOUT);
-		ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT);
+		ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT_FILENO);
+		ft_putstr_fd("\x1B[32m", STDOUT_FILENO);
+		ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT_FILENO);
 	}
 }
 
@@ -46,14 +46,14 @@ void		sig_handler(int sign_num)
 		if (sign_num == SIGINT)
 		{
 			// This will be changed with termcaps
-			ft_putchar_fd('\n', STDOUT);
+			ft_putchar_fd('\n', STDOUT_FILENO);
 			g_vars.exit_code = 1;
-			ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT);
-			ft_putstr_fd("\x1B[32m", STDOUT);
-			ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT);
+			ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT_FILENO);
+			ft_putstr_fd("\x1B[32m", STDOUT_FILENO);
+			ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT_FILENO);
 		}
 		// This will be changed with termcaps
 		else if (sign_num == SIGQUIT)
-			ft_putstr_fd("\b\b  \b\b", STDOUT);
+			ft_putstr_fd("\b\b  \b\b", STDOUT_FILENO);
 	}
 }

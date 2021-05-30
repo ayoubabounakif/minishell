@@ -24,7 +24,6 @@ t_env	*env_create(char *key, char *value)
 	return (env);
 }
 
-
 void	env_destroy(void *env_)
 {
 	t_env *env;
@@ -53,7 +52,6 @@ char	*get_key(char *line)
 	}
 	return (key);
 }
-
 
 char	*get_value(char *line)
 {

@@ -60,7 +60,9 @@ typedef struct s_command
 	char	**input_files;
 	char	**output_files;
 	char	**append_files;
-    char	is_after_p_or_sc;
+    char	is_pipe;
+    char    is_only_command;
+    char    is_after_p_or_sc;
 }				t_command;
 
 t_command	*command_table(t_commands_table cmd, t_dlist env_list);

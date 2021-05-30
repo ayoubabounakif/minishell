@@ -24,11 +24,6 @@
 # include "../dlist/dlists.h"
 # include "../parser/command_table_generator.h"
 
-
-# define STDIN  0
-# define STDOUT 1
-# define STDERR 2
-
 # define TRUE 1
 # define FALSE 0
 
@@ -67,13 +62,13 @@ void		sig_handler(int sign_num);
 /*
 ** Builtins
 **/
-int			__cd__(char **tokens, t_dlist env_list);
-int			__pwd__(char **tokens, t_dlist env_list);
-int			__echo__( char **tokens, t_dlist env_list);
-int			__export__(char **tokens, t_dlist env_list);
-int			__unset__(char **tokens, t_dlist env_list);
-int			__env__(char **tokens, t_dlist env_list);
-int			__exit__(char **tokens, t_dlist env_list);
+int			__cd__(t_command *command, t_dlist env_list);
+int			__pwd__(t_command *command, t_dlist env_list);
+int			__echo__( t_command *command, t_dlist env_list);
+int			__export__(t_command *command, t_dlist env_list);
+int			__unset__(t_command *command, t_dlist env_list);
+int			__env__(t_command *command, t_dlist env_list);
+int			__exit__(t_command *command, t_dlist env_list);
 
 /*
 ** Env
@@ -83,14 +78,14 @@ void		env_destroy(void *env_);
 int			env_unset(t_dlist env_list, char *key);
 t_dlist		get_envs(char **env);
 char		*get_value(char *line);
-char		*bin_path(char *cmd, char **envp);
+char		*bin_path(char *cmd, t_dlist envl);
 
 /*
 ** Execution
 */
-void		execute_parsed_line(t_dlist parsed_line, char **envp);
-int			execute_pipeline(t_dlist pipeline, char **envp);
-int			execute_command(int in, int out, t_command *command, char **envp);
+void		execute_parsed_line(t_dlist parsed_line, t_dlist envl);
+void		fork_pipes(t_dlist pipeline, t_dlist envl);
+int			spawn_proc(int in, int out, t_command *command, t_dlist envl);
 
 /*
 ** Utils

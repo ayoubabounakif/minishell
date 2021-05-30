@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-int __exit__(char **tokens, t_dlist env_list)
+int __exit__(t_command *command, t_dlist env_list)
 {
-	(void)tokens;
+	(void)command;
 	(void)env_list;
 	return (0);
 }

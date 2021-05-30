@@ -52,22 +52,22 @@ static int	check_syntax(char *token)
 
 
 
-int	__unset__(char **tokens, t_dlist env_list)
+int	__unset__(t_command *command, t_dlist env_list)
 {
 	int			i;
 	int			flag;
 
 	flag = 1;
-	if (tab_len(tokens) > 1)
+	if (tab_len(command->tokens) > 1)
 	{
 		i = 0;
-		while (tokens[++i])
+		while (command->tokens[++i])
 		{
-			if (check_syntax(tokens[i]) == TRUE)
-				unset_env(tokens, i, env_list);
+			if (check_syntax(command->tokens[i]) == TRUE)
+				unset_env(command->tokens, i, env_list);
 			else
 			{
-				printf("420sh: unset: `%s': not a valid identifier\n", tokens[i]);
+				printf("420sh: unset: `%s': not a valid identifier\n", command->tokens[i]);
 				flag = 1;	// Flag is supposed to be zero
 			}
 

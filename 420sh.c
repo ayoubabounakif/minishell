@@ -33,17 +33,17 @@ int		main(int ac, char **av, char **envp)
 	signal(SIGQUIT, sig_handler);
 	while (1)
 	{
-		ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT);
-		ft_putstr_fd("\x1B[32m", STDOUT);
-		ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT);
-		n = get_next_line(STDIN, &line);
+		ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT_FILENO);
+		ft_putstr_fd("\x1B[32m", STDOUT_FILENO);
+		ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT_FILENO);
+		n = get_next_line(STDIN_FILENO, &line);
 		parsed_line = cmd_tables_list(line, env_list);
 		if (n == 0)
 		{
 			printf("exit\n");
 			break ;
 		}
-		execute_parsed_line(parsed_line, envp);
+		execute_parsed_line(parsed_line, env_list);
 	} 
 
 	//printf("%s", get_value())
