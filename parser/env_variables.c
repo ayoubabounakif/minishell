@@ -120,7 +120,7 @@ char    *find_replace_env_vars_in_a_token(char *token, char *token_mask, t_dlist
     return (r_str);
 }
 
-void    expand_env_variables(t_tokens tks, t_dlist env_list)
+void    pand_env_variables(t_tokens tks, t_dlist env_list)
 {
     dlist_move_cursor_to_head(tks->tokens);
     dlist_move_cursor_to_head(tks->tokens_masks);

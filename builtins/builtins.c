@@ -115,7 +115,6 @@ int		spawn_proc_lcmd(int in, t_command *command, t_dlist envl)
 		bin = bin_path(command->tokens[0], envl);
 		if (bin == NULL)
 			return (EXIT_FAILURE);
-		// envp should change by khalils method
 		execve(bin, command->tokens, env_list_to_env_array(envl));
 	}
 	return (EXIT_SUCCESS);
@@ -140,7 +139,6 @@ int		spawn_proc(int in, int out, t_command *command, t_dlist envl)
 		bin = bin_path(command->tokens[0], envl);
 		if (bin == NULL)
 			return (EXIT_FAILURE);
-		// envp should change by khalils method
 		execve(bin, command->tokens, env_list_to_env_array(envl));
 	}
 	return (EXIT_SUCCESS);
