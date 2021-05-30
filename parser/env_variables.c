@@ -12,14 +12,6 @@
 
 #include "env_variables.h"
 #include "../includes/minishell.h"
-/* t_arrptr rstr_find_needle(t_rstr rs, char *needle)
-{
-    t_arrptr arr;
-
-    arr = empty_arrptr_create(NULL);
-    arrptr_add()
-    
-} */
 
 
 char *rstr_find_and_replace(t_rstr haystack, char *needle, char *new_needle)
@@ -67,32 +59,6 @@ char *str_find_and_replace(char *haystack, char *needle, char *new_needle)
     return(rslt);
 }
 
-/* char    *remplace_env_var(char *token, int s_envpos, int e_envpos)
-{
-    t_rstr rs;
-    int i;
-
-    i = 0;
-    rs = rstr_create(0);
-    while (token[i] && i < s_envpos)
-    {
-        rstr_add(rs, token[i]);
-        i++;
-    }
-    i = 0;
-    while("potato"[i])
-    {
-        rstr_add(rs, "potato"[i]);
-        i++;
-    }
-    i = e_envpos;
-    while(e_envpos < ft_strlen(token) && token[i])
-    {
-        rstr_add(rs, token[i]);
-        i++;
-    }
-    return (rstr_to_cstr(rs));
-} */
 
 char *print_the_env_var(char *token, char *token_mask, int i)
 {
@@ -116,12 +82,13 @@ char *print_the_env_var(char *token, char *token_mask, int i)
     
 }
 
-char    *find_env_vars_in_a_token(char *token, char *token_mask)
+char    *find_replace_env_vars_in_a_token(char *token, char *token_mask, t_dlist env_list)
 {
     t_rstr rs;
     int i;
     char *tmp;
     char *r_str;
+    char *is_key_found;
 
     i = 0;
     tmp = NULL;
@@ -131,10 +98,21 @@ char    *find_env_vars_in_a_token(char *token, char *token_mask)
         if (token_mask[i] == '$')
         {
             tmp = print_the_env_var(token, token_mask, i);
-            if (!r_str)
-                r_str = str_find_and_replace(token, tmp, "|O_O|");
+            is_key_found = find_envv_akey_value(tmp, env_list);
+            if(is_key_found)
+            {
+                if (!r_str)
+                    r_str = str_find_and_replace(token, tmp, is_key_found);
+                else
+                    r_str = str_find_and_replace(r_str, tmp, is_key_found);
+            }
             else
-                r_str = str_find_and_replace(r_str, tmp, "|#_#|");
+            {
+                if (!r_str)
+                    r_str = str_find_and_replace(token, tmp, "");
+                else
+                    r_str = str_find_and_replace(r_str, tmp, "");
+            }
             free(tmp);
         }
         i++;
@@ -150,8 +128,8 @@ void    expand_env_variables(t_tokens tks, t_dlist env_list)
     {
         if (ft_strnstr((char*)tks->tokens_masks->cursor_n->value, "$", ft_strlen((char*)tks->tokens_masks->cursor_n->value)))
         {
-            tks->tokens->cursor_n->value = find_env_vars_in_a_token(tks->tokens->cursor_n->value,
-            tks->tokens_masks->cursor_n->value);
+            tks->tokens->cursor_n->value = find_replace_env_vars_in_a_token(tks->tokens->cursor_n->value,
+            tks->tokens_masks->cursor_n->value, env_list);
             tks->tokens_masks->cursor_n->value = get_mask(tks->tokens->cursor_n->value);
             //printf("\n|%s|\n", tks->tokens->cursor_n->value);
         }

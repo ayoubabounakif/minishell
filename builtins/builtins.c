@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:49:10 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/29 20:21:09 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/30 16:41:32 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		spawn_proc_lcmd(int in, t_command *command, t_dlist envl)
 		while (j < num_builtins())
 		{
 			if (strcmp(command->tokens[0], builtin_str[j]) == 0)
-				return (*builtin_func[j])(command, );
+				return (*builtin_func[j])(command, envl);
 			j++;
 		}
 		if (in != STDIN_FILENO)
@@ -116,7 +116,7 @@ int		spawn_proc_lcmd(int in, t_command *command, t_dlist envl)
 		if (bin == NULL)
 			return (EXIT_FAILURE);
 		// envp should change by khalils method
-		execve(bin, command->tokens, envp);
+		execve(bin, command->tokens, env_list_to_env_array(envl));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -141,7 +141,7 @@ int		spawn_proc(int in, int out, t_command *command, t_dlist envl)
 		if (bin == NULL)
 			return (EXIT_FAILURE);
 		// envp should change by khalils method
-		execve(bin, command->tokens, envl);
+		execve(bin, command->tokens, env_list_to_env_array(envl));
 	}
 	return (EXIT_SUCCESS);
 }

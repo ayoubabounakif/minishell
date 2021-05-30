@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/03/17 16:54:27 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/30 16:38:47 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ int			env_unset(t_dlist env_list, char *key);
 t_dlist		get_envs(char **env);
 char		*get_value(char *line);
 char		*bin_path(char *cmd, t_dlist envl);
-
+char		**env_list_to_env_array(t_dlist env_list);
+void	env_array_destroy(char **env_array);
+char	*find_envv_akey_value(char *key, t_dlist env_list);
 /*
 ** Execution
 */

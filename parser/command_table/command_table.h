@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:01:06 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/26 14:50:04 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/30 16:44:01 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ typedef struct s_command
 	char	**input_files;
 	char	**output_files;
 	char	**append_files;
-    char	is_pipe;
+    char    is_pipe;
     char    is_only_command;
-    char    is_after_p_or_sc;
+    char	is_after_p_or_sc;
 }				t_command;
 
 t_command	*command_table(t_commands_table cmd, t_dlist env_list);
