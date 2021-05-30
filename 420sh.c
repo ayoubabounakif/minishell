@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/29 17:48:29 by khafni           ###   ########.fr       */
+/*   Updated: 2021/05/30 17:54:11 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		main(int ac, char **av, char **envp)
 	/* is_red_cmd_non_split(">4");	
 	t_pipeline pl = pipeline("ls -l", get_mask("ls -l"), NO_PIPE_OR_SEMICOLON);
 	remove_quotes_from_string("\"wow\"");
-	t_commands_table  cmd = cmd_table(pl, envp);
+	t_commands_table  cmd = cmd_table(pl, envp);*/
 	/* t_dlist dl = cmd_tables_list("ls -o"); */
 	return (EXIT_SUCCESS);
 }

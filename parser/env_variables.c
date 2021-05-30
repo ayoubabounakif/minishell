@@ -12,8 +12,6 @@
 
 #include "env_variables.h"
 #include "../includes/minishell.h"
-
-
 char *rstr_find_and_replace(t_rstr haystack, char *needle, char *new_needle)
 {
     int i;
@@ -120,7 +118,7 @@ char    *find_replace_env_vars_in_a_token(char *token, char *token_mask, t_dlist
     return (r_str);
 }
 
-void    pand_env_variables(t_tokens tks, t_dlist env_list)
+void    expand_env_variables(t_tokens tks, t_dlist env_list)
 {
     dlist_move_cursor_to_head(tks->tokens);
     dlist_move_cursor_to_head(tks->tokens_masks);
@@ -138,3 +136,53 @@ void    pand_env_variables(t_tokens tks, t_dlist env_list)
         dlist_move_cursor_to_next(tks->tokens_masks);
     }
 }
+
+/* void    expand_env_variables_test(t_command *cmd, t_dlist env_list)
+{
+    int i;
+    char *mask;
+
+    i = 0;
+    while(cmd->tokens[i])
+    {
+        if (ft_strnstr(cmd->tokens[i], "$", ft_strlen(cmd->tokens[i])))
+        {
+            mask = get_mask(cmd->tokens[i]);
+            cmd->tokens[i] = find_replace_env_vars_in_a_token(cmd->tokens[i], mask, env_list);
+        }
+        i++;
+    }
+}
+
+ */
+
+/* void    expand_env_variables(t_command *cmd, t_dlist env_list)
+{ */
+   /*  dlist_move_cursor_to_head(tks->tokens);
+    dlist_move_cursor_to_head(tks->tokens_masks);
+    while (tks->tokens->cursor_n != tks->tokens->sentinel)
+    {
+        if (ft_strnstr((char*)tks->tokens_masks->cursor_n->value, "$", ft_strlen((char*)tks->tokens_masks->cursor_n->value)))
+        {
+            tks->tokens->cursor_n->value = find_replace_env_vars_in_a_token(tks->tokens->cursor_n->value,
+            tks->tokens_masks->cursor_n->value, env_list);
+            tks->tokens_masks->cursor_n->value = get_mask(tks->tokens->cursor_n->value);
+        }
+        dlist_move_cursor_to_next(tks->tokens);
+        dlist_move_cursor_to_next(tks->tokens_masks);
+    } */
+
+   /*  int i;
+    char *mask;
+
+    i = 0;
+    while(cmd->tokens[i])
+    {
+        if (ft_strnstr(cmd->tokens[i], "$", ft_strlen(cmd->tokens[i])))
+        {
+            mask = get_mask(cmd->tokens[i]);
+            cmd->tokens[i] = find_replace_env_vars_in_a_token(cmd->tokens[0], mask, env_list);
+        }
+        i++;
+    } */
+//}
