@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 
+# define BUFFER_SIZE 1024
 int		get_next_line(int fd, char **line);
 size_t	ft_strlcpy(char *d, const char *s, size_t n);
 size_t	ft_strlen(const char *str);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env_variables.h"
+#include "../includes/minishell.h"
 /* t_arrptr rstr_find_needle(t_rstr rs, char *needle)
 {
     t_arrptr arr;
@@ -141,7 +142,7 @@ char    *find_env_vars_in_a_token(char *token, char *token_mask)
     return (r_str);
 }
 
-void    expand_env_variables(t_tokens tks)
+void    expand_env_variables(t_tokens tks, t_dlist env_list)
 {
     dlist_move_cursor_to_head(tks->tokens);
     dlist_move_cursor_to_head(tks->tokens_masks);
@@ -154,7 +155,7 @@ void    expand_env_variables(t_tokens tks)
             tks->tokens_masks->cursor_n->value = get_mask(tks->tokens->cursor_n->value);
             //printf("\n|%s|\n", tks->tokens->cursor_n->value);
         }
-        printf("\n|%s|\n", tks->tokens_masks->cursor_n->value);
+        //printf("\n|%s|\n", (char*)tks->tokens_masks->cursor_n->value);
         dlist_move_cursor_to_next(tks->tokens);
         dlist_move_cursor_to_next(tks->tokens_masks);
     }

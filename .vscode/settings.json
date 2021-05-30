@@ -23,6 +23,8 @@
         "time.h": "c",
         "quotes_proccessing.h": "c",
         "pipelines.h": "c",
-        "env_variables.h": "c"
+        "env_variables.h": "c",
+        "reder_split.h": "c",
+        "command_table.h": "c"
     }
 }

@@ -13,8 +13,8 @@
 #ifndef COMMAND_TABLE_GENERATOR_H
 # define COMMAND_TABLE_GENERATOR_H
 
-# include "../dlist/dlists.h"
-# include "../CPCA/generic_parrays/garrptr.h"
+/* # include "../dlist/dlists.h"
+# include "../CPCA/generic_parrays/garrptr.h" */
 # include "command_table/command_table.h"
 
 /*
@@ -24,16 +24,16 @@
 ** to get one pipeline a time
 */
 
-t_dlist     cmd_tables(char *parsing_text);
+t_dlist     cmd_tables(char *parsing_text, t_dlist env_list);
 void        cmd_tables_destroy(t_dlist cmd_tables_list);
-t_dlist 	cmd_tables_list_(char *parsing_text);
+t_dlist 	cmd_tables_list_(char *parsing_text, t_dlist env_list);
 void		cmd_tables_list_destroy_(t_dlist cmds_array);
 
 /*
 ** public methods
 */
 
-t_dlist		cmd_tables_list(char *parsing_text);
+t_dlist		cmd_tables_list(char *parsing_text, t_dlist env_list);
 void		cmd_tables_list_destroy_(t_dlist cmds_array);
 
 

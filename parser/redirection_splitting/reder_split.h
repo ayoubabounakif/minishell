@@ -12,7 +12,10 @@
 
 #ifndef REDER_SPLIT_H
 # define REDER_SPLIT_H
-# include "../pipelines.h"
+//# include "../pipelines.h"
+# include "../../dlist/dlists.h"
+# include "../../CPCA/generic_parrays/garrptr.h"
+# include "../../libft/libft.h"
 
 /*
 ** here i just try to split tokens that comes in this format

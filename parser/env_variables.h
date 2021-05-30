@@ -8,6 +8,6 @@ char *str_find_and_replace(char *haystack, char *needle, char *new_needle);
 
 char    *print_the_env_var(char *token, char *token_mask, int i);
 char    *find_env_vars_in_a_token(char *token, char *token_mask);
-void    expand_env_variables(t_tokens tks);
+void    expand_env_variables(t_tokens tks, t_dlist env_list);
 
 # endif

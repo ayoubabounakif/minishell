@@ -16,7 +16,7 @@
 ** private struct and methods
 */
 
-t_dlist     cmd_tables(char *parsing_text)
+t_dlist     cmd_tables(char *parsing_text, t_dlist env_list)
 {
     t_dlist     c_tables;
     t_arrptr    pls;
@@ -30,7 +30,7 @@ t_dlist     cmd_tables(char *parsing_text)
     while (i < pls->len)
     {
         p = arrptr_get(pls, i);
-        ct = cmd_table(p, NULL);
+        ct = cmd_table(p, env_list);
         cmd_table_fill(ct, p);
         dlist_pushback(c_tables, ct);
         i++;
@@ -48,17 +48,17 @@ void        cmd_tables_destroy(t_dlist cmd_tables_list)
 ** public struct and methods
 */
 
-t_dlist  cmd_tables_list_(char *parsing_text)
+t_dlist  cmd_tables_list_(char *parsing_text, t_dlist env_list)
 {
     t_dlist list_;
     t_commands_table c_tables_tmp;
     
-    list_ = cmd_tables(parsing_text);
+    list_ = cmd_tables(parsing_text, env_list);
     dlist_move_cursor_to_head(list_);
     while (list_->cursor_n != list_->sentinel)
     {
         c_tables_tmp =  list_->cursor_n->value;
-        list_->cursor_n->value = command_table(c_tables_tmp);
+        list_->cursor_n->value = command_table(c_tables_tmp, env_list);
         cmd_table_destroy(c_tables_tmp);
         dlist_move_cursor_to_next(list_);
     }
@@ -72,7 +72,7 @@ void cmd_tables_list_destroy_(t_dlist cmds_array)
 }
 
 
-t_dlist      cmd_tables_list(char *parsing_text)
+t_dlist      cmd_tables_list(char *parsing_text, t_dlist env_list)
 {
     t_dlist tmp_list_of_command_tables_non_splitted;
     t_dlist list_of_command_tables_lists;
@@ -83,7 +83,7 @@ t_dlist      cmd_tables_list(char *parsing_text)
 
     is_it_time_for_a_new_list = 0;
     is_it_end_of_list = 0;
-    tmp_list_of_command_tables_non_splitted = cmd_tables_list_(parsing_text);
+    tmp_list_of_command_tables_non_splitted = cmd_tables_list_(parsing_text, env_list);
     list_of_command_tables_lists = dlist_empty_create(dlist_destroy, NULL, NULL);
     a_command_table_list = dlist_empty_create(command_table_destroy, NULL, NULL);
     dlist_move_cursor_to_head(tmp_list_of_command_tables_non_splitted);

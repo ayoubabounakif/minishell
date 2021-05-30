@@ -17,6 +17,7 @@
 # include "../../dlist/dlists.h"
 # include "../quotes_proccessing.h"
 # include "../env_variables.h"
+
 /*
 ** private struct and methods
 */
@@ -32,7 +33,7 @@ struct	s_commands_table
     char	        is_after_p_or_sc;
 };
 
-t_commands_table	cmd_table(t_pipeline pl, char **env);
+t_commands_table	cmd_table(t_pipeline pl, t_dlist env_list);
 void                cmd_table_fill(t_commands_table cmdt, t_pipeline pl);
 
 /*
@@ -62,7 +63,7 @@ typedef struct s_command
     char	is_after_p_or_sc;
 }				t_command;
 
-t_command	*command_table(t_commands_table cmd);
+t_command	*command_table(t_commands_table cmd, t_dlist env_list);
 void		command_table_destroy(void *cmd_tab_);
 
 #endif

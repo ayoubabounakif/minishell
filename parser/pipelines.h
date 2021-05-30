@@ -13,7 +13,6 @@
 #ifndef PIPELINES_H
 # define PIPELINES_H
 # include "mask.h"
-# include "../dlist/dlists.h"
 # include "redirection_splitting/reder_split.h"
 
 /*

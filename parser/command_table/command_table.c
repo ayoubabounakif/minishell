@@ -12,14 +12,14 @@
 
 #include "command_table.h"
 
-t_commands_table	cmd_table(t_pipeline pl, char **env)
+t_commands_table	cmd_table(t_pipeline pl, t_dlist env_list)
 {
 	t_commands_table	ct;
 	
 	ct = malloc(sizeof(struct s_commands_table));	
 	ct->tokens_unproccessed = tokens(pl);
 	process_tokens_from_quotes(ct->tokens_unproccessed);	
-	expand_env_variables(ct->tokens_unproccessed);	
+	expand_env_variables(ct->tokens_unproccessed, env_list);	
 	ct->tokens = empty_arrptr_create(NULL);
 	ct->input_files = empty_arrptr_create(NULL);
 	ct->output_files = empty_arrptr_create(NULL);
@@ -220,7 +220,7 @@ void                cmd_table_fill_tokens(t_commands_table cmdt)
 	{
 		if (is_normal_token(cmdt))
 			arrptr_add(cmdt->tokens, ft_strdup(up->tokens->cursor_n->value));	
-		printf("\n|%s|\n", up->tokens_masks->cursor_n->value);
+		//printf("\n|%s|\n", (char*)up->tokens_masks->cursor_n->value);
 		dlist_move_cursor_to_next(up->tokens);
 		dlist_move_cursor_to_next(up->tokens_masks);
 	}
@@ -228,7 +228,7 @@ void                cmd_table_fill_tokens(t_commands_table cmdt)
 
 
 
-t_command	*command_table(t_commands_table cmd)
+t_command	*command_table(t_commands_table cmd, t_dlist env_list)
 {
 	//t_commands_table cmd;
 	t_command	*command;
