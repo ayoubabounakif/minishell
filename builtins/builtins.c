@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:49:10 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/30 19:52:24 by khafni           ###   ########.fr       */
+/*   Updated: 2021/06/05 11:05:18 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int		spawn_proc_lcmd(int in, t_command *command, t_dlist envl)
 	// if (in != STDIN_FILENO)
 	// 	close(in);
 	j = 0;
+	expand_env_variables_test(command, envl);
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD_PROCESS) // Meaning we're in the child process
 	{

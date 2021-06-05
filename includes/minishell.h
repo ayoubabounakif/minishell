@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/30 19:59:53 by khafni           ###   ########.fr       */
+/*   Updated: 2021/06/05 10:58:53 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char		*bin_path(char *cmd, t_dlist envl);
 char		**env_list_to_env_array(t_dlist env_list);
 void	env_array_destroy(char **env_array);
 char	*find_envv_akey_value(char *key, t_dlist env_list);
+void    expand_env_variables_test(t_command *cmd, t_dlist env_list);
 /*
 ** Execution
 */
@@ -94,4 +95,5 @@ int			spawn_proc(int in, int out, t_command *command, t_dlist envl);
 ** Utils
 */
 void		redir_in_out(int in, int out);
+
 #endif
