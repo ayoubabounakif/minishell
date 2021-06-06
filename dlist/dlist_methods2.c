@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:06:00 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/22 18:45:01 by khafni           ###   ########.fr       */
+/*   Updated: 2021/06/05 16:59:33 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void			dlist_move_cursor_to_head(t_dlist l)
 {
+	if (l->len == 0)
+		return ;
 	l->cursor_p = l->sentinel;
 	l->cursor_n = l->sentinel->n;
 }

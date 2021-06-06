@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:48:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/28 11:09:19 by khafni           ###   ########.fr       */
+/*   Updated: 2021/06/06 14:14:26 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_dlist  cmd_tables_list_(char *parsing_text, t_dlist env_list)
     {
         c_tables_tmp =  list_->cursor_n->value;
         list_->cursor_n->value = command_table(c_tables_tmp, env_list);
-        cmd_table_destroy(c_tables_tmp);
+        cmd_table_destroy(c_tables_tmp); // source of the problem
         dlist_move_cursor_to_next(list_);
     }
     list_->destroy = command_table_destroy;
@@ -116,5 +116,6 @@ t_dlist      cmd_tables_list(char *parsing_text, t_dlist env_list)
         }
         dlist_move_cursor_to_next(tmp_list_of_command_tables_non_splitted);
     }
+    //cmd_tables_list_destroy_(tmp_list_of_command_tables_non_splitted);
     return (list_of_command_tables_lists);
 }

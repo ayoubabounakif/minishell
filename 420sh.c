@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/30 17:54:11 by khafni           ###   ########.fr       */
+/*   Updated: 2021/06/06 12:55:55y khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		main(int ac, char **av, char **envp)
 	t_dlist		env_list;
 
 	env_list = get_envs(envp);
+	
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	while (1)
@@ -45,16 +46,5 @@ int		main(int ac, char **av, char **envp)
 		}
 		execute_parsed_line(parsed_line, env_list);
 	} 
-
-	//printf("%s", get_value())
-	//char *s = "ls -l $BIGVAR $donc dddd";
-	//printf("%s\n", str_find_and_replace(s, "$donc", "potato"));
-	//printf("%s\n", rstr_find_and_replace(cstr_to_rstr(s), "$donc", "potato"));
-	//printf("%s\n", find_env_vars_in_a_token(s, get_mask(s)));
-	/* is_red_cmd_non_split(">4");	
-	t_pipeline pl = pipeline("ls -l", get_mask("ls -l"), NO_PIPE_OR_SEMICOLON);
-	remove_quotes_from_string("\"wow\"");
-	t_commands_table  cmd = cmd_table(pl, envp);*/
-	/* t_dlist dl = cmd_tables_list("ls -o"); */
 	return (EXIT_SUCCESS);
 }
