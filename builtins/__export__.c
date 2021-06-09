@@ -58,6 +58,8 @@ static int	check_syntax(char *token)
 	return (TRUE);
 }
 
+# define NO_CHANGE 10
+
 /*
 ** The paramater string, will contain key if eq_sign == 1
 ** It will contain the full token if eq_sign == 0 (The token won't have a value so it'll only be the key)
@@ -81,11 +83,11 @@ int		check_env(char *string, t_dlist env_list, int eq_sign)
 			if (strcmp(_420sh_env->key, string) == 0 && _420sh_env->value == NULL)
 				dlist_remove_after_cursor(env_list, 1);
 			else if (strcmp(_420sh_env->key, string) == 0 && _420sh_env->value != NULL)
-				return (5);
+				return (NO_CHANGE);
 			dlist_move_cursor_to_next(env_list);
 		}
 	}
-	return (1);
+	return (TRUE);
 }
 
 int		export_helper(char *token, t_dlist env_list)
@@ -101,6 +103,7 @@ int		export_helper(char *token, t_dlist env_list)
 		** Finding the equal sign on the token, has one meaning that the key will have a value,
 		** wether be a real value or an empty string if there is nothing inserted after the eq sign.
 		*/
+	
 		if (strchr(token, '='))
 		{
 			// If eq sign, we only need the key
@@ -121,26 +124,24 @@ int		export_helper(char *token, t_dlist env_list)
 	}
 	else
 		printf("420sh: export: `%s': not a valid identifier\n", token);
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
 // Consider that NULL and Empty strings are not the same.
 int	__export__(t_command *command, t_dlist env_list)
 {
-	int		flag;
 	int		i;
 
-	flag = 1;
 	if (tab_len(command->tokens) > 1)
 	{
 		i = 1;
 		while (command->tokens[i])
 		{
-			flag = export_helper(command->tokens[i], env_list);
+			export_helper(command->tokens[i], env_list);
 			i++;
 		}
 	}
 	else if (tab_len(command->tokens) == 1)
 		__export_env__(command->tokens, env_list);
-	return (flag);
+	return (EXIT_SUCCESS);
 }

@@ -95,12 +95,29 @@ int		spawn_proc_lcmd(int in, t_command *command, t_dlist envl)
 	int		j;
 	char	*bin;
 
-	// if (in != STDIN_FILENO)
-	// 	close(in);
 	j = 0;
 	expand_env_variables_test(command, envl);
-	g_vars.pid = fork();
-	if (g_vars.pid == CHILD_PROCESS) // Meaning we're in the child process
+
+	// IN CASE we have a pipe we should fork for the builtins too
+	if (command->is_pipe == TRUE)
+	{
+		g_vars.pid = fork();
+		if (g_vars.pid == CHILD_PROCESS) // Meaning we're in the child process
+		{
+			while (j < num_builtins())
+			{
+				if (strcmp(command->tokens[0], builtin_str[j]) == 0)
+					return (*builtin_func[j])(command, envl);
+				j++;
+			}
+			bin = bin_path(command->tokens[0], envl);
+			if (bin == NULL)
+				return (EXIT_FAILURE);
+			execve(bin, command->tokens, env_list_to_env_array(envl));
+		}
+	}
+	// IN CASE OF NO pipe, we don't need to fork for the builtins
+	else if (command->is_pipe != TRUE)
 	{
 		while (j < num_builtins())
 		{
@@ -108,15 +125,14 @@ int		spawn_proc_lcmd(int in, t_command *command, t_dlist envl)
 				return (*builtin_func[j])(command, envl);
 			j++;
 		}
-		if (in != STDIN_FILENO)
+		g_vars.pid = fork();
+		if (g_vars.pid == CHILD_PROCESS)
 		{
-			dup2(in, STDIN_FILENO);
-			close(in);
+			bin = bin_path(command->tokens[0], envl);
+			if (bin == NULL)
+				return (EXIT_FAILURE);
+			execve(bin, command->tokens, env_list_to_env_array(envl));
 		}
-		bin = bin_path(command->tokens[0], envl);
-		if (bin == NULL)
-			return (EXIT_FAILURE);
-		execve(bin, command->tokens, env_list_to_env_array(envl));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -126,13 +142,12 @@ int		spawn_proc(int in, int out, t_command *command, t_dlist envl)
 	int		j;
 	char	*bin;
 	/*TEST CODE*/
-	//expand_env_variables_test(command, envl);
+	expand_env_variables_test(command, envl);
 	/*TEST CODE*/
 	j = 0;
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD_PROCESS) // Meaning we're in the child process
 	{
-		redir_in_out(in, out);
 		while (j < num_builtins())
 		{
 			if (strcmp(command->tokens[0], builtin_str[j]) == 0)
@@ -157,14 +172,9 @@ void	fork_pipes(t_dlist pipeline, t_dlist envl)
 	dlist_move_cursor_to_head(pipeline);
 	while (pipeline->cursor_n->n != pipeline->sentinel)
 	{
-		pipe(fds);
 		((t_command *)pipeline->cursor_n->value)->is_only_command = FALSE;
-		((t_command *)pipeline->cursor_n->value)->is_pipe = 1;
-		spawn_proc(in, fds[1], pipeline->cursor_n->value, envl);
-		close(fds[1]);
-		if (in != STDIN_FILENO)
-			close(in);
-		in = fds[0];
+		((t_command *)pipeline->cursor_n->value)->is_pipe = TRUE;
+		spawn_proc(in, STDOUT_FILENO, pipeline->cursor_n->value, envl);
 		dlist_move_cursor_to_next(pipeline);
 	}
 	spawn_proc_lcmd(in, pipeline->cursor_n->value, envl);
@@ -182,5 +192,6 @@ void		execute_parsed_line(t_dlist parsed_line, t_dlist envl)
 		fork_pipes(parsed_line->cursor_n->value, envl);
 		dlist_move_cursor_to_next(parsed_line);
 	}
-	dlist_destroy(parsed_line);
+	// Why do you destroy it, It was about to make me go damn crazy
+	// dlist_destroy(parsed_line);
 }

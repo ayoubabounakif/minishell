@@ -31,6 +31,9 @@
 # define YES_VALUE 1
 # define NO_VALUE 0
 
+# define READ 0
+# define WRITE 1
+
 # define CHILD_PROCESS 0
 
 /*
@@ -81,9 +84,9 @@ t_dlist		get_envs(char **env);
 char		*get_value(char *line);
 char		*bin_path(char *cmd, t_dlist envl);
 char		**env_list_to_env_array(t_dlist env_list);
-void	env_array_destroy(char **env_array);
-char	*find_envv_akey_value(char *key, t_dlist env_list);
-void    expand_env_variables_test(t_command *cmd, t_dlist env_list);
+void		env_array_destroy(char **env_array);
+char		*find_envv_akey_value(char *key, t_dlist env_list);
+void    	expand_env_variables_test(t_command *cmd, t_dlist env_list);
 /*
 ** Execution
 */

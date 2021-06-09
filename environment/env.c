@@ -20,7 +20,6 @@ t_env	*env_create(char *key, char *value)
 	env->key = key;
 	env->sep = '=';
 	env->value = value;
-	env->has_value = NO_VALUE;
 	return (env);
 }
 
