@@ -11,16 +11,17 @@
 /* ************************************************************************** */
 
 # include "includes/minishell.h"
-//# include "dlist/dlists.h"
+# include "dlist/dlists.h"
 /* #include "parser/pipelines.h"
 # include "parser/redirection_splitting/reder_split.h"
 # include "parser/quotes_proccessing.h"
 # include "parser/command_table/command_table.h" */
 //#include "parser/command_table_generator.h"
+#include "parser/syntax_checking.h"
 
 int		main(int ac, char **av, char **envp)
 {
-	(void)ac;
+	( void)ac;
 	(void)av;
 
 	char		*line;
@@ -45,5 +46,6 @@ int		main(int ac, char **av, char **envp)
 		}
 		execute_parsed_line(parsed_line, env_list);
 	} 
+	// parse_syntax(av[1]);
 	return (EXIT_SUCCESS);
 }

@@ -8,6 +8,7 @@ SRCS = 420sh.c \
 ./parser/quotes_proccessing.c\
 ./parser/env_variables.c\
 ./parser/expand_env_vars.c\
+./parser/syntax_checking.c\
 ./builtins/builtins.c \
 ./builtins/utils.c \
 \
