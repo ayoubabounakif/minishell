@@ -28,7 +28,9 @@ int		main(int ac, char **av, char **envp)
 	int			n = 1;
 	t_dlist 	parsed_line; 
 	t_dlist		env_list;
+	t_syx_check	sx;		
 
+	sx = syntax_check_create();
 	env_list = get_envs(envp);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
@@ -38,14 +40,35 @@ int		main(int ac, char **av, char **envp)
 		ft_putstr_fd("\x1B[32m", STDOUT_FILENO);
 		ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT_FILENO);
 		n = get_next_line(STDIN_FILENO, &line);
-		parsed_line = cmd_tables_list(line, env_list);
+		parsed_line = parse_line(line, env_list);
 		if (n == 0)
 		{
 			printf("exit\n");
 			break ;
 		}
 		execute_parsed_line(parsed_line, env_list);
-	} 
-	// parse_syntax(av[1]);
+	}
+	/* {
+	n = get_next_line(STDIN_FILENO, &line);
+	parsed_line = parse_line(line, env_list);
+
+	t_dlist sub_list;
+	t_command *cmd;
+
+	dlist_move_cursor_to_head(parsed_line);
+	while (parsed_line->cursor_n != parsed_line->sentinel)
+	{
+		sub_list = parsed_line->cursor_n->value;	
+		dlist_move_cursor_to_head(sub_list);
+		while (sub_list->cursor_n != sub_list->sentinel)
+		{
+			cmd = sub_list->cursor_n->value;
+			for (int i = 0; cmd->tokens[i]; i++)
+				printf("\n|%s|\n", cmd->tokens[i]);
+			dlist_move_cursor_to_next(sub_list);
+		}
+		dlist_move_cursor_to_next(parsed_line);
+	}
+	} */
 	return (EXIT_SUCCESS);
 }

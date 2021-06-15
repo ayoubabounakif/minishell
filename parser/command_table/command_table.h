@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 15:01:06 by khafni            #+#    #+#             */
-/*   Updated: 2021/06/05 14:41:05 by khafni           ###   ########.fr       */
+/*   Updated: 2021/06/15 12:51:11 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 # include "../../dlist/dlists.h"
 # include "../quotes_proccessing.h"
 # include "../env_variables.h"
+# include "../syntax_checking.h"
 # define REDI_INPUT_FILE 1
 # define REDI_OUTPUT_FILE 2
 # define REDI_APPEND_FILE 3
-
 
 /*
 ** private struct and methods
@@ -43,6 +43,7 @@ struct	s_commands_table
 	t_arrptr        tokens;
 	t_arrptr        redir_files;
 	char	        is_after_p_or_sc;
+	char		is_there_a_red_error;
 };
 
 
@@ -82,6 +83,7 @@ typedef struct s_command
 	char    is_pipe;
 	char    is_only_command;
 	char	is_after_p_or_sc;
+	char		is_there_a_red_error;
 }				t_command;
 
 t_command	*command_table(t_commands_table cmd, t_dlist env_list);

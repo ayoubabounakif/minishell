@@ -38,10 +38,12 @@ t_commands_table	cmd_table(t_pipeline pl, t_dlist env_list)
 	
 	ct = malloc(sizeof(struct s_commands_table));	
 	ct->tokens_unproccessed = tokens(pl);
+	
 	process_tokens_from_quotes(ct->tokens_unproccessed);	
 	ct->tokens = empty_arrptr_create(NULL);	
 	ct->redir_files = empty_arrptr_create(redir_file_destroy);
 	ct->is_after_p_or_sc = pl->is_after_p_or_sc;
+	ct->is_there_a_red_error = 0;
 	return (ct);
 }
 
@@ -59,7 +61,23 @@ void				cmd_table_destroy(void *cmd_tab_)
 	free(cmd_tab);
 }
 
-void                cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
+int	check_if_rd_got_afile(t_commands_table cmdt)
+{
+	t_tokens up;
+	t_syx_check sx;
+	
+
+	sx = syntax_check_create();
+	up = cmdt->tokens_unproccessed;
+	if (up->tokens->cursor_n == up->tokens->sentinel)
+		syntax_set_error(sx, "error around redirection sign");	
+	
+	//|| (up->tokens->cursor_n->value) == '>') || (up->tokens->cursor_n->value) == '<'))
+
+	//	cmdt->is_there_a_red_error = 1;
+	return (666);
+}		
+void	cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 {
 	t_tokens up;
 
@@ -70,11 +88,11 @@ void                cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 	{
 		if (is_normal_token(cmdt))
 			arrptr_add(cmdt->tokens, ft_strdup(up->tokens->cursor_n->value));
-		else if (is_token_a_r_i_file(cmdt))
+		else if (is_token_a_r_i_file(cmdt) && check_if_rd_got_afile(cmdt))
 			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursor_n->value), REDI_INPUT_FILE));
-		else if (is_token_a_r_o_file(cmdt))
+		else if (is_token_a_r_o_file(cmdt) && check_if_rd_got_afile(cmdt))
 			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursor_n->value), REDI_OUTPUT_FILE));
-		else if (is_token_a_r_app_file(cmdt))
+		else if (is_token_a_r_app_file(cmdt) && check_if_rd_got_afile(cmdt))
 			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursor_n->value), REDI_APPEND_FILE));
 		dlist_move_cursor_to_next(up->tokens);
 		dlist_move_cursor_to_next(up->tokens_masks);
@@ -204,6 +222,7 @@ t_command	*command_table(t_commands_table cmd, t_dlist env_list)
 	command->tokens[i] = NULL;
 	command->is_after_p_or_sc = cmd->is_after_p_or_sc;
 	command->redir_files = cmd->redir_files;
+	command->is_there_a_red_error = cmd->is_there_a_red_error;
 	//cmd_table_destroy(cmd); // source of the problem
 	return (command);
 }
