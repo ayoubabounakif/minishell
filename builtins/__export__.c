@@ -18,7 +18,7 @@
 ** /https://pubs.opengroup.org/onlinepubs/009695299/basedefs/xbd_chap08.html
 */
 
-int	__export_env__(char **tokens, t_dlist env_list)
+static int	__export_env__(char **tokens, t_dlist env_list)
 {
 	(void)tokens;
 	t_env		*_420sh_env;
@@ -64,7 +64,7 @@ static int	check_syntax(char *token)
 ** The paramater string, will contain key if eq_sign == 1
 ** It will contain the full token if eq_sign == 0 (The token won't have a value so it'll only be the key)
 */
-int		check_env(char *string, t_dlist env_list, int eq_sign)
+static int		check_env(char *string, t_dlist env_list, int eq_sign)
 {
 	t_env 	*_420sh_env;
 
@@ -93,31 +93,17 @@ int		check_env(char *string, t_dlist env_list, int eq_sign)
 int		export_helper(char *token, t_dlist env_list)
 {
 	char	**key_value;
-	/*
-	** TO-DO: 
-	** - DONE.
-	**/
+
 	if (check_syntax(token) == TRUE)
 	{
-		/*
-		** Finding the equal sign on the token, has one meaning that the key will have a value,
-		** wether be a real value or an empty string if there is nothing inserted after the eq sign.
-		*/
-	
 		if (strchr(token, '='))
 		{
-			// If eq sign, we only need the key
 			key_value = ft_split_first_sep(token, '=');
 			if (check_env(key_value[0], env_list, 1) == 1)
 				dlist_pushback(env_list, env_create(key_value[0], key_value[1]));
 		}
-		/*
-		** Not finding the equal sign on the token,
-		** means that the value that the key will take will be a NULL.
-		*/
 		else if (!(strchr(token, '=')))
 		{
-			// If there is no equal sign, we need key and value
 			if (check_env(token, env_list, 0) == 1)
 				dlist_pushback(env_list, env_create(token, NULL));
 		}
@@ -127,7 +113,6 @@ int		export_helper(char *token, t_dlist env_list)
 	return (EXIT_SUCCESS);
 }
 
-// Consider that NULL and Empty strings are not the same.
 int	__export__(t_command *command, t_dlist env_list)
 {
 	int		i;

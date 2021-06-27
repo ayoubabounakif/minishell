@@ -24,12 +24,8 @@
 # include "../dlist/dlists.h"
 # include "../parser/command_table_generator.h"
 
-
 # define TRUE 1
 # define FALSE 0
-
-# define YES_VALUE 1
-# define NO_VALUE 0
 
 # define READ 0
 # define WRITE 1
@@ -39,7 +35,6 @@
 /*
 ** _420sh STRUCTS
 */
-
 typedef struct	s_vars
 {
 	pid_t		pid;
@@ -57,14 +52,30 @@ typedef struct s_env
 t_vars			g_vars;
 
 /*
-** Signals
+** signals
 **/
 void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		sig_handler(int sign_num);
 
 /*
-** Builtins
+** execution
+*/
+void		executeParsedLine(t_dlist parsed_line, t_dlist envl);
+void		forkPipes(t_dlist pipeline, t_dlist envl);
+int			spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl);
+int			spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl);
+
+/*
+**	executionUtils
+*/
+void		redirectInputOutput(int in, int out);
+char		*binPath(char *cmd, t_dlist envl);
+int			isBuiltin(char *token, const char *builtins[]);
+
+
+/*
+** builtins
 **/
 int			__cd__(t_command *command, t_dlist env_list);
 int			__pwd__(t_command *command, t_dlist env_list);
@@ -75,28 +86,16 @@ int			__env__(t_command *command, t_dlist env_list);
 int			__exit__(t_command *command, t_dlist env_list);
 
 /*
-** Env
+** env
 **/
 t_env		*env_create(char *key, char *value);
 void		env_destroy(void *env_);
 int			env_unset(t_dlist env_list, char *key);
 t_dlist		get_envs(char **env);
 char		*get_value(char *line);
-char		*bin_path(char *cmd, t_dlist envl);
+char		*binPath(char *cmd, t_dlist envl);
 char		**env_list_to_env_array(t_dlist env_list);
 void		env_array_destroy(char **env_array);
 char		*find_envv_akey_value(char *key, t_dlist env_list);
 void    	expand_env_variables_test(t_command *cmd, t_dlist env_list);
-/*
-** Execution
-*/
-void		execute_parsed_line(t_dlist parsed_line, t_dlist envl);
-void		fork_pipes(t_dlist pipeline, t_dlist envl);
-int			spawn_proc(int in, int out, t_command *command, t_dlist envl);
-
-/*
-** Utils
-*/
-void		redir_in_out(int in, int out);
-
 #endif

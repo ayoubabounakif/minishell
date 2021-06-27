@@ -33,5 +33,5 @@ int	__env__(t_command *command, t_dlist env_list)
 			}
 		}
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }

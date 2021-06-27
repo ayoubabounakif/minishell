@@ -39,7 +39,7 @@ static void	process(int sign_num)
 
 void		sig_handler(int sign_num)
 {
-	if ((sign_num == SIGINT || sign_num == SIGQUIT) && g_vars.pid != 0)
+	if ((sign_num == SIGINT || sign_num == SIGQUIT) && g_vars.pid != CHILD_PROCESS)
 		process(sign_num);
 	else
 	{

@@ -33,8 +33,6 @@ int __echo__(t_command *command, t_dlist env_list)
 		i++;
 	}
 	if (flag == 0)
-		ft_putchar_fd('\n', STDOUT_FILENO);
-	if (command->is_pipe == 1)
-		exit(0);
-	return (0);
+		ft_putendl_fd(NULL, STDOUT_FILENO);
+	return (EXIT_SUCCESS);
 }

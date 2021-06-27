@@ -21,7 +21,7 @@
 
 int		main(int ac, char **av, char **envp)
 {
-	( void)ac;
+	(void)ac;
 	(void)av;
 
 	char		*line;
@@ -46,29 +46,7 @@ int		main(int ac, char **av, char **envp)
 			printf("exit\n");
 			break ;
 		}
-		execute_parsed_line(parsed_line, env_list);
+		executeParsedLine(parsed_line, env_list);
 	}
-	/* {
-	n = get_next_line(STDIN_FILENO, &line);
-	parsed_line = parse_line(line, env_list);
-
-	t_dlist sub_list;
-	t_command *cmd;
-
-	dlist_move_cursor_to_head(parsed_line);
-	while (parsed_line->cursor_n != parsed_line->sentinel)
-	{
-		sub_list = parsed_line->cursor_n->value;	
-		dlist_move_cursor_to_head(sub_list);
-		while (sub_list->cursor_n != sub_list->sentinel)
-		{
-			cmd = sub_list->cursor_n->value;
-			for (int i = 0; cmd->tokens[i]; i++)
-				printf("\n|%s|\n", cmd->tokens[i]);
-			dlist_move_cursor_to_next(sub_list);
-		}
-		dlist_move_cursor_to_next(parsed_line);
-	}
-	} */
 	return (EXIT_SUCCESS);
 }

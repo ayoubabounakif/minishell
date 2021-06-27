@@ -9,8 +9,14 @@ SRCS = 420sh.c \
 ./parser/env_variables.c\
 ./parser/expand_env_vars.c\
 ./parser/syntax_checking.c\
-./builtins/builtins.c \
-./builtins/utils.c \
+\
+./execution/executeParsedLine.c \
+./execution/forkPipes.c \
+./execution/spawnProc.c \
+\
+./execution/executionUtils/binPath.c \
+./execution/executionUtils/redirectInputOutput.c \
+./execution/executionUtils/isBuiltin.c \
 \
 ./builtins/__cd__.c \
 ./builtins/__pwd__.c \

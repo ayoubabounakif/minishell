@@ -117,7 +117,6 @@ char		**env_list_to_env_array(t_dlist env_list)
 	while (env_list->cursor_n != env_list->sentinel)
 	{
 		e = env_list->cursor_n->value;	
-		//joined_str = malloc(ft_strlen(e->key) + ft_strlen(e->value) + 2);
 		joined_str = join_3_strings(e->key, "=", e->value);
 		env_array[i] = joined_str;
 		dlist_move_cursor_to_next(env_list);

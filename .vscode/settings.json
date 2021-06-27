@@ -1,32 +1,5 @@
 {
     "files.associations": {
-        "minishell.h": "c",
-        "libft.h": "c",
-        "garrptr.h": "c",
-        "__node_handle": "c",
-        "stdio.h": "c",
-        "__locale": "c",
-        "ios": "c",
-        "string": "c",
-        "iosfwd": "c",
-        "get_next_line.h": "c",
-        "__functional_base": "c",
-        "array": "c",
-        "istream": "c",
-        "locale": "c",
-        "memory": "c",
-        "tuple": "c",
-        "utility": "c",
-        "command_table_generator.h": "c",
-        "algorithm": "c",
-        "dlists.h": "c",
-        "time.h": "c",
-        "quotes_proccessing.h": "c",
-        "pipelines.h": "c",
-        "env_variables.h": "c",
-        "reder_split.h": "c",
-        "command_table.h": "c",
-        "syntax_checking.h": "c"
-    },
-    "glassit.alpha": 50
+        "command_table_generator.h": "c"
+    }
 }
