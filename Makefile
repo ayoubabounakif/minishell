@@ -13,9 +13,10 @@ SRCS = 420sh.c \
 ./execution/executeParsedLine.c \
 ./execution/forkPipes.c \
 ./execution/spawnProc.c \
+./execution/inputOutputRedirection.c \
 \
 ./execution/executionUtils/binPath.c \
-./execution/executionUtils/redirectInputOutput.c \
+./execution/executionUtils/dup2InputOutput.c \
 ./execution/executionUtils/isBuiltin.c \
 \
 ./builtins/__cd__.c \

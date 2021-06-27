@@ -65,11 +65,12 @@ void		executeParsedLine(t_dlist parsed_line, t_dlist envl);
 void		forkPipes(t_dlist pipeline, t_dlist envl);
 int			spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl);
 int			spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl);
+void		inputOutputRedirection(t_command *command);
 
 /*
 **	executionUtils
 */
-void		redirectInputOutput(int in, int out);
+void		dup2InputOutput(int in, int out);
 char		*binPath(char *cmd, t_dlist envl);
 int			isBuiltin(char *token, const char *builtins[]);
 

@@ -52,6 +52,8 @@ int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 		}
 		if (pipeFds[WRITE] > 2)
 			close(pipeFds[WRITE]);
+		if (command->redir_files->len != 0)
+			inputOutputRedirection(command);
 		i = 0;
 		if (isBuiltin(command->tokens[0], builtin_str) == TRUE)
 		{
@@ -82,9 +84,11 @@ int	spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD_PROCESS)
 	{
-		redirectInputOutput(in, pipeFds[WRITE]);
+		dup2InputOutput(in, pipeFds[WRITE]);
 		if (pipeFds[READ] > 2)
 			close(pipeFds[READ]);
+		if (command->redir_files->len != 0)
+			inputOutputRedirection(command);
 		if (isBuiltin(command->tokens[0], builtin_str) == TRUE)
 		{
 			i = 0;

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirectInputOutput.c                              :+:      :+:    :+:   */
+/*   dup2InputOutput.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	redirectInputOutput(int in, int out)
+void	dup2InputOutput(int in, int out)
 {
 	if (in != STDIN_FILENO)
 	{

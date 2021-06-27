@@ -18,6 +18,7 @@
 # include "../quotes_proccessing.h"
 # include "../env_variables.h"
 # include "../syntax_checking.h"
+
 # define REDI_INPUT_FILE 1
 # define REDI_OUTPUT_FILE 2
 # define REDI_APPEND_FILE 3
@@ -35,6 +36,7 @@ struct s_redir_file
 
 t_redir_file redir_file(char *file_name, char type_of_file);
 void		redir_file_destroy(void *rf_);
+
 typedef	struct	s_commands_table *t_commands_table;
 
 struct	s_commands_table
@@ -76,10 +78,7 @@ void				cmd_table_destroy(void *cmd_tab_);
 typedef struct s_command
 {
 	char	**tokens;
-	char	**input_files;
-	char	**output_files;
-	char	**append_files;
-	t_arrptr        redir_files;
+	t_arrptr	redir_files;
 	char    is_pipe;
 	char    is_only_command;
 	char	is_after_p_or_sc;
