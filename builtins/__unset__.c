@@ -28,7 +28,7 @@ void	unset_env(char **tokens, int i, t_dlist env_list)
 	}
 }
 
-static int	check_syntax(char *token)
+static int	checkSyntax(char *token)
 {
 	int		i;
 
@@ -63,7 +63,7 @@ int	__unset__(t_command *command, t_dlist env_list)
 		i = 0;
 		while (command->tokens[++i])
 		{
-			if (check_syntax(command->tokens[i]) == TRUE)
+			if (checkSyntax(command->tokens[i]) == TRUE)
 				unset_env(command->tokens, i, env_list);
 			else
 			{

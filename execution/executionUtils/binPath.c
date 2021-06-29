@@ -12,55 +12,82 @@
 
 # include "../../includes/minishell.h"
 
-char	*binPath(char *cmd, t_dlist envl)
+static void	freeVars(char **splittedPath, char *binPath)
 {
-	t_env *_420sh_env;
-	int bin_fd;
-	char *path;
-	char *binPath;
-	char **split_path;
-	int i;
+	int		i;
 
 	i = 0;
-	binPath = NULL;
+	free(binPath);
+	while (splittedPath[i])
+	{
+		free(splittedPath[i]);
+		i++;
+	}
+	free(splittedPath);
+}
+
+static char	*getBinPath(char *command, char **splittedPath)
+{
+	int		i;
+	int		binFd;
+	char	*binPath;
+
+	i = 0;
+	while (splittedPath[i])
+	{
+		binPath = ft_strjoin(splittedPath[i], "/");
+		binPath = ft_strjoin(binPath, command);
+		binFd = open(binPath, O_RDONLY);
+		if (binFd > 0)
+		{
+			close(binFd);
+			return (binPath);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+static char	*findPathValue(t_dlist envl)
+{
+	t_env	*_420sh_env;
+	char	*path;
+
 	dlist_move_cursor_to_head(envl);
 	while (envl->cursor_n != envl->sentinel)
 	{
 		_420sh_env = envl->cursor_n->value;
 		if (strcmp(_420sh_env->key, "PATH") == 0)
+		{
 			path = _420sh_env->value;
+			return (path);
+		}
 		dlist_move_cursor_to_next(envl);
 	}
-	split_path = ft_split(path, ':');
-	if (split_path == NULL)
+	return (path);
+}
+
+char	*binPath(char *cmd, t_dlist envl)
+{
+	int		bin_fd;
+	char	*binPath;
+	char	**splittedPath;
+	int		i;
+
+	binPath = NULL;
+	splittedPath = ft_split(findPathValue(envl), ':');
+	if (splittedPath == NULL)
 	{
-		ft_putstr_fd("_420sh: ", STDERR_FILENO);
-		ft_putstr_fd(cmd, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		printErrorMessage(cmd, ": No such file or directory\n");
 		return (NULL);
 	}
-	while (split_path[i])
+	binPath = getBinPath(cmd, splittedPath);
+	if (binPath == NULL)
 	{
-		binPath = ft_strjoin(split_path[i], "/");
-		binPath = ft_strjoin(binPath, cmd);
-		bin_fd = open(binPath, O_RDONLY);
-		if (bin_fd > 0)
-		{
-			close(bin_fd);
-			return (binPath);
-		}
-		i++;
+		printErrorMessage(cmd, ": command not found\n");
+		freeVars(splittedPath, binPath);
 	}
-	ft_putstr_fd("_420sh: ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	i = 0;
-	free(binPath);
-	while (split_path[i])
-	{
-		free(split_path[i]);
-		i++;
-	}
-	free(split_path);
+	else
+		return (binPath);
 	return (NULL);
 }

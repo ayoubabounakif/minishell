@@ -23,6 +23,8 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 	while (pipeline->cursor_n->n != pipeline->sentinel)
 	{
 		pipe(pipeFds);
+		((t_command *)pipeline->cursor_n->value)->is_only_command = FALSE;
+		((t_command *)pipeline->cursor_n->value)->is_pipe = TRUE;
 		spawnProc(in, pipeFds, pipeline->cursor_n->value, envl);
 		if (pipeFds[WRITE] > 2)
 			close(pipeFds[WRITE]);

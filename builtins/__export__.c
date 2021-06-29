@@ -90,7 +90,7 @@ static int		check_env(char *string, t_dlist env_list, int eq_sign)
 	return (TRUE);
 }
 
-int		export_helper(char *token, t_dlist env_list)
+static int	exportHelper(char *token, t_dlist env_list)
 {
 	char	**key_value;
 
@@ -122,7 +122,7 @@ int	__export__(t_command *command, t_dlist env_list)
 		i = 1;
 		while (command->tokens[i])
 		{
-			export_helper(command->tokens[i], env_list);
+			exportHelper(command->tokens[i], env_list);
 			i++;
 		}
 	}

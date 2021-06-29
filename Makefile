@@ -18,6 +18,7 @@ SRCS = 420sh.c \
 ./execution/executionUtils/binPath.c \
 ./execution/executionUtils/dup2InputOutput.c \
 ./execution/executionUtils/isBuiltin.c \
+./execution/executionUtils/printErrorMessage.c \
 \
 ./builtins/__cd__.c \
 ./builtins/__pwd__.c \

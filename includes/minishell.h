@@ -73,6 +73,7 @@ void		inputOutputRedirection(t_command *command);
 void		dup2InputOutput(int in, int out);
 char		*binPath(char *cmd, t_dlist envl);
 int			isBuiltin(char *token, const char *builtins[]);
+void		printErrorMessage(char *command, char *messageToPrint);
 
 
 /*

@@ -17,7 +17,10 @@ int	__env__(t_command *command, t_dlist env_list)
 	t_env		*_420sh_env;
 
 	if (tab_len(command->tokens) != 1)
-		printf("env: too many arguments\n");
+	{
+		ft_putstr_fd("env: too many arguments\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	else
 	{
 		dlist_move_cursor_to_head(env_list);

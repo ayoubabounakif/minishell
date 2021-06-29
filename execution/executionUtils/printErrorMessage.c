@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   __cd__.c                                           :+:      :+:    :+:   */
+/*   printErrorMessage.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 12:37:37 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/06 12:37:38 by aabounak         ###   ########.fr       */
+/*   Created: 2021/06/29 17:19:21 by aabounak          #+#    #+#             */
+/*   Updated: 2021/06/29 17:19:41 by aabounak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+# include "../../includes/minishell.h"
 
-int __cd__(t_command *command, t_dlist env_list)
+void	printErrorMessage(char *command, char *messageToPrint)
 {
-	(void)env_list;
-	if (command->tokens[1] == NULL)
-		ft_putstr_fd("_420sh: expected argument to cd\n", STDERR_FILENO);
-	else if (chdir(command->tokens[1]) == 0)
-		return (EXIT_SUCCESS);
-	else
-	{
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
-		return (errno);
-	}
-	return (EXIT_SUCCESS);
+	ft_putstr_fd("_420sh: ", STDERR_FILENO);
+	ft_putstr_fd(command, STDERR_FILENO);
+	ft_putstr_fd(messageToPrint, STDERR_FILENO);
 }

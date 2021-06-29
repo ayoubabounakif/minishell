@@ -36,6 +36,7 @@ int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 {
 	int		i;
 
+	expand_env_variables_test(command, envl);
 	if (isBuiltin(command->tokens[0], builtin_str) == FALSE)
 	{
 		command->tokens[0] = binPath(command->tokens[0], envl);
@@ -75,6 +76,7 @@ int	spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 {
 	int		i;
 
+	expand_env_variables_test(command, envl);
 	if (isBuiltin(command->tokens[0], builtin_str) == FALSE)
 	{
 		command->tokens[0] = binPath(command->tokens[0], envl);
