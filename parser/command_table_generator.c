@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:48:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/06/15 15:29:36 by khafni           ###   ########.fr       */
+/*   Updated: 2021/07/01 14:08:54 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,33 +119,6 @@ t_dlist      cmd_tables_list(char *parsing_text, t_dlist env_list)
 	//cmd_tables_list_destroy_(tmp_list_of_command_tables_non_splitted);
 	return (list_of_command_tables_lists);
 }
-
-void    check_pipes_n_semiclns(char *parsing_line, t_syx_check syx)
-{
-	int i;
-	int is_pipe;
-	int is_sc;
-
-	i = 0;
-	is_pipe = 0;
-	is_sc = 0;
-	while (parsing_line[i])
-	{
-		if (is_pipe && parsing_line[i] == '|') 
-			syntax_set_error(syx, "error aroudn the pipe"); 
-		else if (is_sc && parsing_line[i] == ';') 
-			syntax_set_error(syx, "error aroudn the semicolon"); 
-		else if (!is_pipe && parsing_line[i] == '|') 
-			is_pipe = 1; 
-		else if (!is_sc && parsing_line[i] == ';') 
-			is_sc = 1; 
-		if (ft_strlen(parsing_line) >= 1 && (parsing_line[ft_strlen(parsing_line) - 1] == '|'
-		|| parsing_line[ft_strlen(parsing_line) - 1] == ';'))
-			syntax_set_error(syx, "error around the pipe or semicolon");
-		i++;
-	}
-}
-
 
 t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 {
