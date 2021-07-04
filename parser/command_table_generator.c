@@ -140,6 +140,6 @@ t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 		syntax_destroy(syx);
 		exit(1);
 	}
-	syntax_destroy(syx);
+	//syntax_destroy(syx);
 	return (cmd_tbs_lists);
 }

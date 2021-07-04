@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "command_table_generator.h": "c",
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "signal.h": "c"
     }
 }

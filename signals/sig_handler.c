@@ -57,3 +57,18 @@ void		sig_handler(int sign_num)
 			ft_putstr_fd("\b\b  \b\b", STDOUT_FILENO);
 	}
 }
+
+// void		sig_handler(int sign_num)
+// {
+// 	if (sign_num == SIGQUIT)
+// 	{
+// 		// while (1)
+// 		printf("SIGQUIT\n");
+// 		exit(131);
+// 	}
+// 	else if (sign_num == SIGINT)
+// 	{
+// 		printf("SIGINT\n");
+// 		exit(131);
+// 	}
+// }

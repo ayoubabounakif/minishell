@@ -24,7 +24,7 @@ int		main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 
-	char		*line;
+	char		*line = NULL;
 	int			n = 1;
 	t_dlist 	parsed_line; 
 	t_dlist		env_list;
@@ -32,16 +32,27 @@ int		main(int ac, char **av, char **envp)
 
 	sx = syntax_check_create();
 	env_list = get_envs(envp);
-	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
+	signal(SIGINT, sig_handler);
+
 	while (1)
 	{
 		line = readline("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m\x1B[32m\x1B[0m\x1B[31m$ \x1B[0m");
-		add_history(line);
-		parsed_line = parse_line(line, env_list);	
-		free(line);
-		//executeParsedLine(parsed_line, env_list);
-		dlist_destroy(parsed_line);
+		//line = readline("420 shell ::> ");
+		if (line && *line)
+		{
+			//printf("|||||$%p$||||\n", line);
+			parsed_line = parse_line(line, env_list);
+			add_history(line);
+			free(line);
+			executeParsedLine(parsed_line, env_list);
+			dlist_destroy(parsed_line);
+		}
+		else if (!line)
+		{
+			exit(1);
+		}
+		
 	}
 	/* line = readline("> ");
 	parsed_line = parse_line(line, env_list);

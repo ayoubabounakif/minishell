@@ -16,9 +16,12 @@ t_syx_check	syntax_check_create(void)
 {
 	static t_syx_check syx;
 
-	syx = malloc(sizeof(struct s_syntax));
-	syx->is_error = 0;
-	syx->error_message = NULL;
+	if (syx == NULL)
+	{
+		syx = malloc(sizeof(struct s_syntax));
+		syx->is_error = 0;
+		syx->error_message = NULL;
+	}
 	return (syx);
 }
 void		syntax_destroy(t_syx_check sx)
