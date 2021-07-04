@@ -36,17 +36,30 @@ int		main(int ac, char **av, char **envp)
 	signal(SIGQUIT, sig_handler);
 	while (1)
 	{
-		ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT_FILENO);
-		ft_putstr_fd("\x1B[32m", STDOUT_FILENO);
-		ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT_FILENO);
-		n = get_next_line(STDIN_FILENO, &line);
-		parsed_line = parse_line(line, env_list);
-		if (n == 0)
-		{
-			printf("exit\n");
-			break ;
-		}
-		executeParsedLine(parsed_line, env_list);
+		line = readline("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m\x1B[32m\x1B[0m\x1B[31m$ \x1B[0m");
+		add_history(line);
+		parsed_line = parse_line(line, env_list);	
+		free(line);
+		//executeParsedLine(parsed_line, env_list);
+		dlist_destroy(parsed_line);
 	}
+	/* line = readline("> ");
+	parsed_line = parse_line(line, env_list);
+	t_dlist sublst;
+	t_redir_file rf;
+	t_command *cmd;
+	dlist_move_cursor_to_head(parsed_line);
+	while (parsed_line->cursor_n != parsed_line->sentinel)
+	{
+		sublst = parsed_line->cursor_n->value;
+		dlist_move_cursor_to_head(sublst);
+		while (sublst->cursor_n != sublst->sentinel)
+		{
+			cmd = sublst->cursor_n->value;
+			printf("%s %d\n", ((t_redir_file)arrptr_get(cmd->redir_files, 0))->file_name, ((t_redir_file)arrptr_get(cmd->redir_files, 0))->file_type);
+			dlist_move_cursor_to_next(sublst);
+		}
+		dlist_move_cursor_to_next(parsed_line);
+	} */
 	return (EXIT_SUCCESS);
 }

@@ -23,6 +23,8 @@
 # include "../get_next_line/get_next_line.h"
 # include "../dlist/dlists.h"
 # include "../parser/command_table_generator.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # define TRUE 1
 # define FALSE 0

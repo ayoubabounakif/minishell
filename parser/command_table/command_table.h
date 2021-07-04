@@ -22,6 +22,7 @@
 # define REDI_INPUT_FILE 1
 # define REDI_OUTPUT_FILE 2
 # define REDI_APPEND_FILE 3
+# define REDI_HEREDOC_FILE 4
 
 /*
 ** private struct and methods
@@ -53,6 +54,7 @@ int					is_normal_token(t_commands_table cmdt);
 int					is_token_a_r_i_file(t_commands_table cmdt);
 int					is_token_a_r_o_file(t_commands_table cmdt);
 int					is_token_a_r_app_file(t_commands_table cmdt);
+int					is_token_a_r_heredoc_file(t_commands_table cmdt);
 
 t_commands_table	cmd_table(t_pipeline pl, t_dlist env_list);
 void                cmd_table_fill(t_commands_table cmdt, t_pipeline pl);

@@ -46,7 +46,7 @@ $(NAME):
 	@$(MAKE) -C CPCA
 	@$(MAKE) -C libft 
 	@echo "\033[0;32mCompiling minishell"
-	@gcc -g $(CFLAGS) $(LIBRARIES) $(SRCS) -D BUFFER_SIZE=1024 -o $(NAME) 
+	@gcc -g $(CFLAGS) $(LIBRARIES) $(SRCS) -D BUFFER_SIZE=1024 -o $(NAME) -lreadline 
 
 clean:
 	@$(MAKE) -C CPCA clean

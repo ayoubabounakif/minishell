@@ -94,6 +94,8 @@ void	cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursor_n->value), REDI_OUTPUT_FILE));
 		else if (is_token_a_r_app_file(cmdt) && check_if_rd_got_afile(cmdt))
 			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursor_n->value), REDI_APPEND_FILE));
+		else if (is_token_a_r_heredoc_file(cmdt) && check_if_rd_got_afile(cmdt))
+			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursor_n->value), REDI_HEREDOC_FILE));
 		dlist_move_cursor_to_next(up->tokens);
 		dlist_move_cursor_to_next(up->tokens_masks);
 	}
@@ -118,6 +120,23 @@ int					is_token_a_r_app_file(t_commands_table cmdt)
 		
 }
 
+int					is_token_a_r_heredoc_file(t_commands_table cmdt)
+{
+	t_tokens up;		
+
+	up = cmdt->tokens_unproccessed;	
+	if (up->tokens->cursor_p == up->tokens->sentinel)
+		return (0);
+	else if (up->tokens->cursor_n == up->tokens->sentinel)
+	{
+		if (ft_strnstr((char*)(up->tokens->cursor_p->value), "<<", 2))
+			return (1);	
+		return (0);
+	}		
+	if (ft_strnstr((char*)(up->tokens->cursor_p->value), "<<", 2))
+		return (1);
+	return (0);
+}
 
 int					is_token_a_r_o_file(t_commands_table cmdt)
 {
@@ -153,10 +172,10 @@ int					is_token_a_r_i_file(t_commands_table cmdt)
 			return (1);	
 		return (0);
 	}	
-	if (*(char*)(up->tokens->cursor_p->value) == '<')
+	if (*(char*)(up->tokens->cursor_p->value) == '<'
+	&& !ft_strnstr((char*)(up->tokens->cursor_p->value), "<<", 2))	
 		return (1);
 	return (0);
-		
 }
 
 
