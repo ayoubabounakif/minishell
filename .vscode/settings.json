@@ -2,6 +2,8 @@
     "files.associations": {
         "command_table_generator.h": "c",
         "minishell.h": "c",
-        "signal.h": "c"
+        "signal.h": "c",
+        "readline.h": "c",
+        "history.h": "c"
     }
 }

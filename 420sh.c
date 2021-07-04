@@ -12,12 +12,14 @@
 
 # include "includes/minishell.h"
 # include "dlist/dlists.h"
+#include <setjmp.h>
 /* #include "parser/pipelines.h"
 # include "parser/redirection_splitting/reder_split.h"
 # include "parser/quotes_proccessing.h"
 # include "parser/command_table/command_table.h" */
 //#include "parser/command_table_generator.h"
 #include "parser/syntax_checking.h"
+
 
 int		main(int ac, char **av, char **envp)
 {
@@ -37,7 +39,7 @@ int		main(int ac, char **av, char **envp)
 
 	while (1)
 	{
-		line = readline("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m\x1B[32m\x1B[0m\x1B[31m$ \x1B[0m");
+		line = readline("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m\x1B[32m\x1B[0m\x1B[31m$ \x1B[0m");		
 		//line = readline("420 shell ::> ");
 		if (line && *line)
 		{

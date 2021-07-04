@@ -26,6 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+
 # define TRUE 1
 # define FALSE 0
 
@@ -52,6 +53,7 @@ typedef struct s_env
 }				t_env;
 
 t_vars			g_vars;
+
 
 /*
 ** signals

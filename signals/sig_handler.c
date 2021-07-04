@@ -24,6 +24,10 @@ static void	process(int sign_num)
 		else if (sign_num == SIGINT)
 		{
 			ft_putchar_fd('\n', STDOUT_FILENO);
+			rl_on_new_line();
+			//rl_replace_line("", 0);
+			// rl_on_new_line();
+			rl_redisplay();
 			g_vars.exit_code = 130;
 		}
 	}
@@ -31,9 +35,9 @@ static void	process(int sign_num)
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		g_vars.exit_code = 1;
-		ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT_FILENO);
-		ft_putstr_fd("\x1B[32m", STDOUT_FILENO);
-		ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT_FILENO);
+		//ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT_FILENO);
+		//ft_putstr_fd("\x1B[32m", STDOUT_FILENO);
+		//ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT_FILENO);
 	}
 }
 
