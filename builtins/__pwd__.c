@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int __pwd__(t_command *command, t_dlist env_list)
+int __pwd__(t_command *command, t_dlist *env_list)
 {
 	(void)env_list;
 	char cwd[1024];

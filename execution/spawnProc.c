@@ -12,32 +12,43 @@
 
 #include "../includes/minishell.h"
 
-static const char *builtin_str[] = {
-	"echo",
-	"cd",
-	"pwd",
-	"export",
-	"unset",
-	"env",
-	"exit",
-};
+int	executeBuiltins(t_command *command, t_dlist *envl)
+{
+	int		i;
+	const char *builtin_str[] = {
+		"echo",
+		"cd",
+		"pwd",
+		"export",
+		"unset",
+		"env",
+		"exit",
+	};
 
-static int (*builtin_func[])(t_command *command, t_dlist) = {
-	&__echo__,
-	&__cd__,
-	&__pwd__,
-	&__export__,
-	&__unset__,
-	&__env__,
-	&__exit__,
-};
+	int (*builtin_func[])(t_command *command, t_dlist *) = {
+		&__echo__,
+		&__cd__,
+		&__pwd__,
+		&__export__,
+		&__unset__,
+		&__env__,
+		&__exit__,
+	};
+
+	i = 0;
+	while (i < 7)
+	{
+		if (strcmp(command->tokens[0], builtin_str[i]) == 0)
+			return (*builtin_func[i])(command, envl);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
 
 int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 {
-	int		i;
-
-	expand_env_variables_test(command, envl);
-	if (isBuiltin(command->tokens[0], builtin_str) == FALSE)
+	// expand_env_variables_test(command, envl);
+	if (isBuiltin(command->tokens[0]) == FALSE)
 	{
 		command->tokens[0] = binPath(command->tokens[0], envl);
 		if (command->tokens[0] == NULL)
@@ -55,17 +66,8 @@ int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 			close(pipeFds[WRITE]);
 		if (command->redir_files->len != 0)
 			inputOutputRedirection(command);
-		i = 0;
-		if (isBuiltin(command->tokens[0], builtin_str) == TRUE)
-		{
-			i = 0;
-			while (i < 7)
-			{
-				if (strcmp(command->tokens[0], builtin_str[i]) == 0)
-					return (*builtin_func[i])(command, envl);
-				i++;
-			}
-		}
+		if (isBuiltin(command->tokens[0]) == TRUE)
+			exit(executeBuiltins(command, &envl));
 		else
 			execve(command->tokens[0], command->tokens, env_list_to_env_array(envl));
 	}
@@ -74,10 +76,8 @@ int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 
 int	spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 {
-	int		i;
-
-	expand_env_variables_test(command, envl);
-	if (isBuiltin(command->tokens[0], builtin_str) == FALSE)
+	// expand_env_variables_test(command, envl);
+	if (isBuiltin(command->tokens[0]) == FALSE)
 	{
 		command->tokens[0] = binPath(command->tokens[0], envl);
 		if (command->tokens[0] == NULL)
@@ -89,18 +89,10 @@ int	spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 		dup2InputOutput(in, pipeFds[WRITE]);
 		if (pipeFds[READ] > 2)
 			close(pipeFds[READ]);
-		if (command->redir_files->len != 0)
-			inputOutputRedirection(command);
-		if (isBuiltin(command->tokens[0], builtin_str) == TRUE)
-		{
-			i = 0;
-			while (i < 7)
-			{
-				if (strcmp(command->tokens[0], builtin_str[i]) == 0)
-					return (*builtin_func[i])(command, envl);
-				i++;
-			}
-		}
+		// if (command->redir_files->len != 0)
+		// 	inputOutputRedirection(command);
+		if (isBuiltin(command->tokens[0]) == TRUE)
+			exit(executeBuiltins(command, &envl));
 		else
 			execve(command->tokens[0], command->tokens, env_list_to_env_array(envl));
 	}

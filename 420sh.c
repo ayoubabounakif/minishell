@@ -36,7 +36,6 @@ int		main(int ac, char **av, char **envp)
 	env_list = get_envs(envp);
 	signal(SIGQUIT, sig_handler);
 	signal(SIGINT, sig_handler);
-
 	while (1)
 	{
 		line = readline("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m\x1B[32m\x1B[0m\x1B[31m$ \x1B[0m");		

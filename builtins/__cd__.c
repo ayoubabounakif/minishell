@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int __cd__(t_command *command, t_dlist env_list)
+int __cd__(t_command *command, t_dlist *env_list)
 {
 	(void)env_list;
 	if (command->tokens[1] == NULL)

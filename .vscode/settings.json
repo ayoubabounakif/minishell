@@ -4,6 +4,8 @@
         "minishell.h": "c",
         "signal.h": "c",
         "readline.h": "c",
-        "history.h": "c"
+        "history.h": "c",
+        "setjmp.h": "c",
+        "dlists.h": "c"
     }
 }

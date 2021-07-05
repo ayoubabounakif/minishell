@@ -76,20 +76,20 @@ void		inputOutputRedirection(t_command *command);
 */
 void		dup2InputOutput(int in, int out);
 char		*binPath(char *cmd, t_dlist envl);
-int			isBuiltin(char *token, const char *builtins[]);
+int			isBuiltin(char *token);
 void		printErrorMessage(char *command, char *messageToPrint);
 
 
 /*
 ** builtins
 **/
-int			__cd__(t_command *command, t_dlist env_list);
-int			__pwd__(t_command *command, t_dlist env_list);
-int			__echo__( t_command *command, t_dlist env_list);
-int			__export__(t_command *command, t_dlist env_list);
-int			__unset__(t_command *command, t_dlist env_list);
-int			__env__(t_command *command, t_dlist env_list);
-int			__exit__(t_command *command, t_dlist env_list);
+int			__cd__(t_command *command, t_dlist *env_list);
+int			__pwd__(t_command *command, t_dlist *env_list);
+int			__echo__( t_command *command, t_dlist *env_list);
+int			__export__(t_command *command, t_dlist *env_list);
+int			__unset__(t_command *command, t_dlist *env_list);
+int			__env__(t_command *command, t_dlist *env_list);
+int			__exit__(t_command *command, t_dlist *env_list);
 
 /*
 ** env

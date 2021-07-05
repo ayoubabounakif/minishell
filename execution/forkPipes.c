@@ -28,6 +28,8 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 		spawnProc(in, pipeFds, pipeline->cursor_n->value, envl);
 		if (pipeFds[WRITE] > 2)
 			close(pipeFds[WRITE]);
+		if (in != STDIN_FILENO)
+			close(in);
 		in = pipeFds[READ];
 		dlist_move_cursor_to_next(pipeline);
 	}

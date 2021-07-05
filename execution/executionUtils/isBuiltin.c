@@ -12,14 +12,23 @@
 
 # include "../../includes/minishell.h"
 
-int	isBuiltin(char *token, const char *builtins[])
+int	isBuiltin(char *token)
 {
 	int		i;
+	const char *builtin_str[] = {
+		"echo",
+		"cd",
+		"pwd",
+		"export",
+		"unset",
+		"env",
+		"exit",
+	};
 
 	i = 0;
 	while (i < 7)
 	{
-		if (strcmp(token, builtins[i]) == 0)
+		if (strcmp(token, builtin_str[i]) == 0)
 			return (TRUE);
 		i++;
 	}
