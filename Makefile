@@ -46,7 +46,7 @@ $(NAME):
 	@$(MAKE) -C CPCA
 	@$(MAKE) -C libft 
 	@echo "\033[0;32mCompiling minishell"
-	@gcc -g $(CFLAGS) $(LIBRARIES) $(SRCS) -D BUFFER_SIZE=1024 -o $(NAME) -lreadline
+	@gcc -g $(CFLAGS) $(LIBRARIES) $(SRCS) -D BUFFER_SIZE=1024 -o $(NAME) -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 
 
 

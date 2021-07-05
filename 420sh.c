@@ -36,14 +36,11 @@ int		main(int ac, char **av, char **envp)
 	env_list = get_envs(envp);
 	signal(SIGQUIT, sig_handler);
 	signal(SIGINT, sig_handler);
-
 	while (1)
 	{
 		line = readline("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m\x1B[32m\x1B[0m\x1B[31m$ \x1B[0m");		
-		//line = readline("420 shell ::> ");
 		if (line && *line)
 		{
-			//printf("|||||$%p$||||\n", line);
 			parsed_line = parse_line(line, env_list);
 			add_history(line);
 			free(line);
@@ -54,7 +51,6 @@ int		main(int ac, char **av, char **envp)
 		{
 			exit(1);
 		}
-		
 	}
 	/* line = readline("> ");
 	parsed_line = parse_line(line, env_list);
