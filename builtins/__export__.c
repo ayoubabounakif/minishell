@@ -101,20 +101,12 @@ static int	exportHelper(char *token, t_dlist env_list)
 		{
 			key_value = ft_split_first_sep(token, '=');
 			if (check_env(key_value[0], env_list, 1) == 1)
-			{
-				printf("HELLO\n");
-				fflush(stdout);
 				dlist_pushback(env_list, env_create(key_value[0], key_value[1]));
-			}
 		}
 		else if (!(strchr(token, '=')))
 		{
 			if (check_env(token, env_list, 0) == 1)
-			{
-				printf("HELLO\n");
-				fflush(stdout);
 				dlist_pushback(env_list, env_create(token, NULL));
-			}
 		}
 	}
 	else
@@ -138,6 +130,5 @@ int	__export__(t_command *command, t_dlist env_list)
 	}
 	else if (tab_len(command->tokens) == 1)
 		__export_env__(command->tokens, env_list);
-	
 	return (EXIT_SUCCESS);
 }
