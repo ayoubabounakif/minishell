@@ -16,15 +16,15 @@ void	unset_env(char **tokens, int i, t_dlist env_list)
 {
 	t_env 		*_420sh_env;
 
-	if (!env_list)
+	if (!(env_list))
 		return ;
-	dlist_move_cursor_to_head(env_list);
-	while (env_list->cursor_n != env_list->sentinel)
+	dlist_move_cursor_to_head((env_list));
+	while ((env_list)->cursor_n != (env_list)->sentinel)
 	{
-		_420sh_env = env_list->cursor_n->value;
+		_420sh_env = (env_list)->cursor_n->value;
 		if (strcmp(_420sh_env->key, tokens[i]) == 0)
-				dlist_remove_after_cursor(env_list, 1);
-		dlist_move_cursor_to_next(env_list);
+			dlist_remove_after_cursor((env_list), 1);
+		dlist_move_cursor_to_next((env_list));
 	}
 }
 

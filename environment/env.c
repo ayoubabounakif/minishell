@@ -79,15 +79,18 @@ char	*get_value(char *line)
 t_dlist get_envs(char **env)
 {
 	int		i = 0;
-	t_dlist	list;
+	static t_dlist	list = NULL;
 	
-	list = dlist_empty_create(env_destroy, NULL, NULL);
-	while (env[i])
+	if (!list)
 	{
-		dlist_pushback(list, env_create(get_key(env[i]), get_value(env[i])));
-		i++;
+		list = dlist_empty_create(env_destroy, NULL, NULL);
+		while (env[i])
+		{
+			dlist_pushback(list, env_create(get_key(env[i]), get_value(env[i])));
+			i++;
+		}
+		dlist_move_cursor_to_head(list);
 	}
-	dlist_move_cursor_to_head(list);
 	return (list);
 }
 

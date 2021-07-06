@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	executeBuiltins(t_command *command, t_dlist *envl)
+int	executeBuiltins(t_command *command, t_dlist envl)
 {
 	int		i;
 	const char *builtin_str[] = {
@@ -25,7 +25,7 @@ int	executeBuiltins(t_command *command, t_dlist *envl)
 		"exit",
 	};
 
-	int (*builtin_func[])(t_command *command, t_dlist *) = {
+	int (*builtin_func[])(t_command *command, t_dlist) = {
 		&__echo__,
 		&__cd__,
 		&__pwd__,
@@ -47,7 +47,6 @@ int	executeBuiltins(t_command *command, t_dlist *envl)
 
 int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 {
-	// expand_env_variables_test(command, envl);
 	if (isBuiltin(command->tokens[0]) == FALSE)
 	{
 		command->tokens[0] = binPath(command->tokens[0], envl);
@@ -57,6 +56,7 @@ int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD_PROCESS)
 	{
+		printf("g_vars.pid = %d\n", g_vars.pid);
 		if (in != STDIN_FILENO)
 		{
 			dup2(in, STDIN_FILENO);
@@ -67,7 +67,7 @@ int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 		if (command->redir_files->len != 0)
 			inputOutputRedirection(command);
 		if (isBuiltin(command->tokens[0]) == TRUE)
-			exit(executeBuiltins(command, &envl));
+			exit(executeBuiltins(command, envl));
 		else
 			execve(command->tokens[0], command->tokens, env_list_to_env_array(envl));
 	}
@@ -76,7 +76,6 @@ int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 
 int	spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 {
-	// expand_env_variables_test(command, envl);
 	if (isBuiltin(command->tokens[0]) == FALSE)
 	{
 		command->tokens[0] = binPath(command->tokens[0], envl);
@@ -89,10 +88,10 @@ int	spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 		dup2InputOutput(in, pipeFds[WRITE]);
 		if (pipeFds[READ] > 2)
 			close(pipeFds[READ]);
-		// if (command->redir_files->len != 0)
-		// 	inputOutputRedirection(command);
+		if (command->redir_files->len != 0)
+			inputOutputRedirection(command);
 		if (isBuiltin(command->tokens[0]) == TRUE)
-			exit(executeBuiltins(command, &envl));
+			exit(executeBuiltins(command, envl));
 		else
 			execve(command->tokens[0], command->tokens, env_list_to_env_array(envl));
 	}

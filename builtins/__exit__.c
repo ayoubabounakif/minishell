@@ -41,7 +41,7 @@ static int	exitSyntaxChecker(int *ac, char **tokens)
 	return (EXIT_SUCCESS);
 }
 
-int __exit__(t_command *command, t_dlist *env_list)
+int __exit__(t_command *command, t_dlist env_list)
 {
 	int		i;
 	(void)env_list;

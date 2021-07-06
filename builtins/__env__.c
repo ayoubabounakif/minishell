@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	__env__(t_command *command, t_dlist *env_list)
+int	__env__(t_command *command, t_dlist env_list)
 {
 	t_env		*_420sh_env;
 
@@ -24,9 +24,9 @@ int	__env__(t_command *command, t_dlist *env_list)
 	else
 	{
 		dlist_move_cursor_to_head(env_list);
-		while ((*env_list)->cursor_n != (*env_list)->sentinel)
+		while ((env_list)->cursor_n != (env_list)->sentinel)
 		{
-			_420sh_env = (*env_list)->cursor_n->value;
+			_420sh_env = (env_list)->cursor_n->value;
 			if (_420sh_env->value == NULL)
 				dlist_move_cursor_to_next(env_list);
 			else
