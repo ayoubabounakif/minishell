@@ -17,6 +17,7 @@
 # include <errno.h>
 # include <time.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 # include <string.h>
 # include <signal.h>
 # include <readline/readline.h>
@@ -71,6 +72,7 @@ void		forkPipes(t_dlist pipeline, t_dlist envl);
 int			spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl);
 int			spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl);
 void		inputOutputRedirection(t_command *command);
+int			executeBuiltins(t_command *command, t_dlist envl);
 
 /*
 **	executionUtils

@@ -14,6 +14,7 @@ SRCS = 420sh.c \
 ./execution/forkPipes.c \
 ./execution/spawnProc.c \
 ./execution/inputOutputRedirection.c \
+./execution/executeBuiltins.c \
 \
 ./execution/executionUtils/binPath.c \
 ./execution/executionUtils/dup2InputOutput.c \
@@ -31,9 +32,9 @@ SRCS = 420sh.c \
 ./environment/env.c \
 \
 ./signals/handle_sigint.c ./signals/handle_sigquit.c ./signals/sig_handler.c \
-\
-get_next_line/get_next_line.c \
-get_next_line/get_next_line_utils.c \
+# \
+# get_next_line/get_next_line.c \
+# get_next_line/get_next_line_utils.c \
 
 LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/*.c
 
@@ -46,7 +47,7 @@ $(NAME):
 	@$(MAKE) -C CPCA
 	@$(MAKE) -C libft 
 	@echo "\033[0;32mCompiling minishell"
-	@gcc -g $(CFLAGS) $(LIBRARIES) $(SRCS) -D BUFFER_SIZE=1024 -o $(NAME) -lreadline
+	@gcc -g $(CFLAGS) $(LIBRARIES) $(SRCS) -o $(NAME) -lreadline
 
 
 

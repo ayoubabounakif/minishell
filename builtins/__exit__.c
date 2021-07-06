@@ -52,16 +52,21 @@ int __exit__(t_command *command, t_dlist env_list)
 	if (i == 0)
 	{
 		ft_putstr_fd("exit\n", STDERR_FILENO);
-		exit(g_vars.exit_code = EXIT_SUCCESS);
+		g_vars.exit_code = EXIT_SUCCESS;
+		return (g_vars.exit_code);
 	}
 	else
 	{
 		if (exitSyntaxChecker(&i, command->tokens) == EXIT_FAILURE)
-			exit(g_vars.exit_code = 255);
+		{
+			g_vars.exit_code = 255;
+			return (g_vars.exit_code);
+		}
 		else
 		{
 			ft_putstr_fd("exit\n", STDERR_FILENO);
-			exit(g_vars.exit_code = ft_atoi(command->tokens[1]));
+			g_vars.exit_code = ft_atoi(command->tokens[1]);
+			return (g_vars.exit_code);
 		}
 	}
 	return (EXIT_SUCCESS);

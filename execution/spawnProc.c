@@ -12,39 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int	executeBuiltins(t_command *command, t_dlist envl)
-{
-	int		i;
-	const char *builtin_str[] = {
-		"echo",
-		"cd",
-		"pwd",
-		"export",
-		"unset",
-		"env",
-		"exit",
-	};
-
-	int (*builtin_func[])(t_command *command, t_dlist) = {
-		&__echo__,
-		&__cd__,
-		&__pwd__,
-		&__export__,
-		&__unset__,
-		&__env__,
-		&__exit__,
-	};
-
-	i = 0;
-	while (i < 7)
-	{
-		if (strcmp(command->tokens[0], builtin_str[i]) == 0)
-			return (*builtin_func[i])(command, envl);
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
-
 int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 {
 	if (isBuiltin(command->tokens[0]) == TRUE)
