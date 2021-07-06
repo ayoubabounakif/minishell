@@ -20,7 +20,8 @@ static int	exitSyntaxChecker(int *ac, char **tokens)
 	{
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 		ft_putstr_fd("_420sh: exit: too many arguments\n", STDERR_FILENO);
-		return (g_vars.exit_code = EXIT_FAILURE);
+		g_vars.exit_code = EXIT_FAILURE;
+		return (g_vars.exit_code);
 	}
 	if (tokens[1])
 	{
@@ -41,6 +42,9 @@ static int	exitSyntaxChecker(int *ac, char **tokens)
 	return (EXIT_SUCCESS);
 }
 
+/*
+**	exit needs to work better with exit statuses, and the while and if dont work the right way
+*/
 int __exit__(t_command *command, t_dlist env_list)
 {
 	int		i;
@@ -52,21 +56,20 @@ int __exit__(t_command *command, t_dlist env_list)
 	if (i == 0)
 	{
 		ft_putstr_fd("exit\n", STDERR_FILENO);
-		g_vars.exit_code = EXIT_SUCCESS;
-		return (g_vars.exit_code);
+		exit (g_vars.exit_code);
 	}
 	else
 	{
 		if (exitSyntaxChecker(&i, command->tokens) == EXIT_FAILURE)
 		{
 			g_vars.exit_code = 255;
-			return (g_vars.exit_code);
+			exit (g_vars.exit_code);
 		}
 		else
 		{
 			ft_putstr_fd("exit\n", STDERR_FILENO);
-			g_vars.exit_code = ft_atoi(command->tokens[1]);
-			return (g_vars.exit_code);
+			g_vars.exit_code = 9999;
+			exit (g_vars.exit_code);
 		}
 	}
 	return (EXIT_SUCCESS);

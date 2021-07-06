@@ -47,7 +47,7 @@ $(NAME):
 	@$(MAKE) -C CPCA
 	@$(MAKE) -C libft 
 	@echo "\033[0;32mCompiling minishell"
-	@gcc -g $(CFLAGS) $(LIBRARIES) $(SRCS) -o $(NAME) -lreadline
+	@gcc $(CFLAGS) $(LIBRARIES) $(SRCS) -o $(NAME) -lreadline
 
 
 

@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+// PIZZA FIX env_list_to_env_array()
+
 int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 {
 	if (isBuiltin(command->tokens[0]) == TRUE)
@@ -29,7 +31,7 @@ int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 		if (command->redir_files->len != 0)
 			inputOutputRedirection(command);
 		if (isBuiltin(command->tokens[0]) == TRUE)
-			exit(executeBuiltins(command, envl));
+			return (executeBuiltins(command, envl));
 		else
 			execve(command->tokens[0], command->tokens, env_list_to_env_array(envl));
 	}
