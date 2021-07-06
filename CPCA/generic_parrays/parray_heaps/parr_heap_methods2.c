@@ -17,9 +17,9 @@ void	*pheap_get_head_value(t_pheap h)
 	return (h->data[0]);
 }
 
-int		pheap_count_children(t_pheap h, int i)
+int	pheap_count_children(t_pheap h, int i)
 {
-	int fg;
+	int	fg;
 
 	fg = 2 * i + 1;
 	if (fg >= h->len)
@@ -30,7 +30,7 @@ int		pheap_count_children(t_pheap h, int i)
 		return (2);
 }
 
-int		pheap_get_smallest_child_index(t_pheap h, int i)
+int	pheap_get_smallest_child_index(t_pheap h, int i)
 {
 	void	*rc;
 	void	*lc;
@@ -43,7 +43,7 @@ int		pheap_get_smallest_child_index(t_pheap h, int i)
 	{
 		lc = h->data[pheap_get_left_child_index(h, i)];
 		rc = h->data[pheap_get_right_child_index(h, i)];
-		if (((*(h->obj_cmp)) (lc, rc)) <= 0)
+		if (((*(h->obj_cmp))(lc, rc)) <= 0)
 			return (pheap_get_left_child_index(h, i));
 		else
 			return (pheap_get_right_child_index(h, i));

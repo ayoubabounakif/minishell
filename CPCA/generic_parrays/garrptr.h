@@ -23,17 +23,17 @@
 # define GPARRAY_DEFAULT_SIZE 64
 
 typedef void	(*t_destructor)(void *obj);
-typedef struct s_arrptr *t_arrptr;
-typedef int	(*t_compar)(const void *, const void*);
 
-struct			s_arrptr
+typedef int		(*t_compar)(const void *, const void*);
+
+typedef struct s_arrptr
 {
 	void			**data;
 	int				len;
 	int				alloc;
 	t_destructor	obj_des;
 	t_compar		obj_cmp;
-};
+}	*t_arrptr;
 /*
 ** constructor of the array with a 64 case by default size
 */

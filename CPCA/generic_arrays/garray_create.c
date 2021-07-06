@@ -12,9 +12,9 @@
 
 #include "garray.h"
 
-t_array			empty_garr(int size, t_destruct obj_des, int cell_size)
+t_array	empty_garr(int size, t_destruct obj_des, int cell_size)
 {
-	t_array a;
+	t_array	a;
 
 	a = malloc(sizeof(struct s_array));
 	a->len = 0;
@@ -25,24 +25,24 @@ t_array			empty_garr(int size, t_destruct obj_des, int cell_size)
 	return (a);
 }
 
-t_array			empty_garr_64(t_destruct obj_des, int cell_size)
+t_array	empty_garr_64(t_destruct obj_des, int cell_size)
 {
-	t_array a;
+	t_array	a;
 
 	a = empty_garr(GARRAY_DEFAULT_ALLOC, obj_des, cell_size);
 	return (a);
 }
 
-void			garr_destroy(t_array a)
+void	garr_destroy(t_array a)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	if (a->obj_des != NULL)
 	{
 		while (i < a->len)
 		{
-			(*(a->obj_des)) (a->data + i * a->cell_size);
+			(*(a->obj_des))(a->data + i * a->cell_size);
 			i++;
 		}
 	}
@@ -50,7 +50,7 @@ void			garr_destroy(t_array a)
 	free(a);
 }
 
-void			*garr_get(t_array a, int index)
+void	*garr_get(t_array a, int index)
 {
-	return ((char*)a->data + index * a->cell_size);
+	return ((char *)a->data + index * a->cell_size);
 }

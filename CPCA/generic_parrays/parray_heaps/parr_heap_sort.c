@@ -13,7 +13,7 @@
 #include "parr_heap.h"
 #include <strings.h>
 
-void		pheap_sort(t_arrptr arr, t_compar cmp)
+void	pheap_sort(t_arrptr arr, t_compar cmp)
 {
 	t_pheap	h;
 	int		i;

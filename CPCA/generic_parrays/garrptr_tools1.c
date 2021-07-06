@@ -12,14 +12,14 @@
 
 #include "garrptr.h"
 
-void		arrptr_set(t_arrptr a, int index, void *obj)
+void	arrptr_set(t_arrptr a, int index, void *obj)
 {
-	size_t newalc;
+	size_t	newalc;
 
-	newalc = (1 + 2 * index) * sizeof(void*);
+	newalc = (1 + 2 * index) * sizeof(void *);
 	if (index >= a->alloc)
 	{
-		a->data = memory_grow(a->data, a->alloc * sizeof(void*), newalc);
+		a->data = memory_grow(a->data, a->alloc * sizeof(void *), newalc);
 		a->alloc = newalc;
 	}
 	if (index >= a->len)
@@ -27,7 +27,7 @@ void		arrptr_set(t_arrptr a, int index, void *obj)
 	a->data[index] = obj;
 }
 
-void		arrptr_add(t_arrptr a, void *obj)
+void	arrptr_add(t_arrptr a, void *obj)
 {
 	arrptr_set(a, a->len, obj);
 }

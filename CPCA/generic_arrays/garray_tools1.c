@@ -12,9 +12,9 @@
 
 #include "garray.h"
 
-void			garr_set(t_array a, int index, void *obj)
+void	garr_set(t_array a, int index, void *obj)
 {
-	size_t newalc;
+	size_t	newalc;
 
 	newalc = (1 + 2 * index) * a->cell_size;
 	if (index >= a->alloc)
@@ -27,7 +27,7 @@ void			garr_set(t_array a, int index, void *obj)
 	memory_copy((a->data + index * a->cell_size), obj, a->cell_size);
 }
 
-void			garr_add(t_array a, void *obj)
+void	garr_add(t_array a, void *obj)
 {
 	garr_set(a, a->len, obj);
 }

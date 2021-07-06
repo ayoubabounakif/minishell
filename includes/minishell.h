@@ -19,12 +19,13 @@
 # include <sys/wait.h>
 # include <string.h>
 # include <signal.h>
-# include "../libft/libft.h"
-# include "../get_next_line/get_next_line.h"
-# include "../dlist/dlists.h"
-# include "../parser/command_table_generator.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# include "../libft/libft.h"
+# include "../dlist/dlists.h"
+
+# include "../parser/command_table_generator.h"
 
 # define UPPERCASE_BUILTINS 2
 
@@ -55,16 +56,15 @@ typedef struct s_env
 
 t_vars			g_vars;
 
-
 /*
-** signals
+**	signals
 **/
 void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		sig_handler(int sign_num);
 
 /*
-** execution
+**	execution
 */
 void		executeParsedLine(t_dlist parsed_line, t_dlist envl);
 void		forkPipes(t_dlist pipeline, t_dlist envl);
@@ -82,7 +82,7 @@ void		printErrorMessage(char *command, char *messageToPrint);
 
 
 /*
-** builtins
+**	builtins
 **/
 int			__cd__(t_command *command, t_dlist env_list);
 int			__pwd__(t_command *command, t_dlist env_list);
@@ -93,7 +93,7 @@ int			__env__(t_command *command, t_dlist env_list);
 int			__exit__(t_command *command, t_dlist env_list);
 
 /*
-** env
+**	env
 **/
 t_env		*env_create(char *key, char *value);
 void		env_destroy(void *env_);

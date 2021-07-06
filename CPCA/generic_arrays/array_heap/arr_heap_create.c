@@ -14,7 +14,7 @@
 
 t_heap	heap_create(int alloc, t_comp cmp_fun, t_destruct des, int cell_size)
 {
-	t_array h;
+	t_array	h;
 
 	h = empty_garr(alloc, des, cell_size);
 	h->obj_cmp = cmp_fun;

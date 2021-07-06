@@ -12,7 +12,7 @@
 
 #include "dlists.h"
 
-void			dlist_insert_after_cursor(t_dlist l, void *value)
+void	dlist_insert_after_cursor(t_dlist l, void *value)
 {
 	t_dlist_cell	new;
 
@@ -25,10 +25,10 @@ void			dlist_insert_after_cursor(t_dlist l, void *value)
 	l->cursor_n = new;
 	l->len++;
 }
- 
-void			dlist_insert_before_cursor(t_dlist l, void *value)
+
+void	dlist_insert_before_cursor(t_dlist l, void *value)
 {
-	t_dlist_cell new;
+	t_dlist_cell	new;
 
 	new = malloc(sizeof(struct s_dlist_cell));
 	new->value = value;
@@ -40,10 +40,10 @@ void			dlist_insert_before_cursor(t_dlist l, void *value)
 	l->len++;
 }
 
-void			dlist_remove_after_cursor(t_dlist l, char delete)
+void	dlist_remove_after_cursor(t_dlist l, char delete)
 {
-	t_dlist_cell n;
-	t_dlist_cell p;
+	t_dlist_cell	n;
+	t_dlist_cell	p;
 
 	n = l->cursor_n;
 	p = l->cursor_p;
@@ -51,19 +51,20 @@ void			dlist_remove_after_cursor(t_dlist l, char delete)
 	n->n->p = p;
 	l->cursor_n = n->n;
 	if (delete)
-		(*(l->destroy)) ((n->value));
+		(*(l->destroy))((n->value));
 	free(n);
 	l->len--;
 }
-void			dlist_remove_before_cursor(t_dlist l, char delete)
+
+void	dlist_remove_before_cursor(t_dlist l, char delete)
 {
-	t_dlist_cell n;
-	t_dlist_cell p;
+	t_dlist_cell	n;
+	t_dlist_cell	p;
 
 	n = l->cursor_n;
 	p = l->cursor_p;
 	n->p = p->p;
-	p->p->n = n;	
+	p->p->n = n;
 	l->cursor_p = p->p;
 	if (delete)
 		(*(l->destroy))(p->value);

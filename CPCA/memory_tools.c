@@ -14,9 +14,9 @@
 
 void	*memory_copy(void *dst, const void *src, size_t n)
 {
-	size_t			i;
-	const char		*s;
-	char			*d;
+	size_t		i;
+	const char	*s;
+	char		*d;
 
 	if (!dst && !src)
 		return (NULL);
@@ -37,10 +37,9 @@ void	*memory_copy(void *dst, const void *src, size_t n)
 
 void	*memory_grow(void *address, size_t old_size, size_t new_size)
 {
-	void *tmp;
+	void	*tmp;
 
-	if ((tmp = malloc(new_size)) == NULL)
-		return (NULL);
+	tmp = malloc(new_size);
 	memory_copy(tmp, address, old_size);
 	free(address);
 	return (tmp);
@@ -48,7 +47,7 @@ void	*memory_grow(void *address, size_t old_size, size_t new_size)
 
 void	vp_swap(void **v1, void **v2)
 {
-	void *tmp;
+	void	*tmp;
 
 	tmp = *v1;
 	*v1 = *v2;
@@ -61,8 +60,8 @@ void	memory_swap(void *a1_, void *a2_, size_t size)
 	char	*a1;
 	char	*a2;
 
-	a1 = (char*)a1_;
-	a2 = (char*)a2_;
+	a1 = (char *)a1_;
+	a2 = (char *)a2_;
 	while (size--)
 	{
 		tmp = *a1;

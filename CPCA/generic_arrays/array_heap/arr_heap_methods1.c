@@ -12,7 +12,7 @@
 
 #include "arr_heap.h"
 
-int		is_empty_heap(t_heap h)
+int	is_empty_heap(t_heap h)
 {
 	return (h->len == 0);
 }
@@ -23,7 +23,7 @@ int		is_empty_heap(t_heap h)
 **  to find the right child node of a given node: 2n + 2
 */
 
-int		heap_has_parent(t_heap h, int i)
+int	heap_has_parent(t_heap h, int i)
 {
 	if (i < 0 || i >= h->len)
 		return (0);
@@ -31,21 +31,21 @@ int		heap_has_parent(t_heap h, int i)
 		return (i > 0);
 }
 
-int		heap_get_parent_index(t_heap h, int i)
+int	heap_get_parent_index(t_heap h, int i)
 {
 	if ((i < 0) || (i >= h->len) || (!heap_has_parent(h, i)))
 		return (-1);
-	return (i - 1) / 2;
+	return ((i - 1) / 2);
 }
 
-int		heap_get_left_child_index(t_heap h, int i)
+int	heap_get_left_child_index(t_heap h, int i)
 {
 	if (i < 0 || (i >= h->len) || (heap_count_children(h, i) < 1))
 		return (-1);
 	return (2 * i + 1);
 }
 
-int		heap_get_right_child_index(t_heap h, int i)
+int	heap_get_right_child_index(t_heap h, int i)
 {
 	if (i < 0 || (i >= h->len) || (heap_count_children(h, i) < 2))
 		return (-1);
