@@ -26,6 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define UPPERCASE_BUILTINS 2
 
 # define TRUE 1
 # define FALSE 0

@@ -6,6 +6,7 @@
         "readline.h": "c",
         "history.h": "c",
         "setjmp.h": "c",
-        "dlists.h": "c"
+        "dlists.h": "c",
+        "get_next_line.h": "c"
     }
 }

@@ -47,16 +47,11 @@ int	executeBuiltins(t_command *command, t_dlist envl)
 
 int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 {
-	if (isBuiltin(command->tokens[0]) == FALSE)
-	{
-		command->tokens[0] = binPath(command->tokens[0], envl);
-		if (command->tokens[0] == NULL)
-			return (EXIT_FAILURE);
-	}
+	if (isBuiltin(command->tokens[0]) == TRUE)
+		return (executeBuiltins(command, envl));
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD_PROCESS)
 	{
-		printf("g_vars.pid = %d\n", g_vars.pid);
 		if (in != STDIN_FILENO)
 		{
 			dup2(in, STDIN_FILENO);
@@ -76,19 +71,13 @@ int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 
 int	spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 {
-	if (isBuiltin(command->tokens[0]) == FALSE)
-	{
-		command->tokens[0] = binPath(command->tokens[0], envl);
-		if (command->tokens[0] == NULL)
-			return (EXIT_FAILURE);
-	}
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD_PROCESS)
 	{
 		dup2InputOutput(in, pipeFds[WRITE]);
 		if (pipeFds[READ] > 2)
 			close(pipeFds[READ]);
-		if (command->redir_files->len != 0)
+		if (command->redir_files->len)
 			inputOutputRedirection(command);
 		if (isBuiltin(command->tokens[0]) == TRUE)
 			exit(executeBuiltins(command, envl));

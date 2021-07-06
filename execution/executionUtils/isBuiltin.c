@@ -15,7 +15,7 @@
 int	isBuiltin(char *token)
 {
 	int		i;
-	const char *builtin_str[] = {
+	static const char *builtins[] = {
 		"echo",
 		"cd",
 		"pwd",
@@ -24,12 +24,23 @@ int	isBuiltin(char *token)
 		"env",
 		"exit",
 	};
+	static const char *uppercaseBuiltins[] = {
+		"ECHO",
+		"CD",
+		"PWD",
+		"EXPORT",
+		"UNSET",
+		"ENV",
+		"EXIT",
+	};
 
 	i = 0;
 	while (i < 7)
 	{
-		if (strcmp(token, builtin_str[i]) == 0)
+		if (strcmp(token, builtins[i]) == 0)
 			return (TRUE);
+		if (strcmp(token, uppercaseBuiltins[i]) == 0)
+			return (UPPERCASE_BUILTINS);
 		i++;
 	}
 	return (FALSE);
