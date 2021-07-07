@@ -22,10 +22,6 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-# include "../libft/libft.h"
-# include "../dlist/dlists.h"
-
 # include "../parser/parser.h"
 
 # define UPPERCASE_BUILTINS 2

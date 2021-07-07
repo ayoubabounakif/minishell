@@ -27,6 +27,7 @@
         "type_traits": "c",
         "vector": "c",
         "syntax_checking.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "parser.h": "c"
     }
 }

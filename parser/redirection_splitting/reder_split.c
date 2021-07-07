@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "reder_split.h"
+#include "../parser.h"
 
 int				is_red_cmd_non_split(char *token_)
 {
