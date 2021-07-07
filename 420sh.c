@@ -12,7 +12,7 @@
 
 # include "includes/minishell.h"
 # include <setjmp.h>
-# include "parser/syntax_checking.h"
+
 
 
 int		main(int ac, char **av, char **envp)

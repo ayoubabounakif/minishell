@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/06/05 10:58:53 by khafni           ###   ########.fr       */
+/*   Updated: 2021/07/07 13:26:35 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "../libft/libft.h"
 # include "../dlist/dlists.h"
 
-# include "../parser/command_table_generator.h"
+# include "../parser/parser.h"
 
 # define UPPERCASE_BUILTINS 2
 

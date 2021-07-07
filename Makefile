@@ -9,6 +9,7 @@ SRCS = 420sh.c \
 ./parser/env_variables.c\
 ./parser/expand_env_vars.c\
 ./parser/syntax_checking.c\
+./parser/tokens.c\
 \
 ./execution/executeParsedLine.c \
 ./execution/forkPipes.c \

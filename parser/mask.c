@@ -6,11 +6,11 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 19:05:40 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/29 20:30:05 by khafni           ###   ########.fr       */
+/*   Updated: 2021/07/07 12:20:09 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mask.h"
+#include "parser.h"
 
 void		init_states(t_state *state)
 {

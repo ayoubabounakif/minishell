@@ -6,11 +6,11 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 21:19:42 by khafni            #+#    #+#             */
-/*   Updated: 2021/07/01 15:02:01 by khafni           ###   ########.fr       */
+/*   Updated: 2021/07/07 12:21:27 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "syntax_checking.h"
+#include "parser.h"
 
 t_syx_check	syntax_check_create(void)
 {

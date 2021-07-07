@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command_table.h"
+#include "../parser.h"
 
 t_redir_file redir_file(char *file_name, char type_of_file)
 {
