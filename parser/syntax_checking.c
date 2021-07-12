@@ -14,7 +14,7 @@
 
 t_syx_check	syntax_check_create(void)
 {
-	static t_syx_check syx;
+	static t_syx_check syx = NULL;
 
 	if (syx == NULL)
 	{
