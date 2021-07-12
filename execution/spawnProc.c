@@ -14,9 +14,9 @@
 
 // PIZZA FIX env_list_to_env_array()
 
-int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
+int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
-	if (isBuiltin(command->tokens[0]) == TRUE)
+	if (isBuiltin(command->tokens_simpl[0]) == TRUE)
 		return (executeBuiltins(command, envl));
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD_PROCESS)
@@ -30,15 +30,15 @@ int	spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 			close(pipeFds[WRITE]);
 		if (command->redir_files->len != 0)
 			inputOutputRedirection(command);
-		if (isBuiltin(command->tokens[0]) == TRUE)
+		if (isBuiltin(command->tokens_simpl[0]) == TRUE)
 			return (executeBuiltins(command, envl));
 		else
-			execve(command->tokens[0], command->tokens, env_list_to_env_array(envl));
+			execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl));
 	}
 	return (EXIT_SUCCESS);
 }
 
-int	spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl)
+int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD_PROCESS)
@@ -48,10 +48,10 @@ int	spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl)
 			close(pipeFds[READ]);
 		if (command->redir_files->len)
 			inputOutputRedirection(command);
-		if (isBuiltin(command->tokens[0]) == TRUE)
+		if (isBuiltin(command->tokens_simpl[0]) == TRUE)
 			exit(executeBuiltins(command, envl));
 		else
-			execve(command->tokens[0], command->tokens, env_list_to_env_array(envl));
+			execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl));
 	}
 	return (EXIT_SUCCESS);
 }

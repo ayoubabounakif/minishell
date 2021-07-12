@@ -23,11 +23,11 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 	dlist_move_cursor_to_head(pipeline);
 	while (pipeline->cursor_n->n != pipeline->sentinel)
 	{
-		ret = isBuiltin(((t_command *)pipeline->cursor_n->value)->tokens[0]);
-		if (ret != TRUE)
+		ret = isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]);
+			if (ret != TRUE)
 		{
-			((t_command *)pipeline->cursor_n->value)->tokens[0] = binPath(((t_command *)pipeline->cursor_n->value)->tokens[0], envl);
-			if (((t_command *)pipeline->cursor_n->value)->tokens[0] == NULL)
+			((t_commands_table )pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
+			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
 				return ;
 		}
 		pipe(pipeFds);
@@ -39,11 +39,11 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 		in = pipeFds[READ];
 		dlist_move_cursor_to_next(pipeline);
 	}
-	ret = isBuiltin(((t_command *)pipeline->cursor_n->value)->tokens[0]);
+	ret = isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]);
 	if (ret != TRUE)
 	{
-		((t_command *)pipeline->cursor_n->value)->tokens[0] = binPath(((t_command *)pipeline->cursor_n->value)->tokens[0], envl);
-		if (((t_command *)pipeline->cursor_n->value)->tokens[0] == NULL)
+		((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
+		if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
 			return ;
 	}
 	spawnLastProc(in, pipeFds, pipeline->cursor_n->value, envl);

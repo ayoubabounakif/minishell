@@ -15,10 +15,11 @@
 int		testForUppercaseBuiltins(t_dlist pipeline)
 {
 	dlist_move_cursor_to_head(pipeline);
-	if (isBuiltin(((t_command *)pipeline->cursor_n->value)->tokens[0]) == UPPERCASE_BUILTINS)
+	if (isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]) == UPPERCASE_BUILTINS)
+	// if (isBuiltin(arrptr_get(((t_commands_table)pipeline->cursor_n->value)->tokens, 0)))
 	{
 		ft_putstr_fd("420sh: ", STDERR_FILENO);
-		ft_putstr_fd(((t_command *)pipeline->cursor_n->value)->tokens[0], STDERR_FILENO);
+		ft_putstr_fd(((t_commands_table )pipeline->cursor_n->value)->tokens_simpl[0], STDERR_FILENO);	
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 		g_vars.exit_code = 127;
 		return (UPPERCASE_BUILTINS);
@@ -27,14 +28,9 @@ int		testForUppercaseBuiltins(t_dlist pipeline)
 }
 
 void		executeParsedLine(t_dlist parsed_line, t_dlist envl)
-{
-	dlist_move_cursor_to_head(parsed_line);
-	while (parsed_line->cursor_n != parsed_line->sentinel)
-	{
-		if (testForUppercaseBuiltins(parsed_line->cursor_n->value) == UPPERCASE_BUILTINS)
+{	
+		if (testForUppercaseBuiltins(parsed_line) == UPPERCASE_BUILTINS)
 			return ;
 		else
-			forkPipes(parsed_line->cursor_n->value, envl);
-		dlist_move_cursor_to_next(parsed_line);
-	}
+			forkPipes(parsed_line, envl);	
 }

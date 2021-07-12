@@ -25,7 +25,7 @@ t_dlist     cmd_tables(char *parsing_text, t_dlist env_list)
 	int i;
 
 	i = 0;
-	c_tables = dlist_empty_create(NULL, NULL, NULL);
+	c_tables = dlist_empty_create(cmd_table_destroy, NULL, NULL);
 	pls = get_pipelines(parsing_text);
 	while (i < pls->len)
 	{
@@ -38,6 +38,15 @@ t_dlist     cmd_tables(char *parsing_text, t_dlist env_list)
 	arrptr_destroy(pls);
 	return (c_tables);
 }
+
+
+
+
+
+
+
+
+
 
 void        cmd_tables_destroy(t_dlist cmd_tables_list)
 {
@@ -59,7 +68,7 @@ t_dlist  cmd_tables_list_(char *parsing_text, t_dlist env_list)
 	{
 		c_tables_tmp =  list_->cursor_n->value;
 		list_->cursor_n->value = command_table(c_tables_tmp, env_list);
-		cmd_table_destroy(c_tables_tmp); // source of the problem
+		// cmd_table_destroy(c_tables_tmp); // source of the problem
 		dlist_move_cursor_to_next(list_);
 	}
 	list_->destroy = command_table_destroy;
@@ -116,9 +125,17 @@ t_dlist      cmd_tables_list(char *parsing_text, t_dlist env_list)
 		}
 		dlist_move_cursor_to_next(tmp_list_of_command_tables_non_splitted);
 	}
-	//cmd_tables_list_destroy_(tmp_list_of_command_tables_non_splitted);
+	// cmd_tables_list_destroy_(tmp_list_of_command_tables_non_splitted);
+	dlist_destroy(tmp_list_of_command_tables_non_splitted);
+	//dlist_destroy(a_command_table_list);
 	return (list_of_command_tables_lists);
 }
+
+
+
+
+
+
 
 t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 {
@@ -133,13 +150,14 @@ t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 		syntax_destroy(syx);
 		exit(1);
 	}
-	cmd_tbs_lists = cmd_tables_list(parsing_line, env_list);
+	// cmd_tbs_lists = cmd_tables_list(parsing_line, env_list);
+	cmd_tbs_lists = cmd_tables(parsing_line, env_list);
 	if (syx->is_error)
 	{
 		printf("%s", syx->error_message);
 		syntax_destroy(syx);
 		exit(1);
 	}
-	//syntax_destroy(syx);
+	syntax_destroy(syx);
 	return (cmd_tbs_lists);
 }

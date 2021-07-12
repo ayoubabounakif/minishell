@@ -1,17 +1,17 @@
 #include "parser.h"
 
-void    expand_env_variables_test(t_command *cmd, t_dlist env_list)
+void    expand_env_variables_test(t_commands_table cmd, t_dlist env_list)
 {
     int i;
     char *mask;
 
     i = 0;
-    while (cmd->tokens[i])
+    while (cmd->tokens_simpl[i])
     {
-        if (ft_strnstr(cmd->tokens[i], "$", ft_strlen(cmd->tokens[i])))
+        if (ft_strnstr(cmd->tokens_simpl[i], "$", ft_strlen(cmd->tokens_simpl[i])))
         {
-            mask = get_mask(cmd->tokens[i]);
-            cmd->tokens[i] = find_replace_env_vars_in_a_token(cmd->tokens[i], mask, env_list);
+            mask = get_mask(cmd->tokens_simpl[i]);
+            cmd->tokens_simpl[i] = find_replace_env_vars_in_a_token(cmd->tokens_simpl[i], mask, env_list);
         }
         i++;
     }

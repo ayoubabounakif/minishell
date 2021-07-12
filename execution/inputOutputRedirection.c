@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void	inputOutputRedirection(t_command *command)
+void	inputOutputRedirection(t_commands_table command)
 {
 	int i;
 	int	fdin;

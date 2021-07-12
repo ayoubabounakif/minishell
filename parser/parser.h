@@ -209,8 +209,9 @@ typedef	struct	s_commands_table *t_commands_table;
 
 struct	s_commands_table
 {
-	t_tokens        tokens_unproccessed;	
+	t_tokens        tokens_unproccessed;		
 	t_arrptr        tokens;
+	char			**tokens_simpl;
 	t_arrptr        redir_files;
 	char	        is_after_p_or_sc;
 	char		is_there_a_red_error;

@@ -115,20 +115,20 @@ static int	exportHelper(char *token, t_dlist env_list)
 	return (EXIT_SUCCESS);
 }
 
-int	__export__(t_command *command, t_dlist env_list)
+int	__export__(t_commands_table command, t_dlist env_list)
 {
 	int		i;
 
-	if (tab_len(command->tokens) > 1)
+	if (tab_len(command->tokens_simpl) > 1)
 	{
 		i = 1;
-		while (command->tokens[i])
+		while (command->tokens_simpl[i])
 		{
-			exportHelper(command->tokens[i], env_list);
+			exportHelper(command->tokens_simpl[i], env_list);
 			i++;
 		}
 	}
-	else if (tab_len(command->tokens) == 1)
-		__export_env__(command->tokens, env_list);
+	else if (tab_len(command->tokens_simpl) == 1)
+		__export_env__(command->tokens_simpl, env_list);
 	return (EXIT_SUCCESS);
 }

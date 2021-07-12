@@ -45,13 +45,13 @@ static int	exitSyntaxChecker(int *ac, char **tokens)
 /*
 **	exit needs to work better with exit statuses, and the while and if dont work the right way
 */
-int __exit__(t_command *command, t_dlist env_list)
+int __exit__(t_commands_table command, t_dlist env_list)
 {
 	int		i;
 	(void)env_list;
 
 	i = 0;
-	while (command->tokens[i] != NULL)
+	while (command->tokens_simpl[i] != NULL)
 		i++;
 	if (i == 0)
 	{
@@ -60,7 +60,7 @@ int __exit__(t_command *command, t_dlist env_list)
 	}
 	else
 	{
-		if (exitSyntaxChecker(&i, command->tokens) == EXIT_FAILURE)
+		if (exitSyntaxChecker(&i, command->tokens_simpl) == EXIT_FAILURE)
 		{
 			g_vars.exit_code = 255;
 			exit (g_vars.exit_code);

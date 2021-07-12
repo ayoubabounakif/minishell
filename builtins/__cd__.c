@@ -12,12 +12,12 @@
 
 #include "../includes/minishell.h"
 
-int __cd__(t_command *command, t_dlist env_list)
+int __cd__(t_commands_table command, t_dlist env_list)
 {
 	(void)env_list;
-	if (command->tokens[1] == NULL)
+	if (command->tokens_simpl[1] == NULL)
 		ft_putstr_fd("_420sh: expected argument to cd\n", STDERR_FILENO);
-	else if (chdir(command->tokens[1]) == 0)
+	else if (chdir(command->tokens_simpl[1]) == 0)
 		return (EXIT_SUCCESS);
 	else
 	{

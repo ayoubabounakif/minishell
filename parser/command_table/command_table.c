@@ -40,8 +40,9 @@ t_commands_table	cmd_table(t_pipeline pl, t_dlist env_list)
 	ct->tokens_unproccessed = tokens(pl);
 	
 	process_tokens_from_quotes(ct->tokens_unproccessed);	
-	ct->tokens = empty_arrptr_create(NULL);	
+	ct->tokens = empty_arrptr_create(free);	
 	ct->redir_files = empty_arrptr_create(redir_file_destroy);
+	ct->tokens_simpl = NULL;
 	ct->is_after_p_or_sc = pl->is_after_p_or_sc;
 	ct->is_there_a_red_error = 0;
 	return (ct);
@@ -50,14 +51,22 @@ t_commands_table	cmd_table(t_pipeline pl, t_dlist env_list)
 void				cmd_table_destroy(void *cmd_tab_)
 {
 	t_commands_table cmd_tab;
+	int i;
 
+	i = 0;
 	cmd_tab = (t_commands_table)cmd_tab_;
 	/*
 	** smth commun between tokens_unpr and tokens
 	*/ 
 	tokens_destroy(cmd_tab->tokens_unproccessed);
 	arrptr_destroy(cmd_tab->tokens);	
-	//arrptr_destroy(cmd_tab->redir_files);		
+	arrptr_destroy(cmd_tab->redir_files);		
+	while (cmd_tab->tokens_simpl[i])	
+	{
+		free(cmd_tab->tokens_simpl[i]);
+		i++;
+	}
+	free(cmd_tab->tokens_simpl);
 	free(cmd_tab);
 }
 
@@ -71,15 +80,12 @@ int	check_if_rd_got_afile(t_commands_table cmdt)
 	up = cmdt->tokens_unproccessed;
 	if (up->tokens->cursor_n == up->tokens->sentinel)
 		syntax_set_error(sx, "error around redirection sign");	
-	
-	//|| (up->tokens->cursor_n->value) == '>') || (up->tokens->cursor_n->value) == '<'))
-
-	//	cmdt->is_there_a_red_error = 1;
 	return (666);
 }		
 void	cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 {
 	t_tokens up;
+	int		i;
 
 	up = cmdt->tokens_unproccessed;
 	dlist_move_cursor_to_head(up->tokens);
@@ -99,6 +105,14 @@ void	cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 		dlist_move_cursor_to_next(up->tokens);
 		dlist_move_cursor_to_next(up->tokens_masks);
 	}
+	cmdt->tokens_simpl = malloc(sizeof(char*) * (cmdt->tokens->len + 1));	
+	i = 0;
+	while (i < cmdt->tokens->len)
+	{
+		cmdt->tokens_simpl[i] = ft_strdup(arrptr_get(cmdt->tokens, i));
+		i++;
+	}
+	cmdt->tokens_simpl[i] = NULL;
 }
 
 int					is_token_a_r_app_file(t_commands_table cmdt)
@@ -210,7 +224,7 @@ int					is_normal_token(t_commands_table cmdt)
 void                cmd_table_fill_tokens(t_commands_table cmdt)
 {
 	t_tokens up;
-
+	
 	up = cmdt->tokens_unproccessed;
 	dlist_move_cursor_to_head(up->tokens);
 	dlist_move_cursor_to_head(up->tokens_masks);
@@ -219,8 +233,8 @@ void                cmd_table_fill_tokens(t_commands_table cmdt)
 		if (is_normal_token(cmdt))
 			arrptr_add(cmdt->tokens, ft_strdup(up->tokens->cursor_n->value));	
 		dlist_move_cursor_to_next(up->tokens);
-		dlist_move_cursor_to_next(up->tokens_masks);
-	}
+		dlist_move_cursor_to_next(up->tokens_masks);	
+	}	
 }
 
 
@@ -242,7 +256,8 @@ t_command	*command_table(t_commands_table cmd, t_dlist env_list)
 	command->is_after_p_or_sc = cmd->is_after_p_or_sc;
 	command->redir_files = cmd->redir_files;
 	command->is_there_a_red_error = cmd->is_there_a_red_error;
-	//cmd_table_destroy(cmd); // source of the problem
+	// cmd_table_destroy(cmd); // source of the problem
+	// free(cmd);
 	return (command);
 }
 

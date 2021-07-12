@@ -12,11 +12,11 @@
 
 #include "../includes/minishell.h"
 
-int	__env__(t_command *command, t_dlist env_list)
+int	__env__(t_commands_table command, t_dlist env_list)
 {
 	t_env		*_420sh_env;
 
-	if (tab_len(command->tokens) != 1)
+	if (tab_len(command->tokens_simpl) != 1)
 	{
 		ft_putstr_fd("env: too many arguments\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
