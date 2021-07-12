@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARR_HEAP_H
-# define PARR_HEAP_H
+#ifndef ARR_HEAP_H
+# define ARR_HEAP_H
 # include "../garray.h"
 
 /*

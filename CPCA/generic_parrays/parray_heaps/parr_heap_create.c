@@ -14,7 +14,7 @@
 
 t_pheap	pheap_create(int alloc, t_compar cmp_fun, t_destructor des)
 {
-	t_arrptr h;
+	t_arrptr	h;
 
 	h = empty_arrptr_create_size(alloc, des);
 	h->obj_cmp = cmp_fun;

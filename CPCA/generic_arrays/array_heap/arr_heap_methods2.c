@@ -17,9 +17,9 @@ void	*heap_get_head_value(t_heap h)
 	return (garr_get(h, 0));
 }
 
-int		heap_count_children(t_heap h, int i)
+int	heap_count_children(t_heap h, int i)
 {
-	int fg;
+	int	fg;
 
 	fg = 2 * i + 1;
 	if (fg >= h->len)
@@ -30,7 +30,7 @@ int		heap_count_children(t_heap h, int i)
 		return (2);
 }
 
-int		heap_get_smallest_child_i(t_heap h, int i)
+int	heap_get_smallest_child_i(t_heap h, int i)
 {
 	void	*rc;
 	void	*lc;
@@ -43,7 +43,7 @@ int		heap_get_smallest_child_i(t_heap h, int i)
 	{
 		lc = garr_get(h, heap_get_left_child_index(h, i));
 		rc = garr_get(h, heap_get_right_child_index(h, i));
-		if (((*(h->obj_cmp)) (lc, rc)) <= 0)
+		if (((*(h->obj_cmp))(lc, rc)) <= 0)
 			return (heap_get_left_child_index(h, i));
 		else
 			return (heap_get_right_child_index(h, i));

@@ -25,9 +25,8 @@
 
 typedef void	(*t_destruct)(void *obj);
 typedef int		(*t_comp)(void *obj1, void *obj2);
-typedef struct s_array	*t_array;
 
-struct			s_array
+typedef struct s_array
 {
 	void		*data;
 	int			len;
@@ -35,7 +34,7 @@ struct			s_array
 	int			cell_size;
 	t_destruct	obj_des;
 	t_comp		obj_cmp;
-};
+}	*t_array;
 
 /*
 ** constructor of the array with a 64 case by default size

@@ -6,11 +6,11 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:48:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/07/01 14:08:54 by khafni           ###   ########.fr       */
+/*   Updated: 2021/07/07 12:23:01 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command_table_generator.h"
+#include "parser.h"
 
 /*
 ** private struct and methods

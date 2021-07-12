@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isBuiltin.c                                        :+:      :+:    :+:   */
+/*   executeBuiltins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/27 18:03:54 by aabounak          #+#    #+#             */
-/*   Updated: 2021/06/27 18:04:28 by aabounak         ###   ########.fr       */
+/*   Created: 2021/07/06 18:08:59 by aabounak          #+#    #+#             */
+/*   Updated: 2021/07/06 18:09:19 by aabounak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+# include "../includes/minishell.h"
 
-int	isBuiltin(char *token)
+int	executeBuiltins(t_command *command, t_dlist envl)
 {
 	int		i;
-	static const char *builtins[] = {
+	const char *builtin_str[] = {
 		"echo",
 		"cd",
 		"pwd",
@@ -24,24 +24,23 @@ int	isBuiltin(char *token)
 		"env",
 		"exit",
 	};
-	static const char *uppercaseBuiltins[] = {
-		"ECHO",
-		"CD",
-		"PWD",
-		"EXPORT",
-		"UNSET",
-		"ENV",
-		"EXIT",
+
+	int (*builtin_func[])(t_command *command, t_dlist) = {
+		&__echo__,
+		&__cd__,
+		&__pwd__,
+		&__export__,
+		&__unset__,
+		&__env__,
+		&__exit__,
 	};
 
 	i = 0;
 	while (i < 7)
 	{
-		if (strcmp(token, uppercaseBuiltins[i]) == 0)
-			return (UPPERCASE_BUILTINS);
-		if (strcmp(token, builtins[i]) == 0)
-			return (TRUE);
+		if (strcmp(command->tokens[0], builtin_str[i]) == 0)
+			return (*builtin_func[i])(command, envl);
 		i++;
 	}
-	return (FALSE);
+	return (EXIT_SUCCESS);
 }

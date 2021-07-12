@@ -14,7 +14,7 @@
 
 t_arrptr	empty_arrptr_create_size(int size, t_destructor obj_des)
 {
-	t_arrptr a;
+	t_arrptr	a;
 
 	a = malloc(sizeof(struct s_arrptr));
 	a->len = 0;
@@ -26,22 +26,22 @@ t_arrptr	empty_arrptr_create_size(int size, t_destructor obj_des)
 
 t_arrptr	empty_arrptr_create(t_destructor obj_des)
 {
-	t_arrptr a;
+	t_arrptr	a;
 
 	a = empty_arrptr_create_size(GPARRAY_DEFAULT_SIZE, obj_des);
 	return (a);
 }
 
-void		arrptr_destroy(t_arrptr a)
+void	arrptr_destroy(t_arrptr a)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	if (a->obj_des != NULL)
 	{
 		while (i < a->len)
 		{
-			(*(a->obj_des)) (arrptr_get(a, i));
+			(*(a->obj_des))(arrptr_get(a, i));
 			i++;
 		}
 	}
@@ -49,7 +49,7 @@ void		arrptr_destroy(t_arrptr a)
 	free(a);
 }
 
-void		*arrptr_get(t_arrptr a, int index)
+void	*arrptr_get(t_arrptr a, int index)
 {
 	return (a->data[index]);
 }

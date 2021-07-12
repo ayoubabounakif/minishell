@@ -26,7 +26,7 @@ static void	process(int sign_num)
 			printf("dude\n");
 			ft_putchar_fd('\n', STDOUT_FILENO);
 			rl_on_new_line();
-			rl_replace_line("fuck", 0);
+			// rl_replace_line("fuck", 0);
 			rl_redisplay();
 			g_vars.exit_code = 130;
 		}
@@ -86,7 +86,7 @@ void		sig_handler(int sign_num)
 		ft_putchar_fd('\n', 1);
 		g_vars.exit_code = 1;
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else if (sign_num == SIGQUIT)

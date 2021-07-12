@@ -13,7 +13,7 @@
 #include "arr_heap.h"
 #include <strings.h>
 
-void		heap_sort(t_array arr, t_comp cmp)
+void	heap_sort(t_array arr, t_comp cmp)
 {
 	t_heap	h;
 	int		i;

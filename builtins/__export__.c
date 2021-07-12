@@ -93,6 +93,7 @@ static int		check_env(char *string, t_dlist env_list, int eq_sign)
 static int	exportHelper(char *token, t_dlist env_list)
 {
 	char	**key_value;
+	env_list = get_envs(NULL);
 
 	if (check_syntax(token) == TRUE)
 	{
@@ -110,6 +111,7 @@ static int	exportHelper(char *token, t_dlist env_list)
 	}
 	else
 		printf("420sh: export: `%s': not a valid identifier\n", token);
+	
 	return (EXIT_SUCCESS);
 }
 

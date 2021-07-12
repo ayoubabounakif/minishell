@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/06/05 10:58:53 by khafni           ###   ########.fr       */
+/*   Updated: 2021/07/07 13:26:35 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,14 @@
 # include <errno.h>
 # include <time.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 # include <string.h>
 # include <signal.h>
-# include "../libft/libft.h"
-# include "../get_next_line/get_next_line.h"
-# include "../dlist/dlists.h"
-# include "../parser/command_table_generator.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "../parser/parser.h"
 
+# define UPPERCASE_BUILTINS 2
 
 # define TRUE 1
 # define FALSE 0
@@ -54,34 +53,34 @@ typedef struct s_env
 
 t_vars			g_vars;
 
-
 /*
-** signals
+**	signals
 **/
 void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		sig_handler(int sign_num);
 
 /*
-** execution
+**	execution
 */
 void		executeParsedLine(t_dlist parsed_line, t_dlist envl);
 void		forkPipes(t_dlist pipeline, t_dlist envl);
 int			spawnProc(int in, int *pipeFds, t_command *command, t_dlist envl);
 int			spawnLastProc(int in, int *pipeFds, t_command *command, t_dlist envl);
 void		inputOutputRedirection(t_command *command);
+int			executeBuiltins(t_command *command, t_dlist envl);
 
 /*
 **	executionUtils
 */
 void		dup2InputOutput(int in, int out);
 char		*binPath(char *cmd, t_dlist envl);
-int			isBuiltin(char *token, const char *builtins[]);
+int			isBuiltin(char *token);
 void		printErrorMessage(char *command, char *messageToPrint);
 
 
 /*
-** builtins
+**	builtins
 **/
 int			__cd__(t_command *command, t_dlist env_list);
 int			__pwd__(t_command *command, t_dlist env_list);
@@ -92,7 +91,7 @@ int			__env__(t_command *command, t_dlist env_list);
 int			__exit__(t_command *command, t_dlist env_list);
 
 /*
-** env
+**	env
 **/
 t_env		*env_create(char *key, char *value);
 void		env_destroy(void *env_);

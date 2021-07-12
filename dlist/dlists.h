@@ -6,15 +6,16 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 09:23:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/28 11:19:36 by khafni           ###   ########.fr       */
+/*   Updated: 2021/06/29 19:16:41 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIST_H
-# define LIST_H
+#ifndef DLISTS_H
+# define DLISTS_H
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include "dlist_norm_hack.h"
 
 /*
 ** circular doubly linked list module
@@ -40,13 +41,10 @@ typedef void	(*t_printer)(void *obj);
 
 typedef int		(*t_compare)(void *obj1, void *obj2);
 
-
-typedef struct s_dlist_cell *t_dlist_cell;
-
-struct	s_dlist_cell
+struct s_dlist_cell
 {
 	void			*value;
-	t_dlist_cell	p;	
+	t_dlist_cell	p;
 	t_dlist_cell	n;
 };
 
@@ -65,9 +63,7 @@ struct	s_dlist_cell
 ** and the element after it
 */
 
-typedef struct s_dlist	*t_dlist;
-
-struct s_dlist
+typedef struct s_dlist
 {
 	t_dlist_cell	sentinel;
 	t_dlist_cell	cursor_p;
@@ -76,13 +72,14 @@ struct s_dlist
 	t_printer		printer;
 	t_compare		compare;
 	size_t			len;
-};
+}	*t_dlist;
 
 /*
 ** dlist constructor
 */
 
-t_dlist			dlist_empty_create(t_destroy destroy, t_compare compare, t_printer printer);
+t_dlist			dlist_empty_create(t_destroy destroy,
+					t_compare compare, t_printer printer);
 /*
 **	dlist distructor
 */
@@ -104,8 +101,8 @@ void			dlist_insert_after_cursor_n_move_n(t_dlist l, void *value);
 void			dlist_insert_before_cursor_n_move_p(t_dlist l, void *value);
 
 /*
-**	delete is a boolean set as 0 to not remove the content of the element after cursor
-**	or set to 1 to remove it
+**	delete is a boolean set as 0 to not remove
+** the content of the element after cursor or set to 1 to remove it
 */
 
 void			dlist_remove_after_cursor(t_dlist l, char delete);
@@ -130,8 +127,8 @@ void			dlist_set_before_cursor(t_dlist l, void *value, char delete);
 /*
 **	dlist getters
 */
-void			*dlist_get_after_cursor(t_dlist l, char delete);
-void			*dlist_get_before_cursor(t_dlist l, char delete);
+void			*dlist_get_after_cursor(t_dlist l);
+void			*dlist_get_before_cursor(t_dlist l);
 /*
 **	not needed if the len member of a dlist is used but i like syntatical sugar
 */
@@ -141,5 +138,14 @@ char			is_empty_dlist(t_dlist l);
 **	pushing an element to the end of the list
 */
 void			dlist_pushback(t_dlist l, void *value);
+
+/*
+** stack methods 
+*/
+
+void			push_to_stack(t_dlist stack, void *data);
+void			*pop_from_stack(t_dlist stack);
+void			print_stack(t_dlist stack, char *sep);
+void			*get_stack_top_el(t_dlist stack);
 
 #endif
