@@ -1,6 +1,6 @@
 .PHONY: clean all re fclean
-SRCS =	./dlist_methods1.c ./dlist_methods2.c ./dlist_methods3.c ./dlist_methods4.c ./dlist.c
-SOURCES = dlist_methods1.c dlist_methods2.c dlist_methods3.c dlist_methods4.c dlist.c
+SRCS =	./dlist_methods1.c ./dlist_methods2.c ./dlist_methods3.c ./dlist_methods4.c ./dlist.c ./stack_methods1.c
+SOURCES = dlist_methods1.c dlist_methods2.c dlist_methods3.c dlist_methods4.c dlist.c stack_methods1.c
 OBJS = $(SOURCES:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 NAME	= DLIST.a

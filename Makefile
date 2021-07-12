@@ -49,7 +49,7 @@ $(NAME):
 	@$(MAKE) -C libft 
 	@$(MAKE) -C dlist 
 	@echo "\033[0;32mCompiling minishell"
-	@gcc $(CFLAGS) $(LIBRARIES) $(SRCS) -o $(NAME) -lreadline
+	@gcc $(CFLAGS) $(SRCS) $(LIBRARIES) -o $(NAME) -lreadline
 
 
 
