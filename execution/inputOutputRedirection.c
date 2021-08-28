@@ -24,6 +24,7 @@ void	implement_heredoc(char *delim, int fd)
 			free(buf);
 			break ;
 		}
+		ft_putstr_fd(buf, fd);
 		free(buf);
 	}
 	return ;
@@ -41,7 +42,15 @@ void	heredoc(t_redir_file rf, int *fdin)
 	}
 	implement_heredoc(rf->file_name, fd);
 	close(fd);
-	unlink("/tmp/heredoc_tmpf");
+	{
+		int	fd;
+		fd = unlink("/tmp/heredoc_tmpf");
+		if (fd < 0)
+		{
+			ft_putendl_fd(strerror(errno), STDERR_FILENO);
+			exit(errno);	
+		}
+	}
 	*fdin = fd;
 	return ;
 }

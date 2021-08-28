@@ -28,7 +28,7 @@ void	env_destroy(void *env_)
 {
 	t_env *env;
 
-	env = (t_env*)env_;
+	env = (t_env *)env_;
 	free(env->key);
 	free(env->value);
 	free(env);
@@ -108,11 +108,11 @@ char		*join_3_strings(char *s1, char *s2, char *s3)
 
 char		**env_list_to_env_array(t_dlist env_list)
 {
-	t_env *e;
+	t_env	*e;
 	char	**env_array;
-	char *joined_str;
-	char *joined_str_tmp;
-	int i;
+	char	*joined_str;
+	char	*joined_str_tmp;
+	int		i;
 
 	env_array = (char **)malloc((sizeof(char *) * env_list->len) + 1);
 	i = 0;

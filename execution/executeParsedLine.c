@@ -31,5 +31,5 @@ void		executeParsedLine(t_dlist parsed_line, t_dlist envl)
 	if (testForUppercaseBuiltins(parsed_line) == UPPERCASE_BUILTINS)
 		return ;
 	else
-		forkPipes(parsed_line, envl);	
+	forkPipes(parsed_line, envl);	
 }

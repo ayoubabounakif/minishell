@@ -41,7 +41,7 @@ LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
 
 NAME = minishell
 CC = gcc
-CFLAGS =  -g
+CFLAGS = -g3 -fsanitize=address
 
 all:$(NAME)
 $(NAME):

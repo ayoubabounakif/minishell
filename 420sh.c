@@ -13,11 +13,6 @@
 # include "includes/minishell.h"
 
 
-void	heredoc(t_dlist parsed_line, t_dlist env_list)
-{
-	
-}
-
 int		main(int ac, char **av, char **envp)
 {
 	(void)ac;
@@ -41,7 +36,6 @@ int		main(int ac, char **av, char **envp)
 			parsed_line = parse_line(line, env_list);
 			add_history(line);
 			free(line);
-			// heredoc(parsed_line, env_list);
 			executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);
 		}
