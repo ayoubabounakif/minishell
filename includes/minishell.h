@@ -26,6 +26,8 @@
 
 # define UPPERCASE_BUILTINS 2
 
+# define DELIM 0
+
 # define TRUE 1
 # define FALSE 0
 

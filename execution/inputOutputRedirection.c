@@ -12,6 +12,40 @@
 
 #include "../includes/minishell.h"
 
+void	implement_heredoc(char *delim, int fd)
+{
+	char	*buf;
+
+	while (420)
+	{
+		buf = readline("> ");
+		if (strcmp(buf, delim) == DELIM)
+		{
+			free(buf);
+			break ;
+		}
+		free(buf);
+	}
+	return ;
+}
+
+void	heredoc(t_redir_file rf, int *fdin)
+{
+	int		fd;
+
+	fd = open("/tmp/heredoc_tmpf", O_CREAT | O_TRUNC | O_WRONLY);
+	if (fd < 0)
+	{
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
+		exit(errno);	
+	}
+	implement_heredoc(rf->file_name, fd);
+	close(fd);
+	unlink("/tmp/heredoc_tmpf");
+	*fdin = fd;
+	return ;
+}
+
 void	inputOutputRedirection(t_commands_table command)
 {
 	int i;
@@ -42,6 +76,17 @@ void	inputOutputRedirection(t_commands_table command)
 			if (fdout != STDOUT_FILENO)
 				close(fdout);
 			fdout = open(rf->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		}
+		else if (rf->file_type == REDI_HEREDOC_FILE)
+		{
+			if (fdin != STDIN_FILENO)
+				close(fdin);
+			heredoc(rf, &fdin);
+		}
+		if (fdin < 0 || fdout < 0)
+		{
+			ft_putendl_fd(strerror(errno), STDERR_FILENO);
+			exit(errno);
 		}
 		i++;
 	}

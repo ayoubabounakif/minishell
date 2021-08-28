@@ -24,7 +24,7 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 	while (pipeline->cursor_n->n != pipeline->sentinel)
 	{
 		ret = isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]);
-			if (ret != TRUE)
+		if (ret != TRUE)
 		{
 			((t_commands_table )pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
 			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
