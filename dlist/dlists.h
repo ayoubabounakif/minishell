@@ -15,7 +15,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include "dlist_norm_hack.h"
 
 /*
 ** circular doubly linked list module
@@ -26,27 +25,42 @@
 ** if are an allocated object at the heap
 */
 
-typedef void	(*t_destroy)(void *obj);
+typedef void	(*t_funDestroy)(void *obj);
 
 /*
 ** function pointer to abstract the  node's content print
 ** to console function to 
 */
 
-typedef void	(*t_printer)(void *obj);
+typedef void	(*t_funPrint)(void *obj);
 
-/*
-** function pointer to abstract
-*/
+typedef int		(*t_funCompare)(void *obj1, void *obj2);
 
-typedef int		(*t_compare)(void *obj1, void *obj2);
+typedef int		(*t_Predicate)(void *data);
 
-struct s_dlist_cell
+typedef void*	(*t_funClone)(void *data);
+
+typedef struct s_funPtrs
+{
+	t_funPrint		print;
+	t_funDestroy	destroy;
+	t_Predicate		predicate;
+	t_funClone		clone;
+}	t_funPtrs;
+
+typedef struct s_dlist_cell
 {
 	void			*value;
-	t_dlist_cell	p;
-	t_dlist_cell	n;
-};
+	struct s_dlist_cell	*p;
+	struct s_dlist_cell	*n;
+} t_dlist_cell;
+
+typedef	struct s_dlist_cursor
+{
+	t_dlist_cell *p;	
+	t_dlist_cell *n;	
+} t_dlist_cursor;
+
 
 /*
 ** the sentinal is the node of the linked list that points to the first
@@ -65,12 +79,10 @@ struct s_dlist_cell
 
 typedef struct s_dlist
 {
-	t_dlist_cell	sentinel;
-	t_dlist_cell	cursor_p;
-	t_dlist_cell	cursor_n;
-	t_destroy		destroy;
-	t_printer		printer;
-	t_compare		compare;
+	t_dlist_cell	*sentinel;
+	t_dlist_cell	*cursorP;
+	t_dlist_cell	*cursorN;
+	t_funPtrs		funPtrs;
 	size_t			len;
 }	*t_dlist;
 
@@ -78,12 +90,17 @@ typedef struct s_dlist
 ** dlist constructor
 */
 
-t_dlist			dlist_empty_create(t_destroy destroy,
+/* t_dlist			dlist_empty_create(t_destroy destroy,
 					t_compare compare, t_printer printer);
+ */
+
+t_dlist			dlist_empty_create(t_funPtrs funPtrs);
 /*
 **	dlist distructor
 */
-void			dlist_destroy(void *l_);
+void			dlist_destroy(t_dlist *L);
+
+void			dlist_destroy_using_destructor(t_dlist *L_);
 
 /*
 ** dlist element's insertion methods
@@ -94,11 +111,11 @@ void			dlist_insert_before_cursor(t_dlist l, void *value);
 /*
 ** insert element after cursor and move the cursor forward
 */
-void			dlist_insert_after_cursor_n_move_n(t_dlist l, void *value);
+void			dlist_insert_after_cursor_and_jump(t_dlist l, void *value);
 /*
 ** insert element before cursor and move the cursor backward 
 */
-void			dlist_insert_before_cursor_n_move_p(t_dlist l, void *value);
+void			dlist_insert_before_cursor_and_jump(t_dlist l, void *value);
 
 /*
 **	delete is a boolean set as 0 to not remove
@@ -133,19 +150,15 @@ void			*dlist_get_before_cursor(t_dlist l);
 **	not needed if the len member of a dlist is used but i like syntatical sugar
 */
 char			is_empty_dlist(t_dlist l);
+int				dlist_length(t_dlist L);
+char			is_dlist_empty(t_dlist L);
+char			at_dlist_head(t_dlist L);
+char			at_dlist_tail(t_dlist L);
 
-/*
-**	pushing an element to the end of the list
-*/
-void			dlist_pushback(t_dlist l, void *value);
-
-/*
-** stack methods 
-*/
-
-void			push_to_stack(t_dlist stack, void *data);
-void			*pop_from_stack(t_dlist stack);
-void			print_stack(t_dlist stack, char *sep);
-void			*get_stack_top_el(t_dlist stack);
-
+t_dlist_cursor	dlist_get_cursor(t_dlist L);
+void			dlist_set_cursor(t_dlist L, t_dlist_cursor C);
+void			dlist_map (t_dlist L, void (*f) (void *data));
+t_dlist			dlist_maplist (t_dlist L, void *(*f) (void *data), t_funPtrs funPtrs);
+t_dlist			dlist_filter(t_dlist L, t_Predicate P);
+t_dlist			dlist_filter_using_clone(t_dlist L, t_Predicate P);
 #endif

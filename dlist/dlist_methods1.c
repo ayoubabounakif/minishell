@@ -14,60 +14,59 @@
 
 void	dlist_insert_after_cursor(t_dlist l, void *value)
 {
-	t_dlist_cell	new;
+	t_dlist_cell	*new;
 
 	new = malloc(sizeof(struct s_dlist_cell));
 	new->value = value;
-	new->p = l->cursor_p;
-	new->n = l->cursor_n;
-	l->cursor_n->p = new;
-	l->cursor_p->n = new;
-	l->cursor_n = new;
+	new->p = l->cursorP;
+	new->n = l->cursorN;
+	l->cursorN->p = new;
+	l->cursorP->n = new;
+	l->cursorN = new;
 	l->len++;
 }
 
-void	dlist_insert_before_cursor(t_dlist l, void *value)
+void	dlist_insert_before_cursor(t_dlist L, void *value)
 {
-	t_dlist_cell	new;
+	t_dlist_cell	*new_cell;
 
-	new = malloc(sizeof(struct s_dlist_cell));
-	new->value = value;
-	new->p = l->cursor_p;
-	new->n = l->cursor_n;
-	l->cursor_n->p = new;
-	l->cursor_p->n = new;
-	l->cursor_p = new;
-	l->len++;
+	new_cell = malloc(sizeof(struct s_dlist_cell));
+	new_cell->n = L->cursorN;
+	new_cell->p = L->cursorP;
+	L->cursorP->n = new_cell;
+	L->cursorN->p = new_cell;
+	L->cursorP = new_cell;
+	L->len++;
 }
 
 void	dlist_remove_after_cursor(t_dlist l, char delete)
 {
-	t_dlist_cell	n;
-	t_dlist_cell	p;
+	t_dlist_cell	*n;
+	t_dlist_cell	*p;
 
-	n = l->cursor_n;
-	p = l->cursor_p;
+	n = l->cursorN;
+	p = l->cursorP;
 	p->n = n->n;
 	n->n->p = p;
-	l->cursor_n = n->n;
+	l->cursorN = n->n;
 	if (delete)
-		(*(l->destroy))((n->value));
+		(*(l->funPtrs.destroy))((n->value));
 	free(n);
 	l->len--;
 }
 
 void	dlist_remove_before_cursor(t_dlist l, char delete)
 {
-	t_dlist_cell	n;
-	t_dlist_cell	p;
+	t_dlist_cell	*n;
+	t_dlist_cell	*p;
 
-	n = l->cursor_n;
-	p = l->cursor_p;
+	n = l->cursorN;
+	p = l->cursorP;
 	n->p = p->p;
 	p->p->n = n;
-	l->cursor_p = p->p;
+	l->cursorP = p->p;
 	if (delete)
-		(*(l->destroy))(p->value);
+		(*(l->funPtrs.destroy))(p->value);
 	free(p);
 	l->len--;
 }

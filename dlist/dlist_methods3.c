@@ -14,32 +14,34 @@
 
 void	dlist_set_after_cursor(t_dlist l, void *value, char delete)
 {
-	t_dlist_cell	c;
-
-	c = l->cursor_n;
+	if (l->cursorN == l->sentinel)
+		return ;
 	if (delete)
-		(*(l->destroy))(c->value);
-	c->value = value;
+		(*(l->funPtrs.destroy))(&(l->cursorP->value));
+	l->cursorN->value = value;
 }
 
 void	dlist_set_before_cursor(t_dlist l, void *value, char delete)
 {
-	t_dlist_cell	c;
-
-	c = l->cursor_p;
+	if (l->cursorP == l->sentinel)	
+		return ;
 	if (delete)
-		(*(l->destroy))(c->value);
-	c->value = value;
+		(*(l->funPtrs.destroy))(&(l->cursorP->value));
+
 }
 
 void	*dlist_get_after_cursor(t_dlist l)
 {
-	return (l->cursor_n->value);
+	if (l->cursorN == l->sentinel)
+		return (NULL);
+	return (l->cursorN->value);
 }
 
 void	*dlist_get_before_cursor(t_dlist l)
 {
-	return (l->cursor_p->value);
+	if (l->cursorP == l->sentinel)
+		return (NULL);
+	return (l->cursorP->value);
 }
 
 void	dlist_pushback(t_dlist l, void *value)

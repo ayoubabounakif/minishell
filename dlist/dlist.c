@@ -12,8 +12,7 @@
 
 #include "dlists.h"
 
-t_dlist	dlist_empty_create(t_destroy destroy_f,
-			t_compare compare_f, t_printer print_f)
+t_dlist	dlist_empty_create(t_funPtrs funPtrs)
 {
 	t_dlist	l;
 
@@ -21,31 +20,46 @@ t_dlist	dlist_empty_create(t_destroy destroy_f,
 	l->sentinel = malloc(sizeof(struct s_dlist_cell));
 	l->sentinel->n = l->sentinel;
 	l->sentinel->p = l->sentinel;
-	l->cursor_n = l->sentinel;
-	l->cursor_p = l->sentinel;
-	l->destroy = destroy_f;
-	l->compare = compare_f;
-	l->printer = print_f;
+	l->cursorN = l->sentinel;
+	l->cursorP = l->sentinel;
+	l->funPtrs.clone = funPtrs.clone;
+	l->funPtrs.destroy = funPtrs.destroy;
+	l->funPtrs.predicate = funPtrs.predicate;
+	l->funPtrs.print = funPtrs.print;
 	l->len = 0;
 	return (l);
 }
 
-void	dlist_destroy(void *l_)
+void	dlist_destroy(t_dlist *L_)
 {
-	t_dlist			l;
-	t_dlist_cell	c;
-	t_dlist_cell	next;
+	t_dlist			L;
+	t_dlist_cell	*c;
+	t_dlist_cell	*next;
 
-	l = l_;
-	c = l->sentinel->n;
-	while (c != l->sentinel)
+	L = *L_;
+	c = L->sentinel->n;
+	while (c != L->sentinel)
 	{
 		next = c->n;
-		if (l->destroy != NULL)
-			(*(l->destroy))(c->value);
 		free(c);
 		c = next;
 	}
-	free(l->sentinel);
-	free(l);
+	free(L->sentinel);
+	free(L);
+	(*L_) = NULL;
+}
+
+void dlist_destroy_using_destructor(t_dlist *L_)
+{
+	t_dlist L;	
+	t_dlist_cell *C;
+
+	L = *L_;
+	C = L->sentinel->n;	
+	while (C != L->sentinel)
+	{
+		(*(L->funPtrs.destroy))(&(C->value));
+		C = C->n;
+	}
+	dlist_destroy(L_);
 }

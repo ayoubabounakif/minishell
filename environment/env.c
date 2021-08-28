@@ -157,6 +157,8 @@ char	*find_envv_akey_value(char *key, t_dlist env_list)
 		env = env_list->cursor_n->value;
 		if (!ft_strncmp(key, env->key, ft_strlen(key)))		
 			return (env->value);
+		else if (!ft_strncmp(key, "$?", ft_strlen(key)))
+			return (ft_itoa(g_vars.exit_code));
 		dlist_move_cursor_to_next(env_list);
 	}
 	return (NULL);

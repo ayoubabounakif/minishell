@@ -14,30 +14,30 @@
 
 void	dlist_move_cursor_to_head(t_dlist l)
 {
-	l->cursor_p = l->sentinel;
-	l->cursor_n = l->sentinel->n;
+	l->cursorP = l->sentinel;
+	l->cursorN = l->sentinel->n;
 }
 
 void	dlist_move_cursor_to_tail(t_dlist l)
 {
-	l->cursor_n = l->sentinel;
-	l->cursor_p = l->sentinel->p;
+	l->cursorN = l->sentinel;
+	l->cursorP = l->sentinel->p;
 }
 
 void	dlist_move_cursor_to_next(t_dlist l)
 {
-	if (l->cursor_n != l->sentinel)
+	if (l->cursorN != l->sentinel)
 	{
-		l->cursor_p = l->cursor_n;
-		l->cursor_n = l->cursor_n->n;
+		l->cursorP = l->cursorN;
+		l->cursorN = l->cursorN->n;
 	}
 }
 
 void	dlist_move_cursor_to_previous(t_dlist l)
 {
-	if (l->cursor_p != l->sentinel)
+	if (l->cursorP != l->sentinel)
 	{
-		l->cursor_n = l->cursor_p;
-		l->cursor_p = l->cursor_p->p;
+		l->cursorN = l->cursorP;
+		l->cursorP = l->cursorP->p;
 	}
 }
