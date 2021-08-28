@@ -48,3 +48,15 @@ t_dlist			dlist_filter_using_clone(t_dlist L, t_Predicate P)
 	}
 	return (LL);
 }
+
+t_funPtrs fun_ptrs(t_funPrint print, t_funDestroy destroy,
+	t_funClone clone, t_Predicate predicate)
+	{
+		t_funPtrs funptrs;
+
+		funptrs.destroy = destroy;
+		funptrs.print = print;
+		funptrs.clone = clone;
+		funptrs.predicate = predicate;
+		return (funptrs);
+	}

@@ -46,14 +46,18 @@ typedef struct s_funPtrs
 	t_funDestroy	destroy;
 	t_Predicate		predicate;
 	t_funClone		clone;
+	t_funCompare	compare;
 }	t_funPtrs;
+
+t_funPtrs fun_ptrs(t_funPrint print, t_funDestroy destroy,
+	t_funClone clone, t_Predicate predicate);
 
 typedef struct s_dlist_cell
 {
-	void			*value;
+	void				*value;
 	struct s_dlist_cell	*p;
 	struct s_dlist_cell	*n;
-} t_dlist_cell;
+}	t_dlist_cell;
 
 typedef	struct s_dlist_cursor
 {
@@ -98,7 +102,7 @@ t_dlist			dlist_empty_create(t_funPtrs funPtrs);
 /*
 **	dlist distructor
 */
-void			dlist_destroy(t_dlist *L);
+void			dlist_destroy(void *L);
 
 void			dlist_destroy_using_destructor(t_dlist *L_);
 

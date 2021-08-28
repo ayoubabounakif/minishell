@@ -117,9 +117,9 @@ char		**env_list_to_env_array(t_dlist env_list)
 	env_array = (char **)malloc((sizeof(char *) * env_list->len) + 1);
 	i = 0;
 	dlist_move_cursor_to_head(env_list);
-	while (env_list->cursor_n != env_list->sentinel)
+	while (env_list->cursorN != env_list->sentinel)
 	{
-		e = env_list->cursor_n->value;	
+		e = env_list->cursorN->value;	
 		joined_str = join_3_strings(e->key, "=", e->value);
 		env_array[i] = joined_str;
 		dlist_move_cursor_to_next(env_list);
@@ -152,9 +152,9 @@ char	*find_envv_akey_value(char *key, t_dlist env_list)
 	if (*key == '$')
 		key+=1;
 	dlist_move_cursor_to_head(env_list);
-	while(env_list->cursor_n != env_list->sentinel)
+	while(env_list->cursorN != env_list->sentinel)
 	{
-		env = env_list->cursor_n->value;
+		env = env_list->cursorN->value;
 		if (!ft_strncmp(key, env->key, ft_strlen(key)))		
 			return (env->value);
 		else if (!ft_strncmp(key, "$?", ft_strlen(key)))

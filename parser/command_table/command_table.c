@@ -78,7 +78,7 @@ int	check_if_rd_got_afile(t_commands_table cmdt)
 
 	sx = syntax_check_create();
 	up = cmdt->tokens_unproccessed;
-	if (up->tokens->cursor_n == up->tokens->sentinel)
+	if (up->tokens->cursorN == up->tokens->sentinel)
 		syntax_set_error(sx, "error around redirection sign");	
 	return (666);
 }		
@@ -90,18 +90,18 @@ void	cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 	up = cmdt->tokens_unproccessed;
 	dlist_move_cursor_to_head(up->tokens);
 	dlist_move_cursor_to_head(up->tokens_masks);
-	while (up->tokens->cursor_n != up->tokens->sentinel)
+	while (up->tokens->cursorN != up->tokens->sentinel)
 	{
 		if (is_normal_token(cmdt))
-			arrptr_add(cmdt->tokens, ft_strdup(up->tokens->cursor_n->value));
+			arrptr_add(cmdt->tokens, ft_strdup(up->tokens->cursorN->value));
 		else if (is_token_a_r_i_file(cmdt) && check_if_rd_got_afile(cmdt))
-			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursor_n->value), REDI_INPUT_FILE));
+			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursorN->value), REDI_INPUT_FILE));
 		else if (is_token_a_r_o_file(cmdt) && check_if_rd_got_afile(cmdt))
-			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursor_n->value), REDI_OUTPUT_FILE));
+			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursorN->value), REDI_OUTPUT_FILE));
 		else if (is_token_a_r_app_file(cmdt) && check_if_rd_got_afile(cmdt))
-			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursor_n->value), REDI_APPEND_FILE));
+			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursorN->value), REDI_APPEND_FILE));
 		else if (is_token_a_r_heredoc_file(cmdt) && check_if_rd_got_afile(cmdt))
-			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursor_n->value), REDI_HEREDOC_FILE));
+			arrptr_add(cmdt->redir_files, redir_file(ft_strdup(up->tokens->cursorN->value), REDI_HEREDOC_FILE));
 		dlist_move_cursor_to_next(up->tokens);
 		dlist_move_cursor_to_next(up->tokens_masks);
 	}
@@ -120,15 +120,15 @@ int					is_token_a_r_app_file(t_commands_table cmdt)
 	t_tokens up;		
 
 	up = cmdt->tokens_unproccessed;	
-	if (up->tokens->cursor_p == up->tokens->sentinel)
+	if (up->tokens->cursorP == up->tokens->sentinel)
 		return (0);
-	else if (up->tokens->cursor_n == up->tokens->sentinel)
+	else if (up->tokens->cursorN == up->tokens->sentinel)
 	{
-		if (ft_strnstr((char*)(up->tokens->cursor_p->value), ">>", 2))
+		if (ft_strnstr((char*)(up->tokens->cursorP->value), ">>", 2))
 			return (1);	
 		return (0);
 	}		
-	if (ft_strnstr((char*)(up->tokens->cursor_p->value), ">>", 2))
+	if (ft_strnstr((char*)(up->tokens->cursorP->value), ">>", 2))
 		return (1);
 	return (0);
 		
@@ -139,15 +139,15 @@ int					is_token_a_r_heredoc_file(t_commands_table cmdt)
 	t_tokens up;		
 
 	up = cmdt->tokens_unproccessed;	
-	if (up->tokens->cursor_p == up->tokens->sentinel)
+	if (up->tokens->cursorP == up->tokens->sentinel)
 		return (0);
-	else if (up->tokens->cursor_n == up->tokens->sentinel)
+	else if (up->tokens->cursorN == up->tokens->sentinel)
 	{
-		if (ft_strnstr((char*)(up->tokens->cursor_p->value), "<<", 2))
+		if (ft_strnstr((char*)(up->tokens->cursorP->value), "<<", 2))
 			return (1);	
 		return (0);
 	}		
-	if (ft_strnstr((char*)(up->tokens->cursor_p->value), "<<", 2))
+	if (ft_strnstr((char*)(up->tokens->cursorP->value), "<<", 2))
 		return (1);
 	return (0);
 }
@@ -157,16 +157,16 @@ int					is_token_a_r_o_file(t_commands_table cmdt)
 	t_tokens up;		
 
 	up = cmdt->tokens_unproccessed;	
-	if (up->tokens->cursor_p == up->tokens->sentinel)
+	if (up->tokens->cursorP == up->tokens->sentinel)
 		return (0);
-	else if (up->tokens->cursor_n == up->tokens->sentinel)
+	else if (up->tokens->cursorN == up->tokens->sentinel)
 	{
-		if (*(char*)(up->tokens->cursor_p->value) == '>')
+		if (*(char*)(up->tokens->cursorP->value) == '>')
 			return (1);	
 		return (0);
 	}	
-	if (*(char*)(up->tokens->cursor_p->value) == '>'
-	&& !ft_strnstr((char*)(up->tokens->cursor_p->value), ">>", 2))
+	if (*(char*)(up->tokens->cursorP->value) == '>'
+	&& !ft_strnstr((char*)(up->tokens->cursorP->value), ">>", 2))
 		return (1);
 	return (0);
 		
@@ -178,16 +178,16 @@ int					is_token_a_r_i_file(t_commands_table cmdt)
 	t_tokens up;		
 
 	up = cmdt->tokens_unproccessed;	
-	if (up->tokens->cursor_p == up->tokens->sentinel)
+	if (up->tokens->cursorP == up->tokens->sentinel)
 		return (0);
-	else if (up->tokens->cursor_n == up->tokens->sentinel)
+	else if (up->tokens->cursorN == up->tokens->sentinel)
 	{
-		if (*(char*)(up->tokens->cursor_p->value) == '<')
+		if (*(char*)(up->tokens->cursorP->value) == '<')
 			return (1);	
 		return (0);
 	}	
-	if (*(char*)(up->tokens->cursor_p->value) == '<'
-	&& !ft_strnstr((char*)(up->tokens->cursor_p->value), "<<", 2))	
+	if (*(char*)(up->tokens->cursorP->value) == '<'
+	&& !ft_strnstr((char*)(up->tokens->cursorP->value), "<<", 2))	
 		return (1);
 	return (0);
 }
@@ -198,24 +198,24 @@ int					is_normal_token(t_commands_table cmdt)
 	t_tokens up;		
 
 	up = cmdt->tokens_unproccessed;
-	if (up->tokens_masks->cursor_p == up->tokens_masks->sentinel)
+	if (up->tokens_masks->cursorP == up->tokens_masks->sentinel)
 	{
-		if (*(char*)(up->tokens_masks->cursor_n->value) == '>'
-		|| *(char*)(up->tokens_masks->cursor_n->value) == '<')
+		if (*(char*)(up->tokens_masks->cursorN->value) == '>'
+		|| *(char*)(up->tokens_masks->cursorN->value) == '<')
 			return (0);	
 		return (1);
 	}	
-	else if (up->tokens_masks->cursor_n == up->tokens_masks->sentinel)
+	else if (up->tokens_masks->cursorN == up->tokens_masks->sentinel)
 	{
-		if (*(char*)(up->tokens_masks->cursor_p->value) == '>'
-		|| *(char*)(up->tokens_masks->cursor_p->value) == '<')
+		if (*(char*)(up->tokens_masks->cursorP->value) == '>'
+		|| *(char*)(up->tokens_masks->cursorP->value) == '<')
 			return (0);	
 		return (1);
 	}	
-	if ((*(char*)(up->tokens_masks->cursor_p->value) == '>'
-	|| *(char*)(up->tokens_masks->cursor_p->value) == '<')
-	|| (*(char*)(up->tokens_masks->cursor_n->value) == '<')
-	|| (*(char*)(up->tokens_masks->cursor_n->value) == '>'))	
+	if ((*(char*)(up->tokens_masks->cursorP->value) == '>'
+	|| *(char*)(up->tokens_masks->cursorP->value) == '<')
+	|| (*(char*)(up->tokens_masks->cursorN->value) == '<')
+	|| (*(char*)(up->tokens_masks->cursorN->value) == '>'))	
 		return (0);
 	return (1);	
 
@@ -228,10 +228,10 @@ void                cmd_table_fill_tokens(t_commands_table cmdt)
 	up = cmdt->tokens_unproccessed;
 	dlist_move_cursor_to_head(up->tokens);
 	dlist_move_cursor_to_head(up->tokens_masks);
-	while (up->tokens->cursor_n != up->tokens->sentinel)
+	while (up->tokens->cursorN != up->tokens->sentinel)
 	{
 		if (is_normal_token(cmdt))
-			arrptr_add(cmdt->tokens, ft_strdup(up->tokens->cursor_n->value));	
+			arrptr_add(cmdt->tokens, ft_strdup(up->tokens->cursorN->value));	
 		dlist_move_cursor_to_next(up->tokens);
 		dlist_move_cursor_to_next(up->tokens_masks);	
 	}	

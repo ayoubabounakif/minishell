@@ -25,32 +25,24 @@ t_dlist     cmd_tables(char *parsing_text, t_dlist env_list)
 	int i;
 
 	i = 0;
-	c_tables = dlist_empty_create(cmd_table_destroy, NULL, NULL);
+	/* c_tables = dlist_empty_create(cmd_table_destroy, NULL, NULL); */
+	c_tables = dlist_empty_create(fun_ptrs(NULL, cmd_table_destroy, NULL, NULL));
 	pls = get_pipelines(parsing_text);
 	while (i < pls->len)
 	{
 		p = arrptr_get(pls, i);
 		ct = cmd_table(p, env_list);
 		cmd_table_fill(ct, p);
-		dlist_pushback(c_tables, ct);
+		dlist_insert_after_cursor(c_tables, ct);	
 		i++;
 	}
 	arrptr_destroy(pls);
 	return (c_tables);
 }
 
-
-
-
-
-
-
-
-
-
 void        cmd_tables_destroy(t_dlist cmd_tables_list)
 {
-	dlist_destroy(cmd_tables_list);
+	dlist_destroy(&cmd_tables_list);
 }
 
 /*
@@ -64,20 +56,20 @@ t_dlist  cmd_tables_list_(char *parsing_text, t_dlist env_list)
 	
 	list_ = cmd_tables(parsing_text, env_list);
 	dlist_move_cursor_to_head(list_);
-	while (list_->cursor_n != list_->sentinel)
+	while (list_->cursorN != list_->sentinel)
 	{
-		c_tables_tmp =  list_->cursor_n->value;
-		list_->cursor_n->value = command_table(c_tables_tmp, env_list);
+		c_tables_tmp =  list_->cursorN->value;
+		list_->cursorN->value = command_table(c_tables_tmp, env_list);
 		// cmd_table_destroy(c_tables_tmp); // source of the problem
 		dlist_move_cursor_to_next(list_);
 	}
-	list_->destroy = command_table_destroy;
+	list_->funPtrs.destroy = command_table_destroy;
 	return (list_);
 }
 
 void cmd_tables_list_destroy_(t_dlist cmds_array)
 {
-	dlist_destroy(cmds_array);
+	dlist_destroy(&cmds_array);
 }
 
 
@@ -93,16 +85,21 @@ t_dlist      cmd_tables_list(char *parsing_text, t_dlist env_list)
 	is_it_time_for_a_new_list = 0;
 	is_it_end_of_list = 0;
 	tmp_list_of_command_tables_non_splitted = cmd_tables_list_(parsing_text, env_list);
-	list_of_command_tables_lists = dlist_empty_create(dlist_destroy, NULL, NULL);
-	a_command_table_list = dlist_empty_create(command_table_destroy, NULL, NULL);
+	// list_of_command_tables_lists = dlist_empty_create(dlist_destroy, NULL, NULL);
+
+	list_of_command_tables_lists = dlist_empty_create(fun_ptrs(NULL, dlist_destroy, NULL, NULL));
+
+	// a_command_table_list = dlist_empty_create(command_table_destroy, NULL, NULL);
+	// a_command_table_list = dlist_empty_create(fun_ptrs(NULL, command_table_destroy, NULL, NULL));
 	dlist_move_cursor_to_head(tmp_list_of_command_tables_non_splitted);
-	while (tmp_list_of_command_tables_non_splitted->cursor_n != tmp_list_of_command_tables_non_splitted->sentinel)
+	while (tmp_list_of_command_tables_non_splitted->cursorN != tmp_list_of_command_tables_non_splitted->sentinel)
 	{
-		cmd_tab = tmp_list_of_command_tables_non_splitted->cursor_n->value;
+		cmd_tab = tmp_list_of_command_tables_non_splitted->cursorN->value;
 		if (is_it_time_for_a_new_list)
 		{
 			dlist_pushback(list_of_command_tables_lists, a_command_table_list);
-			a_command_table_list = dlist_empty_create(command_table_destroy, NULL, NULL);        
+			// a_command_table_list = dlist_empty_create(command_table_destroy, NULL, NULL); 
+			a_command_table_list = dlist_empty_create(fun_ptrs(NULL, command_table_destroy, NULL, NULL)); 
 			is_it_time_for_a_new_list = 0;
 		}
 		if (is_it_end_of_list)

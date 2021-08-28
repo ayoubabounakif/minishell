@@ -15,11 +15,11 @@
 int		testForUppercaseBuiltins(t_dlist pipeline)
 {
 	dlist_move_cursor_to_head(pipeline);
-	if (isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]) == UPPERCASE_BUILTINS)
-	// if (isBuiltin(arrptr_get(((t_commands_table)pipeline->cursor_n->value)->tokens, 0)))
+	if (isBuiltin(((t_commands_table)pipeline->cursorN->value)->tokens_simpl[0]) == UPPERCASE_BUILTINS)
+	// if (isBuiltin(arrptr_get(((t_commands_table)pipeline->cursorN->value)->tokens, 0)))
 	{
 		ft_putstr_fd("420sh: ", STDERR_FILENO);
-		ft_putstr_fd(((t_commands_table )pipeline->cursor_n->value)->tokens_simpl[0], STDERR_FILENO);	
+		ft_putstr_fd(((t_commands_table )pipeline->cursorN->value)->tokens_simpl[0], STDERR_FILENO);	
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 		g_vars.exit_code = 127;
 		return (UPPERCASE_BUILTINS);

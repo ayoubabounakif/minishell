@@ -16,7 +16,6 @@
 # include "../libft/libft.h"
 # include "../CPCA/generic_parrays/garrptr.h"
 # include "../dlist/dlists.h"
-#  include "../dlist/dlist_norm_hack.h"
 #include <fcntl.h>
 
 # define IS_AFTER_PIPE 1
@@ -120,7 +119,7 @@ t_arrptr		split_token_w_red(char *token);
 ** remplace an individual node in the tokens linked list with
 ** an array of tokens
 */
-void remplace_cursor_node_with_array(t_dlist l, t_arrptr arr);
+void remplace_cursorNode_with_array(t_dlist l, t_arrptr arr);
 
 /*
 ** takes the splitted tokens and split them again with respect

@@ -83,7 +83,7 @@ t_arrptr		split_token_w_red(char *token)
 	return (arr);
 }
 
-void remplace_cursor_node_with_array(t_dlist l, t_arrptr arr)
+void remplace_cursorNode_with_array(t_dlist l, t_arrptr arr)
 {
 	int i = 0;
 
@@ -98,15 +98,15 @@ void remplace_cursor_node_with_array(t_dlist l, t_arrptr arr)
 void			tokens_split_w_red(t_dlist tokens)
 {	
 	dlist_move_cursor_to_head(tokens);
-	if (*(char*)(tokens->cursor_n->value) == '"'
-	|| *(char*)(tokens->cursor_n->value) == '\'')
+	if (*(char*)(tokens->cursorN->value) == '"'
+	|| *(char*)(tokens->cursorN->value) == '\'')
 		return ;
-    while (tokens->cursor_n != tokens->sentinel) 
+    while (tokens->cursorN != tokens->sentinel) 
     {
-		if (is_red_cmd_non_split(tokens->cursor_n->value))
+		if (is_red_cmd_non_split(tokens->cursorN->value))
 		{
-			t_arrptr arr =  split_token_w_red((char*)tokens->cursor_n->value);
-			remplace_cursor_node_with_array(tokens, arr);
+			t_arrptr arr =  split_token_w_red((char*)tokens->cursorN->value);
+			remplace_cursorNode_with_array(tokens, arr);
 			dlist_move_cursor_to_head(tokens);
 			arrptr_destroy(arr);
 		}	

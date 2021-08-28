@@ -121,16 +121,16 @@ void    expand_env_variables(t_tokens tks, t_dlist env_list)
 {
     dlist_move_cursor_to_head(tks->tokens);
     dlist_move_cursor_to_head(tks->tokens_masks);
-    while (tks->tokens->cursor_n != tks->tokens->sentinel)
+    while (tks->tokens->cursorN != tks->tokens->sentinel)
     {
-        if (ft_strnstr((char*)tks->tokens_masks->cursor_n->value, "$", ft_strlen((char*)tks->tokens_masks->cursor_n->value)))
+        if (ft_strnstr((char*)tks->tokens_masks->cursorN->value, "$", ft_strlen((char*)tks->tokens_masks->cursorN->value)))
         {
-            tks->tokens->cursor_n->value = find_replace_env_vars_in_a_token(tks->tokens->cursor_n->value,
-            tks->tokens_masks->cursor_n->value, env_list);
-            tks->tokens_masks->cursor_n->value = get_mask(tks->tokens->cursor_n->value);
-            //printf("\n|%s|\n", tks->tokens->cursor_n->value);
+            tks->tokens->cursorN->value = find_replace_env_vars_in_a_token(tks->tokens->cursorN->value,
+            tks->tokens_masks->cursorN->value, env_list);
+            tks->tokens_masks->cursorN->value = get_mask(tks->tokens->cursorN->value);
+            //printf("\n|%s|\n", tks->tokens->cursorN->value);
         }
-        //printf("\n|%s|\n", (char*)tks->tokens_masks->cursor_n->value);
+        //printf("\n|%s|\n", (char*)tks->tokens_masks->cursorN->value);
         dlist_move_cursor_to_next(tks->tokens);
         dlist_move_cursor_to_next(tks->tokens_masks);
     }

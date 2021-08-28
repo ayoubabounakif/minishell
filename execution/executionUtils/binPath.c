@@ -54,9 +54,9 @@ static char	*findPathValue(t_dlist envl)
 	char	*path;
 
 	dlist_move_cursor_to_head(envl);
-	while (envl->cursor_n != envl->sentinel)
+	while (envl->cursorN != envl->sentinel)
 	{
-		_420sh_env = envl->cursor_n->value;
+		_420sh_env = envl->cursorN->value;
 		if (strcmp(_420sh_env->key, "PATH") == 0)
 		{
 			path = _420sh_env->value;

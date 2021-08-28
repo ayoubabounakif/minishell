@@ -75,30 +75,30 @@ void process_tokens_from_quotes(t_tokens tks)
 
     dlist_move_cursor_to_head(tks->tokens);
     dlist_move_cursor_to_head(tks->tokens_masks);
-    while (tks->tokens->cursor_n != tks->tokens->sentinel)
+    while (tks->tokens->cursorN != tks->tokens->sentinel)
     {
-        v = tks->tokens->cursor_n->value;
-        v_m = tks->tokens_masks->cursor_n->value;
+        v = tks->tokens->cursorN->value;
+        v_m = tks->tokens_masks->cursorN->value;
         if (v && (v[0] == '\'' || v[0] == '\"'))
         {
             v = remove_quotes_from_string(v);
             v_m = remove_quotes_from_string(v_m);
-            tks->tokens->cursor_n->value = v;
-            tks->tokens_masks->cursor_n->value = v_m;
+            tks->tokens->cursorN->value = v;
+            tks->tokens_masks->cursorN->value = v_m;
         }
         else if (v && (v[0] == '\\') && ((v[1] == '\'' || v[1] == '\"')))
         {
             v = remove_skip_from_skipped_quotes_front(v);
             v_m = remove_skip_from_skipped_quotes_front(v_m);
-            tks->tokens->cursor_n->value = v;
-            tks->tokens_masks->cursor_n->value = v_m;
+            tks->tokens->cursorN->value = v;
+            tks->tokens_masks->cursorN->value = v_m;
         }
         if (ft_strlen(v) > 3 && (v[ft_strlen(v) - 2] == '\\') && ((v[ft_strlen(v) - 1] == '\'' || v[ft_strlen(v) - 1] == '\"')))
         {
             v = remove_skip_from_skipped_quotes_back(v);
             v_m = remove_skip_from_skipped_quotes_back(v_m);
-            tks->tokens->cursor_n->value = v;
-            tks->tokens_masks->cursor_n->value = v_m;
+            tks->tokens->cursorN->value = v;
+            tks->tokens_masks->cursorN->value = v_m;
         }
         dlist_move_cursor_to_next(tks->tokens);
         dlist_move_cursor_to_next(tks->tokens_masks);

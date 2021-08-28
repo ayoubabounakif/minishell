@@ -24,9 +24,9 @@ static int	__export_env__(char **tokens, t_dlist env_list)
 	t_env		*_420sh_env;
 
 	dlist_move_cursor_to_head(env_list);
-	while (env_list->cursor_n != env_list->sentinel)
+	while (env_list->cursorN != env_list->sentinel)
 	{
-		_420sh_env = env_list->cursor_n->value;
+		_420sh_env = env_list->cursorN->value;
 		if (_420sh_env->value == NULL)
 			printf("declare -x %s\n", _420sh_env->key);
 		else
@@ -69,9 +69,9 @@ static int		check_env(char *string, t_dlist env_list, int eq_sign)
 	t_env 	*_420sh_env;
 
 	dlist_move_cursor_to_head(env_list);
-	while (env_list->cursor_n != env_list->sentinel)
+	while (env_list->cursorN != env_list->sentinel)
 	{
-		_420sh_env = env_list->cursor_n->value;
+		_420sh_env = env_list->cursorN->value;
 		if (eq_sign == TRUE) // There is eq sign
 		{
 			if (strcmp(_420sh_env->key, string) == 0)

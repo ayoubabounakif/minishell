@@ -21,17 +21,17 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 
 	in = STDIN_FILENO;
 	dlist_move_cursor_to_head(pipeline);
-	while (pipeline->cursor_n->n != pipeline->sentinel)
+	while (pipeline->cursorN->n != pipeline->sentinel)
 	{
-		ret = isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]);
+		ret = isBuiltin(((t_commands_table)pipeline->cursorN->value)->tokens_simpl[0]);
 			if (ret != TRUE)
 		{
-			((t_commands_table )pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
-			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
+			((t_commands_table )pipeline->cursorN->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursorN->value)->tokens_simpl[0], envl);
+			if (((t_commands_table)pipeline->cursorN->value)->tokens_simpl[0] == NULL)
 				return ;
 		}
 		pipe(pipeFds);
-		spawnProc(in, pipeFds, pipeline->cursor_n->value, envl);
+		spawnProc(in, pipeFds, pipeline->cursorN->value, envl);
 		if (pipeFds[WRITE] > 2)
 			close(pipeFds[WRITE]);
 		if (in != STDIN_FILENO)
@@ -39,14 +39,14 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 		in = pipeFds[READ];
 		dlist_move_cursor_to_next(pipeline);
 	}
-	ret = isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]);
+	ret = isBuiltin(((t_commands_table)pipeline->cursorN->value)->tokens_simpl[0]);
 	if (ret != TRUE)
 	{
-		((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
-		if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
+		((t_commands_table)pipeline->cursorN->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursorN->value)->tokens_simpl[0], envl);
+		if (((t_commands_table)pipeline->cursorN->value)->tokens_simpl[0] == NULL)
 			return ;
 	}
-	spawnLastProc(in, pipeFds, pipeline->cursor_n->value, envl);
+	spawnLastProc(in, pipeFds, pipeline->cursorN->value, envl);
 	if (in != STDIN_FILENO)
 		close(in);
 	while (waitpid(-1, &status, 0) > 0)

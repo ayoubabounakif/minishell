@@ -31,6 +31,7 @@ void	dlist_insert_before_cursor(t_dlist L, void *value)
 	t_dlist_cell	*new_cell;
 
 	new_cell = malloc(sizeof(struct s_dlist_cell));
+	new_cell->value = value;
 	new_cell->n = L->cursorN;
 	new_cell->p = L->cursorP;
 	L->cursorP->n = new_cell;

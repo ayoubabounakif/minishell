@@ -39,7 +39,7 @@ int		main(int ac, char **av, char **envp)
 			add_history(line);
 			free(line);
 			executeParsedLine(parsed_line, env_list);
-			dlist_destroy(parsed_line);
+			dlist_destroy(&parsed_line);
 		}
 		else if (!line)
 			exit(1);

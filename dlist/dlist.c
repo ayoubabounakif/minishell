@@ -30,13 +30,13 @@ t_dlist	dlist_empty_create(t_funPtrs funPtrs)
 	return (l);
 }
 
-void	dlist_destroy(t_dlist *L_)
+void	dlist_destroy(void *L_)
 {
 	t_dlist			L;
 	t_dlist_cell	*c;
 	t_dlist_cell	*next;
 
-	L = *L_;
+	L = *((t_dlist *)L_);
 	c = L->sentinel->n;
 	while (c != L->sentinel)
 	{
@@ -46,16 +46,16 @@ void	dlist_destroy(t_dlist *L_)
 	}
 	free(L->sentinel);
 	free(L);
-	(*L_) = NULL;
+	*((t_dlist *)L_) = NULL;
 }
 
-void dlist_destroy_using_destructor(t_dlist *L_)
+void	dlist_destroy_using_destructor(t_dlist *L_)
 {
-	t_dlist L;	
-	t_dlist_cell *C;
+	t_dlist			L;	
+	t_dlist_cell	*C;
 
 	L = *L_;
-	C = L->sentinel->n;	
+	C = L->sentinel->n;
 	while (C != L->sentinel)
 	{
 		(*(L->funPtrs.destroy))(&(C->value));

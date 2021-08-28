@@ -27,7 +27,7 @@ void	dlist_set_before_cursor(t_dlist l, void *value, char delete)
 		return ;
 	if (delete)
 		(*(l->funPtrs.destroy))(&(l->cursorP->value));
-
+	l->cursorP->value = value;
 }
 
 void	*dlist_get_after_cursor(t_dlist l)
