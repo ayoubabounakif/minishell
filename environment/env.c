@@ -114,7 +114,7 @@ char		**env_list_to_env_array(t_dlist env_list)
 	char	*joined_str_tmp;
 	int		i;
 
-	env_array = (char **)malloc((sizeof(char *) * env_list->len) + 1);
+	env_array = (char **)malloc((sizeof(char *) * (env_list->len + 1)));
 	i = 0;
 	dlist_move_cursor_to_head(env_list);
 	while (env_list->cursor_n != env_list->sentinel)
