@@ -24,7 +24,7 @@ void	implement_heredoc(char *delim, int fd)
 			free(buf);
 			break ;
 		}
-		ft_putstr_fd(buf, fd);
+		ft_putendl_fd(buf, fd);
 		free(buf);
 	}
 	return ;
@@ -34,7 +34,7 @@ void	heredoc(t_redir_file rf, int *fdin)
 {
 	int		fd;
 
-	fd = open("/tmp/heredoc_tmpf", O_CREAT | O_TRUNC | O_WRONLY);
+	fd = open("/tmp/heredoc_tmp", O_CREAT | O_WRONLY, 0644);
 	if (fd < 0)
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
@@ -42,15 +42,8 @@ void	heredoc(t_redir_file rf, int *fdin)
 	}
 	implement_heredoc(rf->file_name, fd);
 	close(fd);
-	{
-		int	fd;
-		fd = unlink("/tmp/heredoc_tmpf");
-		if (fd < 0)
-		{
-			ft_putendl_fd(strerror(errno), STDERR_FILENO);
-			exit(errno);	
-		}
-	}
+	fd = open("/tmp/heredoc_tmp", O_RDONLY, 0644);
+	unlink("/tmp/heredoc_tmp");
 	*fdin = fd;
 	return ;
 }
@@ -99,17 +92,15 @@ void	inputOutputRedirection(t_commands_table command)
 		}
 		i++;
 	}
-	if (rf->file_type == REDI_INPUT_FILE && fdin > 2)
+	printf("%d\n", fdin);
+	if ((rf->file_type == REDI_INPUT_FILE || rf->file_type == REDI_HEREDOC_FILE)
+		&& fdin > 2)
 	{
 		dup2(fdin, STDIN_FILENO);
 		close(fdin);
 	}
-	else if (rf->file_type == REDI_OUTPUT_FILE && fdout > 2)
-	{
-		dup2(fdout, STDOUT_FILENO);
-		close(fdout);
-	}
-	else if (rf->file_type == REDI_APPEND_FILE && fdout > 2)
+	else if ((rf->file_type == REDI_OUTPUT_FILE || rf->file_type == REDI_APPEND_FILE)
+		&& fdout > 2)
 	{
 		dup2(fdout, STDOUT_FILENO);
 		close(fdout);

@@ -28,6 +28,7 @@
         "vector": "c",
         "syntax_checking.h": "c",
         "libft.h": "c",
-        "parser.h": "c"
+        "parser.h": "c",
+        "__config": "cpp"
     }
 }
