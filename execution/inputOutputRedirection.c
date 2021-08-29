@@ -30,22 +30,42 @@ void	implement_heredoc(char *delim, int fd)
 	return ;
 }
 
+int		ft_mkstemp(char *template)
+{
+	int		i = 0;
+	int		fd = 0;
+
+	while (template[i])
+	{
+		if (template[i] == 'X')
+			break ;
+		i++;
+	}
+	ft_putendl_fd(template, STDOUT_FILENO);
+	exit(420);
+	return (fd);
+}
+
 void	heredoc(t_redir_file rf, int *fdin)
 {
 	int		fd;
+	char	random_filename[32];
 
-	fd = open("/tmp/heredoc_tmp", O_CREAT | O_WRONLY, 0644);
-	if (fd < 0)
-	{
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		exit(errno);	
-	}
-	implement_heredoc(rf->file_name, fd);
-	close(fd);
-	fd = open("/tmp/heredoc_tmp", O_RDONLY, 0644);
-	unlink("/tmp/heredoc_tmp");
-	*fdin = fd;
-	return ;
+	ft_memset(random_filename, 0, sizeof(random_filename));
+	ft_strlcpy(random_filename,"/tmp/heredoc-XXXXXX", 21);
+	fd = ft_mkstemp(random_filename);
+	// fd = open(random_filename, O_CREAT | O_WRONLY, 0644);
+	// if (fd < 0)
+	// {
+	// 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+	// 	exit(errno);	
+	// }
+	// implement_heredoc(rf->file_name, fd);
+	// close(fd);
+	// fd = open(random_filename, O_RDONLY, 0644);
+	// unlink(random_filename);
+	// *fdin = fd;
+	// return ;
 }
 
 void	inputOutputRedirection(t_commands_table command)
@@ -92,7 +112,6 @@ void	inputOutputRedirection(t_commands_table command)
 		}
 		i++;
 	}
-	printf("%d\n", fdin);
 	if ((rf->file_type == REDI_INPUT_FILE || rf->file_type == REDI_HEREDOC_FILE)
 		&& fdin > 2)
 	{
