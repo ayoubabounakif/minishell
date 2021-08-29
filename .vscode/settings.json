@@ -29,6 +29,9 @@
         "syntax_checking.h": "c",
         "libft.h": "c",
         "parser.h": "c",
-        "__config": "cpp"
+        "__config": "cpp",
+        "stdexcept": "c",
+        "string": "c",
+        "sstream": "c"
     }
 }

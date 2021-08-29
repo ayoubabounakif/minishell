@@ -32,28 +32,30 @@ void	implement_heredoc(char *delim, int fd)
 
 int		ft_mkstemp(char *template)
 {
-	int		i = 0;
-	int		fd = 0;
+	int	seed;
+	int	i;
 
-	while (template[i])
-	{
-		if (template[i] == 'X')
-			break ;
-		i++;
-	}
-	ft_putendl_fd(template, STDOUT_FILENO);
-	exit(420);
-	return (fd);
+	i = 0;
+
+	seed = execve("/Users/aabounak/Desktop/vsAli/a.out", NULL, NULL);
+	// while (template[i])
+	// {
+	// 	if (template[i] == 'X')
+	// 		template[i] = '0' + seed % 10;
+	// 	i++;
+	// 	ft_putendl_fd(template, STDOUT_FILENO);
+	// }
+	// exit(420);
 }
 
 void	heredoc(t_redir_file rf, int *fdin)
 {
 	int		fd;
-	char	random_filename[32];
+	char	template[32];
 
-	ft_memset(random_filename, 0, sizeof(random_filename));
-	ft_strlcpy(random_filename,"/tmp/heredoc-XXXXXX", 21);
-	fd = ft_mkstemp(random_filename);
+	ft_memset(template, 0, sizeof(template));
+	ft_strlcpy(template,"/tmp/heredoc-XXXXX", 21);
+	fd = ft_mkstemp(template);
 	// fd = open(random_filename, O_CREAT | O_WRONLY, 0644);
 	// if (fd < 0)
 	// {

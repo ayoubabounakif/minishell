@@ -12,8 +12,6 @@
 
 #include "../includes/minishell.h"
 
-// PIZZA FIX env_list_to_env_array()
-
 int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
 	if (isBuiltin(command->tokens_simpl[0]) == TRUE)
