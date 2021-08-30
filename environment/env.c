@@ -148,6 +148,7 @@ char	*find_envv_akey_value(char *key, t_dlist env_list)
 	int is_it_found;
 	t_env	*env;
 
+
 	is_it_found = 0;
 	if (*key == '$')
 		key+=1;
@@ -160,4 +161,30 @@ char	*find_envv_akey_value(char *key, t_dlist env_list)
 		dlist_move_cursor_to_next(env_list);
 	}
 	return (NULL);
+}
+
+void        last_commandCode_expend(t_dlist env_lst)
+{
+	char *lastCmdCode;
+	t_env *env;
+	char *value;
+	// exit(666);
+	value = find_envv_akey_value("?", env_lst);
+	if (value != NULL)
+	{
+		free(value);
+		value = ft_itoa(g_vars.exit_code);
+		return ;
+	}
+	lastCmdCode = ft_itoa(g_vars.exit_code);
+	env = env_create(ft_strdup("?"), lastCmdCode);
+	env->sep = '=';
+	dlist_move_cursor_to_tail(env_lst);
+	dlist_insert_before_cursor(env_lst, env);
+	dlist_move_cursor_to_head(env_lst);
+	// while (env_lst->cursor_n != env_lst->sentinel)
+	// {
+	// 	printf("|%s %s|\n", ((t_env *)env_lst->cursor_n->value)->key, ((t_env *)env_lst->cursor_n->value)->value);
+	// 	dlist_move_cursor_to_next(env_lst);
+	// }
 }

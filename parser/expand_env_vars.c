@@ -29,6 +29,9 @@ void		expandEnvVarsInParsedData(t_dlist parsed_data_lst, t_dlist env_lst)
         token_array = ((t_commands_table)parsed_data_lst->cursor_n->value)->tokens_simpl;
         while (token_array[i])
         {
+            
+           /*  if (ft_strnstr(token_array[i], "$?", ft_strlen(token_array[i])))
+                token_array[i] = str_find_and_replace(token_array[i], "$?", ); */
             if (ft_strnstr(token_array[i], "$", ft_strlen(token_array[i])))
                 token_array[i] = find_replace_env_vars_in_a_token(token_array[i], env_lst); 
             i++;

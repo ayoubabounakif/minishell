@@ -106,4 +106,5 @@ char		**env_list_to_env_array(t_dlist env_list);
 void		env_array_destroy(char **env_array);
 char		*find_envv_akey_value(char *key, t_dlist env_list);
 void    	expand_env_variables_test(t_commands_table cmd, t_dlist env_list);
+void        last_commandCode_expend(t_dlist env_lst);
 #endif
