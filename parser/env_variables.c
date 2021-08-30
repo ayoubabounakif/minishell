@@ -79,17 +79,19 @@ char *print_the_env_var(char *token, char *token_mask, int i)
     
 }
 
-char    *find_replace_env_vars_in_a_token(char *token, char *token_mask, t_dlist env_list)
+char    *find_replace_env_vars_in_a_token(char *token, t_dlist env_list)
 {
     t_rstr rs;
     int i;
     char *tmp;
     char *r_str;
     char *is_key_found;
+    char *token_mask;
 
     i = 0;
     tmp = NULL;
     r_str = NULL;
+    token_mask = get_mask(token); 
     while(token[i])
     {
         if (token_mask[i] == '$')
@@ -114,6 +116,7 @@ char    *find_replace_env_vars_in_a_token(char *token, char *token_mask, t_dlist
         }
         i++;
     }
+    free(token_mask);
     return (r_str);
 }
 
@@ -126,11 +129,10 @@ void    expand_env_variables(t_tokens tks, t_dlist env_list)
         if (ft_strnstr((char*)tks->tokens_masks->cursor_n->value, "$", ft_strlen((char*)tks->tokens_masks->cursor_n->value)))
         {
             tks->tokens->cursor_n->value = find_replace_env_vars_in_a_token(tks->tokens->cursor_n->value,
-            tks->tokens_masks->cursor_n->value, env_list);
+            env_list);
             tks->tokens_masks->cursor_n->value = get_mask(tks->tokens->cursor_n->value);
             //printf("\n|%s|\n", tks->tokens->cursor_n->value);
-        }
-        //printf("\n|%s|\n", (char*)tks->tokens_masks->cursor_n->value);
+        } 
         dlist_move_cursor_to_next(tks->tokens);
         dlist_move_cursor_to_next(tks->tokens_masks);
     }

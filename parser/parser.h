@@ -180,7 +180,7 @@ char *str_find_and_replace(char *haystack, char *needle, char *new_needle);
 char	*find_envv_akey_value(char *key, t_dlist env_list);
 
 char    *print_the_env_var(char *token, char *token_mask, int i);
-char    *find_replace_env_vars_in_a_token(char *token, char *token_mask, t_dlist env_list);
+char    *find_replace_env_vars_in_a_token(char *token, t_dlist env_list);
 //void    expand_env_variables(t_command cmd, t_dlist env_list);
 void    expand_env_variables(t_tokens tks, t_dlist env_list);
 //void    expand_env_variables_test(t_command *cmd, t_dlist env_list);
@@ -279,5 +279,6 @@ t_dlist		cmd_tables_list(char *parsing_text, t_dlist env_list);
 void		cmd_tables_list_destroy_(t_dlist cmds_array);
 
 t_dlist		parse_line(char *parsing_line, t_dlist env_list);
+void		expandEnvVarsInParsedData(t_dlist parsed_data_lst, t_dlist env_lst);
 
 #endif

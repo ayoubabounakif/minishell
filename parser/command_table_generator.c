@@ -131,12 +131,6 @@ t_dlist      cmd_tables_list(char *parsing_text, t_dlist env_list)
 	return (list_of_command_tables_lists);
 }
 
-
-
-
-
-
-
 t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 {
 	t_syx_check syx;

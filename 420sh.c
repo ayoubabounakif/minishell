@@ -33,6 +33,7 @@ int		main(int ac, char **av, char **envp)
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
+			expandEnvVarsInParsedData(parsed_line, env_list);
 			add_history(line);
 			free(line);
 			executeParsedLine(parsed_line, env_list);
