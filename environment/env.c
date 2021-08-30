@@ -163,21 +163,43 @@ char	*find_envv_akey_value(char *key, t_dlist env_list)
 	return (NULL);
 }
 
+t_env *find_envv_key_node(char *key, t_dlist env_list)
+{
+	int is_it_found;
+	t_env	*env;
+
+
+	is_it_found = 0;
+	if (*key == '$')
+		key+=1;
+	dlist_move_cursor_to_head(env_list);
+	while(env_list->cursor_n != env_list->sentinel)
+	{
+		env = env_list->cursor_n->value;
+		if (!ft_strncmp(key, env->key, ft_strlen(key)))		
+			return (env);
+		dlist_move_cursor_to_next(env_list);
+	}
+	return (NULL);
+}
+
 void        last_commandCode_expend(t_dlist env_lst)
 {
 	char *lastCmdCode;
 	t_env *env;
-	char *value;
+	// char *value;
+	t_env *env_tmp;
 	// exit(666);
-	value = find_envv_akey_value("?", env_lst);
-	if (value != NULL)
+	// value = find_envv_akey_value("?", env_lst);
+	env_tmp = find_envv_key_node("?", env_lst);
+	if (env_tmp != NULL)
 	{
-		free(value);
-		value = ft_itoa(g_vars.exit_code);
+		free(env_tmp->value);
+		env_tmp->value = ft_itoa(g_vars.exit_code);
 		return ;
 	}
 	lastCmdCode = ft_itoa(g_vars.exit_code);
-	env = env_create(ft_strdup("?"), lastCmdCode);
+	env = env_create(ft_strdup("?"), ft_strdup(lastCmdCode));
 	env->sep = '=';
 	dlist_move_cursor_to_tail(env_lst);
 	dlist_insert_before_cursor(env_lst, env);

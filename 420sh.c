@@ -33,6 +33,7 @@ int		main(int ac, char **av, char **envp)
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
+			printf("@%d@\n", g_vars.exit_code);
 			last_commandCode_expend(env_list);
 			// printf("@ $? = %d @\n", g_vars.exit_code);
 			expandEnvVarsInParsedData(parsed_line, env_list);
