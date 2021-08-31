@@ -19,7 +19,7 @@ static int	exitSyntaxChecker(int *ac, char **tokens)
 	if (*ac > 2)
 	{
 		ft_putstr_fd("exit\n", STDERR_FILENO);
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		g_vars.exit_code = 1;
 		return (errno);
 	}
@@ -34,7 +34,8 @@ static int	exitSyntaxChecker(int *ac, char **tokens)
 				printErrorMessage("exit", ": ");
 				ft_putstr_fd(tokens[1], STDERR_FILENO);
 				ft_putstr_fd(": numeric argument required\n", STDERR_FILENO); */
-				ft_putstr_fd(strerror(errno), STDERR_FILENO);
+				printErrorMessage("exit", ":");
+				ft_putendl_fd(strerror(errno), STDERR_FILENO);
 				return (errno);
 			}
 			j++;

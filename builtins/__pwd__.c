@@ -20,7 +20,7 @@ int __pwd__(t_commands_table command, t_dlist env_list)
 	chdir(command->tokens_simpl[1]);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		return (errno);
 	}
 	ft_putendl_fd(cwd, STDOUT_FILENO);

@@ -14,7 +14,6 @@
 
 int __echo__(t_commands_table command, t_dlist env_list)
 {
-	(void)env_list;
 	int i;
 	int flag;
 

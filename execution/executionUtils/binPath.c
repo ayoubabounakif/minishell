@@ -78,16 +78,14 @@ char	*binPath(char *cmd, t_dlist envl)
 	splittedPath = ft_split(findPathValue(envl), ':');
 	if (splittedPath == NULL)
 	{
-		// printErrorMessage(cmd, ": No such file or directory\n");
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		g_vars.exit_code = 127;
 		return (NULL);
 	}
 	binPath = getBinPath(cmd, splittedPath);
 	if (binPath == NULL)
 	{
-		// printErrorMessage(cmd, ": command not found\n");
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		g_vars.exit_code = 127;
 		freeVars(splittedPath, binPath);
 	}
