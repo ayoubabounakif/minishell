@@ -1,14 +1,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/wait.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-
-# include "mtwister/mtwister.h"
+# include <stdlib.h>
 
 static unsigned long int next = 1;
-
-int	zbi = 0;
 
 int ft_rand(void)
 {
@@ -21,21 +16,21 @@ void ft_srand(unsigned int seed)
 	next = seed;
 }
 
-int	_main_(void)
+int	sampleRandNumGen(void)
 {
 	pid_t	pid = fork();
 	int		status;
 
 	if (pid == 0)
-		exit(420);
+		exit(EXIT_SUCCESS);
 	ft_srand((unsigned int)&status);
-	zbi = ft_rand();
+	printf("%d", ft_rand());
 	while (waitpid(-1, &status, 0) > 0);
-	return 0;
+	return (EXIT_SUCCESS);
 }
 
 int	main(void)
 {
-	_main_();
-	return (zbi);
+	sampleRandNumGen();
+	return (EXIT_SUCCESS);
 }

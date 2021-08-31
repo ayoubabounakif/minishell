@@ -12,14 +12,14 @@
 
 #include "../includes/minishell.h"
 
-void	implement_heredoc(char *delim, int fd)
+void	implement_heredoc(char *hdoc_limit, int fd)
 {
 	char	*buf;
 
 	while (420)
 	{
 		buf = readline("> ");
-		if (strcmp(buf, delim) == DELIM)
+		if (strcmp(buf, hdoc_limit) == HEREDOC_DELIM)
 		{
 			free(buf);
 			break ;
@@ -33,41 +33,54 @@ void	implement_heredoc(char *delim, int fd)
 int		ft_mkstemp(char *template)
 {
 	int	seed;
-	int	i;
+	int	pipeFds[2];
+	int	n;
+	int	i = 0;
+	pid_t	pid;
 
-	i = 0;
-
-	seed = execve("/Users/aabounak/Desktop/vsAli/a.out", NULL, NULL);
-	// while (template[i])
-	// {
-	// 	if (template[i] == 'X')
-	// 		template[i] = '0' + seed % 10;
-	// 	i++;
-	// 	ft_putendl_fd(template, STDOUT_FILENO);
-	// }
-	// exit(420);
+	while (template[i])
+	{
+		if (template[i] == 'X')
+		{
+			pipe(pipeFds);
+			pid = fork();
+			if (pid == CHILD)
+			{
+				close(pipeFds[READ]);
+				dup2(pipeFds[WRITE], STDOUT_FILENO);
+				execve("./execution/randNG/randNGpgm", NULL, NULL);
+			}
+			close(pipeFds[WRITE]);
+			read(pipeFds[READ], &n, 1);
+			template[i] = n;
+		}
+		i++;
+	}
+	return (EXIT_SUCCESS);
 }
 
 void	heredoc(t_redir_file rf, int *fdin)
 {
 	int		fd;
-	char	template[32];
+	char	template[21];
 
 	ft_memset(template, 0, sizeof(template));
-	ft_strlcpy(template,"/tmp/heredoc-XXXXX", 21);
-	fd = ft_mkstemp(template);
-	// fd = open(random_filename, O_CREAT | O_WRONLY, 0644);
-	// if (fd < 0)
-	// {
-	// 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	// 	exit(errno);	
-	// }
-	// implement_heredoc(rf->file_name, fd);
-	// close(fd);
-	// fd = open(random_filename, O_RDONLY, 0644);
-	// unlink(random_filename);
-	// *fdin = fd;
-	// return ;
+	ft_strlcpy(template,"/tmp/heredoc-XXX", 21);
+	ft_putendl_fd(template, STDOUT_FILENO);
+	ft_mkstemp(template);
+	ft_putendl_fd(template, STDOUT_FILENO);
+	fd = open(template, O_CREAT | O_WRONLY, 0644);
+	if (fd < 0)
+	{
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
+		exit(errno);	
+	}
+	implement_heredoc(rf->file_name, fd);
+	close(fd);
+	fd = open(template, O_RDONLY, 0644);
+	unlink(template);
+	*fdin = fd;
+	return ;
 }
 
 void	inputOutputRedirection(t_commands_table command)

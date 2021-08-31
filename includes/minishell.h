@@ -24,17 +24,15 @@
 # include <readline/history.h>
 # include "../parser/parser.h"
 
-# define UPPERCASE_BUILTINS 2
-
-# define DELIM 0
-
-# define TRUE 1
-# define FALSE 0
-
-# define READ 0
-# define WRITE 1
-
-# define CHILD_PROCESS 0
+enum	MACROS {
+	TRUE = 1,
+	FALSE = 0,
+	READ = 0,
+	WRITE = 1,
+	UPPERCASE_BUILTINS = 2,
+	HEREDOC_DELIM = 0,
+	CHILD = 0
+};
 
 /*
 ** _420sh STRUCTS

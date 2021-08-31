@@ -33,20 +33,14 @@ int		main(int ac, char **av, char **envp)
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
-			printf("@%d@\n", g_vars.exit_code);
+			printf("@@@ Exit_code = %d @@@\n", g_vars.exit_code);
 			last_commandCode_expend(env_list);
-			// printf("@ $? = %d @\n", g_vars.exit_code);
 			expandEnvVarsInParsedData(parsed_line, env_list);
 			add_history(line);
 			free(line);
 			executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);
-			// 	dlist_move_cursor_to_head(env_list);
-			// while (env_list->cursor_n != env_list->sentinel)
-			// {
-			// 	printf("|%s %s|\n", ((t_env *)env_list->cursor_n->value)->key, ((t_env *)env_list->cursor_n->value)->value);
-			// 	dlist_move_cursor_to_next(env_list);
-			// }
+
 		}
 		else if (!line)
 			exit(1);

@@ -17,7 +17,7 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 	if (isBuiltin(command->tokens_simpl[0]) == TRUE)
 		return (executeBuiltins(command, envl));
 	g_vars.pid = fork();
-	if (g_vars.pid == CHILD_PROCESS)
+	if (g_vars.pid == CHILD)
 	{
 		if (in != STDIN_FILENO)
 		{
@@ -39,7 +39,7 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
 	g_vars.pid = fork();
-	if (g_vars.pid == CHILD_PROCESS)
+	if (g_vars.pid == CHILD)
 	{
 		dup2InputOutput(in, pipeFds[WRITE]);
 		if (pipeFds[READ] > 2)
