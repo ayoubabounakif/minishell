@@ -86,6 +86,7 @@ void	cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 {
 	t_tokens up;
 	int		i;
+	char	*tmp_str;
 
 	up = cmdt->tokens_unproccessed;
 	dlist_move_cursor_to_head(up->tokens);
@@ -105,14 +106,17 @@ void	cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 		dlist_move_cursor_to_next(up->tokens);
 		dlist_move_cursor_to_next(up->tokens_masks);
 	}
+
+	
 	cmdt->tokens_simpl = malloc(sizeof(char*) * (cmdt->tokens->len + 1));	
 	i = 0;
 	while (i < cmdt->tokens->len)
-	{
+	{	
 		cmdt->tokens_simpl[i] = ft_strdup(arrptr_get(cmdt->tokens, i));
 		i++;
 	}
-	cmdt->tokens_simpl[i] = NULL;
+	cmdt->tokens_simpl[cmdt->tokens->len] = NULL;
+	// printf("%p %p\n", cmdt->tokens_simpl, cmdt->tokens_simpl[cmdt->tokens->len ]);
 }
 
 int					is_token_a_r_app_file(t_commands_table cmdt)

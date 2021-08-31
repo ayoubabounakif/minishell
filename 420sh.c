@@ -33,14 +33,16 @@ int		main(int ac, char **av, char **envp)
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
+		
+			if (!parsed_line)
+				continue ;	
 			printf("@@@ Exit_code = %d @@@\n", g_vars.exit_code);
 			last_commandCode_expend(env_list);
 			expandEnvVarsInParsedData(parsed_line, env_list);
-			add_history(line);
-			free(line);
 			executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);
-
+			add_history(line);
+			free(line);	
 		}
 		else if (!line)
 			exit(1);

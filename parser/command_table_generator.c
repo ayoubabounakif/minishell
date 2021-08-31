@@ -140,18 +140,19 @@ t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 	check_pipes_n_semiclns(parsing_line, syx); 
 	if (syx->is_error)
 	{
-		printf("%s", syx->error_message);
-		syntax_destroy(syx);
-		exit(1);
+		printf("%s\n", strerror(errno));
+		syx->is_error = 0;
+		
+		return (NULL);
 	}
 	// cmd_tbs_lists = cmd_tables_list(parsing_line, env_list);
 	cmd_tbs_lists = cmd_tables(parsing_line, env_list);
 	if (syx->is_error)
-	{
-		printf("%s", syx->error_message);
-		syntax_destroy(syx);
-		exit(1);
+	{	
+		syx->is_error = 0;
+		printf("%s\n", strerror(errno));
+		return (NULL);
+		
 	}
-	// syntax_destroy(syx);
 	return (cmd_tbs_lists);
 }

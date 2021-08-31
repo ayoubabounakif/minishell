@@ -18,6 +18,7 @@
 # include "../dlist/dlists.h"
 #  include "../dlist/dlist_norm_hack.h"
 #include <fcntl.h>
+# include <errno.h>
 
 # define IS_AFTER_PIPE 1
 # define IS_AFTER_SEMICOLON 2
