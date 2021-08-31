@@ -19,7 +19,7 @@ static void	process(int sign_num)
 		if (sign_num == SIGQUIT)
 		{
 			ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
-			g_vars.exit_code = 131;
+			g_vars.exit_code = 130;
 		}
 		else if (sign_num == SIGINT)
 		{

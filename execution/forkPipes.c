@@ -17,6 +17,7 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 	int		pipeFds[2];
 	int		in;
 	int		ret;
+	int		status;
 
 	in = STDIN_FILENO;
 	dlist_move_cursor_to_head(pipeline);
@@ -48,7 +49,7 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 	spawnLastProc(in, pipeFds, pipeline->cursor_n->value, envl);
 	if (in != STDIN_FILENO)
 		close(in);
-	while (waitpid(-1, &g_vars.status, 0) > 0)
-		if (WIFEXITED(g_vars.status))
-			g_vars.exit_code = WEXITSTATUS(g_vars.status);
+	while (waitpid(-1, &status, 0) > 0)
+		if (WIFEXITED(status))
+			g_vars.exit_code = WEXITSTATUS(status);
 }

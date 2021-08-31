@@ -15,7 +15,7 @@
 int	isBuiltin(char *token)
 {
 	int		i;
-	static const char *builtins[] = {
+	static const char *builtins[7] = {
 		"echo",
 		"cd",
 		"pwd",
@@ -24,7 +24,7 @@ int	isBuiltin(char *token)
 		"env",
 		"exit",
 	};
-	static const char *uppercaseBuiltins[] = {
+	static const char *uppercaseBuiltins[7] = {
 		"ECHO",
 		"CD",
 		"PWD",

@@ -19,9 +19,9 @@ static int	exitSyntaxChecker(int *ac, char **tokens)
 	if (*ac > 2)
 	{
 		ft_putstr_fd("exit\n", STDERR_FILENO);
-		ft_putstr_fd("_420sh: exit: too many arguments\n", STDERR_FILENO);
-		g_vars.exit_code = EXIT_FAILURE;
-		return (g_vars.exit_code);
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		g_vars.exit_code = 1;
+		return (errno);
 	}
 	if (tokens[1])
 	{
@@ -30,11 +30,12 @@ static int	exitSyntaxChecker(int *ac, char **tokens)
 		{
 			if (!ft_isdigit(tokens[1][j]))
 			{
-				ft_putstr_fd("exit\n", STDERR_FILENO);
+			/* 	ft_putstr_fd("exit\n", STDERR_FILENO);
 				printErrorMessage("exit", ": ");
 				ft_putstr_fd(tokens[1], STDERR_FILENO);
-				ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-				return (EXIT_FAILURE);
+				ft_putstr_fd(": numeric argument required\n", STDERR_FILENO); */
+				ft_putstr_fd(strerror(errno), STDERR_FILENO);
+				return (errno);
 			}
 			j++;
 		}
@@ -56,20 +57,20 @@ int __exit__(t_commands_table command, t_dlist env_list)
 	if (i == 0)
 	{
 		ft_putstr_fd("exit\n", STDERR_FILENO);
-		exit (g_vars.exit_code);
+		exit(9999);
 	}
 	else
 	{
 		if (exitSyntaxChecker(&i, command->tokens_simpl) == EXIT_FAILURE)
 		{
 			g_vars.exit_code = 255;
-			exit (g_vars.exit_code);
+			exit(9999);
 		}
 		else
 		{
 			ft_putstr_fd("exit\n", STDERR_FILENO);
 			g_vars.exit_code = 9999;
-			exit (g_vars.exit_code);
+			exit(9999);
 		}
 	}
 	return (EXIT_SUCCESS);

@@ -24,8 +24,7 @@ int executeBuiltins(t_commands_table command, t_dlist envl)
 		"env",
 		"exit",
 	};
-
-	int (*builtin_func[])(t_commands_table  command, t_dlist) = {
+	int (*builtin_func[])(t_commands_table command, t_dlist) = {
 		&__echo__,
 		&__cd__,
 		&__pwd__,

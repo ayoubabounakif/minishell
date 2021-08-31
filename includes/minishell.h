@@ -41,7 +41,6 @@ typedef struct	s_vars
 {
 	pid_t		pid;
 	int			exit_code;
-	int			status;
 }				t_vars;
 
 typedef struct s_env

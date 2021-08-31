@@ -70,7 +70,6 @@ int	__unset__(t_commands_table command, t_dlist env_list)
 				printf("420sh: unset: `%s': not a valid identifier\n", command->tokens_simpl[i]);
 				flag = 1;	// Flag is supposed to be zero
 			}
-
 		}
 	}
 	return (flag);
