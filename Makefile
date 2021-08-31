@@ -33,17 +33,12 @@ SRCS = 420sh.c \
 ./environment/env.c \
 \
 ./signals/handle_sigint.c ./signals/handle_sigquit.c ./signals/sig_handler.c \
-# \
-# get_next_line/get_next_line.c \
-# get_next_line/get_next_line_utils.c \
 
 LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
 
 NAME = minishell
 CC = gcc
-# CFLAGS = -g3 -fsanitize=address
-CFLAGS = -g3 
-# CFLAGS = -g 
+CFLAGS = -g3 -fsanitize=address
 
 all:$(NAME)
 $(NAME):
@@ -51,12 +46,12 @@ $(NAME):
 	@$(MAKE) -C libft 
 	@$(MAKE) -C dlist 
 	@echo "\033[0;32mCompiling minishell"
-	@gcc $(CFLAGS) $(SRCS) $(LIBRARIES) -o $(NAME) -lreadline
-
-
+	@$(CC) $(CFLAGS) $(SRCS) $(LIBRARIES) -o $(NAME) -lreadline
+	@rm -rf minishell.dSYM
 
 clean:
 	@$(MAKE) -C CPCA clean
+
 fclean:
 	@rm -f $(NAME)
 	@$(MAKE) -C CPCA fclean

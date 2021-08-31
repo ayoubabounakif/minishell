@@ -73,7 +73,7 @@ void	heredoc(t_redir_file rf, int *fdin)
 	if (fd < 0)
 	{
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		return (errno);	
+		return ;
 	}
 	implement_heredoc(rf->file_name, fd);
 	close(fd);
@@ -123,7 +123,7 @@ void	inputOutputRedirection(t_commands_table command)
 		if (fdin < 0 || fdout < 0)
 		{
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
-			return (errno);
+			return ;
 		}
 		i++;
 	}
