@@ -72,7 +72,7 @@ static int		check_env(char *string, t_dlist env_list, int eq_sign)
 	while (env_list->cursor_n != env_list->sentinel)
 	{
 		_420sh_env = env_list->cursor_n->value;
-		if (eq_sign == TRUE) // There is eq sign
+		if (eq_sign == TRUE)
 		{
 			if (strcmp(_420sh_env->key, string) == 0)
 				dlist_remove_after_cursor(env_list, 1);

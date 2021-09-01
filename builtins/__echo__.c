@@ -33,5 +33,6 @@ int __echo__(t_commands_table command, t_dlist env_list)
 	}
 	if (flag == 0)
 		ft_putendl_fd(NULL, STDOUT_FILENO);
+	g_vars.exit_code = 0;
 	return (EXIT_SUCCESS);
 }
