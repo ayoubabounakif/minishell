@@ -76,6 +76,24 @@ char	*get_value(char *line)
 	return (value);
 }
 
+/*
+** implementation of getenv
+*/
+char    *ft_getenv(char *name, t_dlist env_list)
+{
+    t_env	*env;
+
+    dlist_move_cursor_to_head(env_list);
+	while(env_list->cursor_n != env_list->sentinel)
+	{
+		env = env_list->cursor_n->value;
+		if (!ft_strncmp(name, env->key, ft_strlen(name)))		
+			return (env->value);
+		dlist_move_cursor_to_next(env_list);
+	}
+	return (NULL);
+}
+
 t_dlist get_envs(char **env)
 {
 	int		i = 0;

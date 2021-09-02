@@ -15,17 +15,17 @@
 #define OUTPUT_TRAILING_NEWLINE 1
 #define SUPPRESS_OUTPUT_TRAILING_NEWLINE 0
 
-void	setFlagNIndex(char **tokens, int *flagRef, int *indexRef)
+void	setFlagNIndex(char *arg, int *flagRef, int *indexRef)
 {
-	if (strcmp(tokens[1], "-n") == 0)
+	if (strcmp(arg, "-n") == 0)
 		(*flagRef) = SUPPRESS_OUTPUT_TRAILING_NEWLINE;
 	if (*flagRef == SUPPRESS_OUTPUT_TRAILING_NEWLINE)
 		(*indexRef) = 2;
 }
 
-int	checkToken(char **tokens)
+int	checkArg(char *arg)
 {
-	if (!tokens[1])
+	if (!arg)
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		g_vars.exit_code = 0;
@@ -40,12 +40,13 @@ int	__echo__(t_commands_table command, t_dlist env_list)
 	int		flag;
 	char	**tokens;
 
-	tokens = command->tokens_simpl;
-	if (!checkToken(tokens))
+	if (command->tokens_simpl)
+		tokens = command->tokens_simpl;
+	if (!checkArg(tokens[1]))
 		return (EXIT_SUCCESS);
 	(i) = 1;
 	(flag) = OUTPUT_TRAILING_NEWLINE;
-	setFlagNIndex(tokens, (&flag), (&i));
+	setFlagNIndex(tokens[1], (&flag), (&i));
 	while (tokens[i])
 	{
 		ft_putstr_fd(tokens[i], STDOUT_FILENO);

@@ -62,7 +62,7 @@ static void	process(int sign_num)
 // 	}
 //}
 
-void		sig_handler(int sign_num)
+void	sig_handler(int sign_num)
 {
 /* 	if (!kill(g_vars.pid, sign_num))
 	{

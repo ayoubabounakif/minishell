@@ -50,8 +50,6 @@ static int	checkSyntax(char *token)
 	return (TRUE);
 }
 
-
-
 int	__unset__(t_commands_table command, t_dlist env_list)
 {
 	int			i;
