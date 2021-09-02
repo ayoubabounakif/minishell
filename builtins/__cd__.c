@@ -41,14 +41,13 @@ char    *ft_getenv(char *name, t_dlist env_list)
 int __cd__(t_commands_table command, t_dlist env_list)
 {
 	char	*arg;
-    char    *getHome;
     
     arg = command->tokens_simpl[1];
     if (arg == NULL) {
         arg = ft_getenv("HOME", env_list);
         if (!arg)
         {
-            printErrorMessage(command->tokens_simpl[0], "HOME not set");
+            printErrorMessage(arg[0], "HOME not set");
 			g_vars.exit_code = 1;
             return (errno);
         }
@@ -57,7 +56,7 @@ int __cd__(t_commands_table command, t_dlist env_list)
 		return (EXIT_SUCCESS);
 	else
 	{
-		printErrorMessage(command->tokens_simpl[0], arg);
+		printErrorMessage(arg[0], arg);
 		g_vars.exit_code = 1;
 		return (errno);
 	}
