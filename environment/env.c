@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:52:05 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/30 16:20:36 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/02 17:12:29 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ void        last_commandCode_expend(t_dlist env_lst)
 	t_env *env_tmp;
 	// exit(666);
 	// value = find_envv_akey_value("?", env_lst);
+	
 	env_tmp = find_envv_key_node("?", env_lst);
 	if (env_tmp != NULL)
 	{
@@ -209,4 +210,30 @@ void        last_commandCode_expend(t_dlist env_lst)
 	// 	printf("|%s %s|\n", ((t_env *)env_lst->cursor_n->value)->key, ((t_env *)env_lst->cursor_n->value)->value);
 	// 	dlist_move_cursor_to_next(env_lst);
 	// }
+}
+
+void		expandEnvVarsInParsedData(t_dlist parsed_data_lst, t_dlist env_lst)
+{
+	char    **token_array;
+	int     i;
+	char	*tmp_str;
+
+	i = 0;
+	dlist_move_cursor_to_head(parsed_data_lst);
+	while (parsed_data_lst->cursor_n != parsed_data_lst->sentinel)
+	{
+		token_array = ((t_commands_table)parsed_data_lst->cursor_n->value)->tokens_simpl;
+		while ((i < ((t_commands_table)parsed_data_lst->cursor_n->value)->tokens->len))
+		{ 
+			if (ft_strnstr(token_array[i], "$?", ft_strlen(token_array[i])))
+			{
+				tmp_str = ft_itoa(g_vars.exit_code);
+				token_array[i] = str_find_and_replace(token_array[i], "$?", tmp_str);
+			}	
+			else if (ft_strnstr(token_array[i], "$", ft_strlen(token_array[i])))
+				token_array[i] = find_replace_env_vars_in_a_token(token_array[i], env_lst);
+			i++;
+		}
+		dlist_move_cursor_to_next(parsed_data_lst);
+	}
 }
