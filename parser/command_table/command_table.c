@@ -81,7 +81,7 @@ int	check_if_rd_got_afile(t_commands_table cmdt)
 	if (up->tokens->cursor_n == up->tokens->sentinel)
 		syntax_set_error(sx, "error around redirection sign");	
 	return (666);
-}		
+}
 void	cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 {
 	t_tokens up;
