@@ -34,14 +34,17 @@ int	isBuiltin(char *token)
 		"EXIT",
 	};
 
-	i = 0;
-	while (i < 7)
+	(i) = 0;
+	while ((i) < 7)
 	{
-		if (strcmp(token, uppercaseBuiltins[i]) == 0)
-			return (UPPERCASE_BUILTINS);
-		if (strcmp(token, builtins[i]) == 0)
-			return (TRUE);
-		i++;
+		if (token)
+		{
+			if (strcmp(token, uppercaseBuiltins[(i)]) == 0)
+				return (UPPERCASE_BUILTINS);
+			if (strcmp(token, builtins[(i)]) == 0)
+				return (TRUE);
+		}
+		(i)++;
 	}
 	return (FALSE);
 }

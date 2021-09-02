@@ -23,31 +23,18 @@ either as a stand alone string or as the initial portion of a path: ~/bin. Note 
 
 #include "../includes/minishell.h"\
 
-char    *ft_getenv(char *name, t_dlist env_list)
-{
-    t_env	*env;
-
-    dlist_move_cursor_to_head(env_list);
-	while(env_list->cursor_n != env_list->sentinel)
-	{
-		env = env_list->cursor_n->value;
-		if (!ft_strncmp(name, env->key, ft_strlen(name)))		
-			return (env->value);
-		dlist_move_cursor_to_next(env_list);
-	}
-	return (NULL);
-}
-
 int __cd__(t_commands_table command, t_dlist env_list)
 {
+	char	*cmd;
 	char	*arg;
     
+	cmd = command->tokens_simpl[0];
     arg = command->tokens_simpl[1];
     if (arg == NULL) {
         arg = ft_getenv("HOME", env_list);
         if (!arg)
         {
-            printErrorMessage(arg[0], "HOME not set");
+            printErrorMessage(cmd, "HOME not set");
 			g_vars.exit_code = 1;
             return (errno);
         }
@@ -56,7 +43,7 @@ int __cd__(t_commands_table command, t_dlist env_list)
 		return (EXIT_SUCCESS);
 	else
 	{
-		printErrorMessage(arg[0], arg);
+		printErrorMessage(cmd, arg);
 		g_vars.exit_code = 1;
 		return (errno);
 	}

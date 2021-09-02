@@ -94,8 +94,8 @@ static int		check_env(char *string, t_dlist env_list, int eq_sign)
 static int	exportHelper(char *token, t_dlist env_list)
 {
 	char	**key_value;
-	env_list = get_envs(NULL);
 
+	env_list = get_envs(NULL);
 	if (check_syntax(token) == TRUE)
 	{
 		if (strchr(token, '='))
@@ -111,7 +111,8 @@ static int	exportHelper(char *token, t_dlist env_list)
 		}
 	}
 	else
-		printf("420sh: export: `%s': not a valid identifier\n", token);
+		printErrorMessage(token, "not a valid identifier");
+		// printf("420sh: export: `%s': not a valid identifier\n", token);
 	
 	return (EXIT_SUCCESS);
 }
@@ -119,17 +120,19 @@ static int	exportHelper(char *token, t_dlist env_list)
 int	__export__(t_commands_table command, t_dlist env_list)
 {
 	int		i;
+	char	**tokens;
 
-	if (tab_len(command->tokens_simpl) > 1)
+	tokens = command->tokens_simpl;
+	if (tab_len(tokens) > 1)
 	{
 		i = 1;
-		while (command->tokens_simpl[i])
+		while (tokens[i])
 		{
-			exportHelper(command->tokens_simpl[i], env_list);
+			exportHelper(tokens[i], env_list);
 			i++;
 		}
 	}
-	else if (tab_len(command->tokens_simpl) == 1)
-		__export_env__(command->tokens_simpl, env_list);
+	else if (tab_len(tokens) == 1)
+		__export_env__(tokens, env_list);
 	return (EXIT_SUCCESS);
 }

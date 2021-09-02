@@ -14,12 +14,18 @@
 
 int		testForUppercaseBuiltins(t_dlist pipeline)
 {
+	char	*token;
+
 	dlist_move_cursor_to_head(pipeline);
-	if (isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]) == UPPERCASE_BUILTINS)
+	token = ((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0];
+	if (token)
 	{
-		printErrorMessage(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], "");
-		g_vars.exit_code = 127;
-		return (UPPERCASE_BUILTINS);
+		if (isBuiltin(token) == UPPERCASE_BUILTINS)
+		{
+			printErrorMessage(token, "");
+			g_vars.exit_code = 127;
+			return (UPPERCASE_BUILTINS);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

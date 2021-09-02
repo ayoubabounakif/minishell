@@ -96,6 +96,7 @@ int			__exit__(t_commands_table command, t_dlist env_list);
 t_env		*env_create(char *key, char *value);
 void		env_destroy(void *env_);
 int			env_unset(t_dlist env_list, char *key);
+char		*ft_getenv(char *name, t_dlist env_list);
 t_dlist		get_envs(char **env);
 char		*get_value(char *line);
 char		*binPath(char *cmd, t_dlist envl);
