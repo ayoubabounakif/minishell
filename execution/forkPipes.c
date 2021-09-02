@@ -12,6 +12,16 @@
 
 # include "../includes/minishell.h"
 
+int	checkExecutable(char *token, t_dlist envl)
+{
+	int	fd;
+
+	fd = open(token, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	return (1);
+}
+
 void	forkPipes(t_dlist pipeline, t_dlist envl)
 {
 	int		pipeFds[2];
@@ -26,9 +36,16 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 		ret = isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]);
 		if (ret != TRUE)
 		{
-			((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
-			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
-				return ;
+			if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl))
+			{
+				((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
+				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
+				{
+					printErrorMessage(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], "");
+					g_vars.exit_code = 127;
+					return ;
+				}
+			}
 		}
 		pipe(pipeFds);
 		spawnProc(in, pipeFds, pipeline->cursor_n->value, envl);
@@ -42,9 +59,16 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 	ret = isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]);
 	if (ret != TRUE)
 	{
-		((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
-		if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
-			return ;
+		if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl))
+		{
+			((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
+			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
+			{
+				printErrorMessage(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], "");
+				g_vars.exit_code = 127;
+				return ;
+			}
+		}
 	}
 	spawnLastProc(in, pipeFds, pipeline->cursor_n->value, envl);
 	if (in != STDIN_FILENO)

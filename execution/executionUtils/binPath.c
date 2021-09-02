@@ -48,25 +48,6 @@ static char	*getBinPath(char *command, char **splittedPath)
 	return (NULL);
 }
 
-static char	*findPathValue(t_dlist envl)
-{
-	t_env	*_420sh_env;
-	char	*path;
-
-	dlist_move_cursor_to_head(envl);
-	while (envl->cursor_n != envl->sentinel)
-	{
-		_420sh_env = envl->cursor_n->value;
-		if (strcmp(_420sh_env->key, "PATH") == 0)
-		{
-			path = _420sh_env->value;
-			return (path);
-		}
-		dlist_move_cursor_to_next(envl);
-	}
-	return (path);
-}
-
 char	*binPath(char *cmd, t_dlist envl)
 {
 	int		bin_fd;
@@ -75,20 +56,12 @@ char	*binPath(char *cmd, t_dlist envl)
 	int		i;
 
 	binPath = NULL;
-	splittedPath = ft_split(findPathValue(envl), ':');
+	splittedPath = ft_split(ft_getenv("PATH", envl), ':');
 	if (splittedPath == NULL)
-	{
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		g_vars.exit_code = 127;
 		return (NULL);
-	}
 	binPath = getBinPath(cmd, splittedPath);
 	if (binPath == NULL)
-	{
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		g_vars.exit_code = 127;
 		freeVars(splittedPath, binPath);
-	}
 	else
 		return (binPath);
 	return (NULL);
