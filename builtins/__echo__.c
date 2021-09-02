@@ -12,27 +12,49 @@
 
 #include "../includes/minishell.h"
 
-int __echo__(t_commands_table command, t_dlist env_list)
-{
-	int i;
-	int flag;
+#define OUTPUT_TRAILING_NEWLINE 1
+#define SUPPRESS_OUTPUT_TRAILING_NEWLINE 0
 
-	i = 1;
-	flag = 0;
-	while (command->tokens_simpl[i])
+void	setFlagNIndex(char **tokens, int *flagRef, int *indexRef)
+{
+	if (strcmp(tokens[1], "-n") == 0)
+		(*flagRef) = SUPPRESS_OUTPUT_TRAILING_NEWLINE;
+	if (*flagRef == SUPPRESS_OUTPUT_TRAILING_NEWLINE)
+		(*indexRef) = 2;
+}
+
+int	checkToken(char **tokens)
+{
+	if (!tokens[1])
 	{
-		if (i > 1)
-			ft_putchar_fd(' ', STDOUT_FILENO);
-		while (strcmp(command->tokens_simpl[i], "-n") == 0)
-		{
-			flag = 1;
-			i++;
-		}
-		ft_putstr_fd(command->tokens_simpl[i], STDOUT_FILENO);
-		i++;
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		g_vars.exit_code = 0;
+		return (0);
 	}
-	if (flag == 0)
-		ft_putendl_fd(NULL, STDOUT_FILENO);
+	return (1);
+}
+
+int	__echo__(t_commands_table command, t_dlist env_list)
+{
+	int		i;
+	int		flag;
+	char	**tokens;
+
+	tokens = command->tokens_simpl;
+	if (!checkToken(tokens))
+		return (EXIT_SUCCESS);
+	(i) = 1;
+	(flag) = OUTPUT_TRAILING_NEWLINE;
+	setFlagNIndex(tokens, (&flag), (&i));
+	while (tokens[i])
+	{
+		ft_putstr_fd(tokens[i], STDOUT_FILENO);
+		if (tokens[(i) + 1] != NULL)
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		(i)++;
+	}
+	if ((flag) == OUTPUT_TRAILING_NEWLINE)
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	g_vars.exit_code = 0;
 	return (EXIT_SUCCESS);
 }

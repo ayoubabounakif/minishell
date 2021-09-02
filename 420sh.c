@@ -33,7 +33,6 @@ int		main(int ac, char **av, char **envp)
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
-		
 			if (!parsed_line)
 				continue ;	
 			printf("@@@ Exit_code = %d @@@\n", g_vars.exit_code);
@@ -45,7 +44,7 @@ int		main(int ac, char **av, char **envp)
 			free(line);	
 		}
 		else if (!line)
-			exit(1);
+			exit(EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
