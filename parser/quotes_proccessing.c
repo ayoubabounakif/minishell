@@ -67,7 +67,30 @@ char *remove_quotes_from_string(char *a_token)
     return (str);
 }
 
-void process_tokens_from_quotes(t_tokens tks)
+char *remove_quotes_from_stringImproved(char *a_token, char type_of_quotes)
+{
+    char	*mask;
+    t_rstr	tmp_str;
+	int		i;
+	char	*r_str;
+    
+	i = 0;
+    mask = get_mask(a_token);
+	tmp_str = rstr_create(0);
+	while(a_token[i])
+	{
+		if (a_token[i] != type_of_quotes)
+			rstr_add(tmp_str, a_token[i]);
+		i++;
+	}
+	r_str = rstr_to_cstr(tmp_str);
+	rstr_destroy(tmp_str);
+	free(a_token);
+	return (r_str);
+	
+}
+
+/* void process_tokens_from_quotes(t_tokens tks)
 {
     char *v;
     char *v_m;
@@ -100,6 +123,28 @@ void process_tokens_from_quotes(t_tokens tks)
             tks->tokens->cursor_n->value = v;
             tks->tokens_masks->cursor_n->value = v_m;
         }
+        dlist_move_cursor_to_next(tks->tokens);
+        dlist_move_cursor_to_next(tks->tokens_masks);
+    }
+} */
+
+
+void process_tokens_from_quotes(t_tokens tks)
+{
+    char *v;
+    char *v_m;
+    
+    dlist_move_cursor_to_head(tks->tokens);
+    dlist_move_cursor_to_head(tks->tokens_masks);
+    while (tks->tokens->cursor_n != tks->tokens->sentinel)
+    {
+		v = tks->tokens->cursor_n->value;
+        v_m = tks->tokens_masks->cursor_n->value;
+		if (ft_strchr(v, '"'))
+		{
+			tks->tokens->cursor_n->value = remove_quotes_from_stringImproved(v, '"');
+			tks->tokens_masks->cursor_n->value = remove_quotes_from_stringImproved(v_m, '"');
+		}
         dlist_move_cursor_to_next(tks->tokens);
         dlist_move_cursor_to_next(tks->tokens_masks);
     }
