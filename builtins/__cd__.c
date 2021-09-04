@@ -47,5 +47,6 @@ int __cd__(t_commands_table command, t_dlist env_list)
 		g_vars.exit_code = 1;
 		return (errno);
 	}
+	g_vars.exit_code = 0;
 	return (EXIT_SUCCESS);
 }
