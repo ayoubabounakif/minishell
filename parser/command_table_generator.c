@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:48:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/07/07 12:23:01 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/04 16:06:44 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,17 @@ t_dlist      cmd_tables_list(char *parsing_text, t_dlist env_list)
 	return (list_of_command_tables_lists);
 }
 
+int			is_space_only(char *str)
+{
+	while(*str)
+	{
+		if (*str != ' ')
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
 t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 {
 	t_syx_check syx;
@@ -138,6 +149,8 @@ t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 
 	syx = syntax_check_create(); 
 	check_pipes_n_semiclns(parsing_line, syx); 
+	if (is_space_only(parsing_line))
+		return (NULL);
 	if (syx->is_error)
 	{
 		printf("%s\n", strerror(errno));

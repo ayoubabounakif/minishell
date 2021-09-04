@@ -135,17 +135,22 @@ void process_tokens_from_quotes(t_tokens tks)
     char *v_m;
     
     dlist_move_cursor_to_head(tks->tokens);
-    dlist_move_cursor_to_head(tks->tokens_masks);
+    // dlist_move_cursor_to_head(tks->tokens_masks);
     while (tks->tokens->cursor_n != tks->tokens->sentinel)
     {
 		v = tks->tokens->cursor_n->value;
-        v_m = tks->tokens_masks->cursor_n->value;
+        // v_m = tks->tokens_masks->cursor_n->value;
 		if (ft_strchr(v, '"'))
 		{
 			tks->tokens->cursor_n->value = remove_quotes_from_stringImproved(v, '"');
-			tks->tokens_masks->cursor_n->value = remove_quotes_from_stringImproved(v_m, '"');
+			// tks->tokens_masks->cursor_n->value = remove_quotes_from_ stringImproved(v_m, '"');
 		}
+        if (ft_strchr(v, '\''))
+		{
+			tks->tokens->cursor_n->value = remove_quotes_from_stringImproved(v, '\'');
+			// tks->tokens_masks->cursor_n->value = remove_quotes_from_stringImproved(v_m, '\'');
+		}      
         dlist_move_cursor_to_next(tks->tokens);
-        dlist_move_cursor_to_next(tks->tokens_masks);
+        // dlist_move_cursor_to_next(tks->tokens_masks);
     }
 }

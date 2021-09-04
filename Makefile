@@ -38,8 +38,9 @@ LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
 
 NAME = minishell
 CC = gcc
-CFLAGS = -g3 -fsanitize=address
-# CFLAGS = -g3 
+# CFLAGS = -g3 -fsanitize=address
+CFLAGS = -g 
+READLINE = -lreadline
 
 all:$(NAME)
 $(NAME):
@@ -47,7 +48,7 @@ $(NAME):
 	@$(MAKE) -C libft 
 	@$(MAKE) -C dlist 
 	@echo "\033[0;32mCompiling minishell"
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBRARIES) -o $(NAME) -lreadline
+	@$(CC) $(CFLAGS) $(SRCS) $(LIBRARIES) -o $(NAME) $(READLINE)
 	@rm -rf minishell.dSYM
 
 clean:

@@ -27,20 +27,20 @@ int		main(int ac, char **av, char **envp)
 	env_list = get_envs(envp);
 	signal(SIGQUIT, sig_handler);
 	signal(SIGINT, sig_handler);
+	// line = readline("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m\x1B[32m\x1B[0m\x1B[31m$ \x1B[0m");
 	while (420)
 	{
 		line = readline("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m\x1B[32m\x1B[0m\x1B[31m$ \x1B[0m");		
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
+			add_history(line);
 			if (!parsed_line)
-				continue ;	
-			printf("@@@ Exit_code = %d @@@\n", g_vars.exit_code);
-	
+				continue ;
+			printf("@@@ Exit_code = %d @@%s@\n", g_vars.exit_code, line);	
 			expandEnvVarsInParsedData(parsed_line, env_list);
 			executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);
-			add_history(line);
 			free(line);	
 		}
 		else if (!line)

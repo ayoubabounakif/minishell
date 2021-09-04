@@ -39,7 +39,7 @@ t_commands_table	cmd_table(t_pipeline pl, t_dlist env_list)
 	ct = malloc(sizeof(struct s_commands_table));	
 	ct->tokens_unproccessed = tokens(pl);
 	
-	process_tokens_from_quotes(ct->tokens_unproccessed);	
+	process_tokens_from_quotes(ct->tokens_unproccessed);
 	ct->tokens = empty_arrptr_create(free);	
 	ct->redir_files = empty_arrptr_create(redir_file_destroy);
 	ct->tokens_simpl = NULL;

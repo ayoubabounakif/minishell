@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:52:05 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/02 19:31:34 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/04 14:27:47 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,49 @@ void        last_commandCode_expend(t_dlist env_lst)
 	// }
 }
 
+void		expandNormalTokens(void *data, t_dlist env_lst)
+{
+	t_commands_table	cmd;
+	int					i;
+	char				*tmp_str;
+
+	i = 0;
+	cmd = data;
+	while (i < cmd->tokens->len)
+	{
+		if (ft_strnstr(cmd->tokens_simpl[i] , "$?", ft_strlen(cmd->tokens_simpl[i])))
+			{
+				tmp_str = ft_itoa(g_vars.exit_code);
+				cmd->tokens_simpl[i] = str_find_and_replace(cmd->tokens_simpl[i], "$?", tmp_str);
+			}	
+			else if (ft_strnstr(cmd->tokens_simpl[i], "$", ft_strlen(cmd->tokens_simpl[i])))
+				cmd->tokens_simpl[i] = find_replace_env_vars_in_a_token(cmd->tokens_simpl[i], env_lst);
+		i++;
+	}	
+}
+void		expandRedirFiles(void *data, t_dlist env_lst)
+{
+	t_commands_table	cmd;
+	int					i;
+	char				*tmp_str;
+	char				*file_name;
+
+	i = 0;
+	cmd = data;
+	while (i < cmd->redir_files->len)
+	{
+		file_name = ((t_redir_file)arrptr_get(cmd->redir_files, i))->file_name;
+		if (ft_strnstr(file_name , "$?", ft_strlen(file_name)))
+			{
+				tmp_str = ft_itoa(g_vars.exit_code);
+				((t_redir_file)arrptr_get(cmd->redir_files, i))->file_name = str_find_and_replace(file_name, "$?", tmp_str);
+			}	
+			else if (ft_strnstr(file_name, "$", ft_strlen(file_name)))
+				file_name = find_replace_env_vars_in_a_token(file_name, env_lst);
+		i++;
+	}
+}
+
 void		expandEnvVarsInParsedData(t_dlist parsed_data_lst, t_dlist env_lst)
 {
 	char    **token_array;
@@ -240,18 +283,8 @@ void		expandEnvVarsInParsedData(t_dlist parsed_data_lst, t_dlist env_lst)
 	dlist_move_cursor_to_head(parsed_data_lst);
 	while (parsed_data_lst->cursor_n != parsed_data_lst->sentinel)
 	{
-		token_array = ((t_commands_table)parsed_data_lst->cursor_n->value)->tokens_simpl;
-		while ((i < ((t_commands_table)parsed_data_lst->cursor_n->value)->tokens->len))
-		{ 
-			if (ft_strnstr(token_array[i], "$?", ft_strlen(token_array[i])))
-			{
-				tmp_str = ft_itoa(g_vars.exit_code);
-				token_array[i] = str_find_and_replace(token_array[i], "$?", tmp_str);
-			}	
-			else if (ft_strnstr(token_array[i], "$", ft_strlen(token_array[i])))
-				token_array[i] = find_replace_env_vars_in_a_token(token_array[i], env_lst);
-			i++;
-		}
+		expandNormalTokens(parsed_data_lst->cursor_n->value, env_lst);	
+		expandRedirFiles(parsed_data_lst->cursor_n->value, env_lst);		
 		dlist_move_cursor_to_next(parsed_data_lst);
 	}
 }

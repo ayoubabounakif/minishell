@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 12:29:39 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/20 15:03:05 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/04 17:47:43by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,10 @@ void remplace_cursor_node_with_array(t_dlist l, t_arrptr arr)
 
 void			tokens_split_w_red(t_dlist tokens)
 {	
+	char *mask;
+
 	dlist_move_cursor_to_head(tokens);
+	mask = get_mask((char*)(tokens->cursor_n->value));
 	if (*(char*)(tokens->cursor_n->value) == '"'
 	|| *(char*)(tokens->cursor_n->value) == '\'')
 		return ;
