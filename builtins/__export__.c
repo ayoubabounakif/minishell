@@ -111,9 +111,7 @@ static int	exportHelper(char *token, t_dlist env_list)
 		}
 	}
 	else
-		printErrorMessage(token, "not a valid identifier");
-		// printf("420sh: export: `%s': not a valid identifier\n", token);
-	
+		printErrorMessage(token, "not a valid identifier");	
 	return (EXIT_SUCCESS);
 }
 
