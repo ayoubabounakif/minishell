@@ -29,7 +29,7 @@ int		main(int ac, char **av, char **envp)
 	signal(SIGINT, sig_handler);
 	while (420)
 	{
-		line = readline("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m\x1B[32m\x1B[0m\x1B[31m$ \x1B[0m");		
+		line = readline("420-shell ( *∀*)y─┛ => ");		
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
@@ -38,7 +38,7 @@ int		main(int ac, char **av, char **envp)
 				continue ;
 			
 			printf("@@@ Exit_code = %d @@%s@\n", g_vars.exit_code, get_mask(line));
-			// expandEnvVarsInParsedData(parsed_line, env_list);
+			expandEnvVarsInParsedData(parsed_line, env_list);
 			executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);
 			free(line);	
