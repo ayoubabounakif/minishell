@@ -29,7 +29,7 @@ int		main(int ac, char **av, char **envp)
 	signal(SIGINT, sig_handler);
 	while (420)
 	{
-		line = readline("420-shell ( *∀*)y─┛ => ");		
+		line = readline("420-shell (*∀*)y─┛ => ");		
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
