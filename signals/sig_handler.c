@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 15:06:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/04 17:34:05 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/05 16:25:07 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,9 @@ void	sig_handler(int sign_num)
 	} */
 	if (sign_num == SIGINT)
 	{
-		ft_putchar_fd('\r', 1);
-		ft_putchar_fd('\r', 1);
-		ft_putchar_fd('\r', 1);
-			
-		ft_putchar_fd('\n', 1);
-		g_vars.exit_code = 1;
-		rl_on_new_line();
-		// rl_replace_line("", 0);
+		printf("\n"); // Move to a new line
+		rl_on_new_line(); // Regenerate the prompt on a newline
+		rl_replace_line("dude", 0); // Clear the previous text
 		rl_redisplay();
 	}
 	else if (sign_num == SIGQUIT)

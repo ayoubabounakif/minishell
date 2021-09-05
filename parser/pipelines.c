@@ -49,17 +49,14 @@ t_arrptr		get_pipelines(char *str)
 	mask = get_mask(str);
 	while (mask[i])
 	{
-		if (mask[i] != ';' && mask[i] != '|')
+		if (mask[i] != '|')
 		{
 			rstr_add(tmp_str, str[i]);
 			rstr_add(tmp_str_m, mask[i]);
 		}
-		else if (mask[i] == ';' || mask[i] == '|')
-		{
-			if (mask[i] == ';')
-				arrptr_add(arr, pipeline(rstr_to_cstr(tmp_str), rstr_to_cstr(tmp_str_m),
-					IS_AFTER_SEMICOLON));
-			else if (mask[i] == '|')
+		else if (mask[i] == '|')
+		{	
+			if (mask[i] == '|')
 				arrptr_add(arr, pipeline(rstr_to_cstr(tmp_str), rstr_to_cstr(tmp_str_m),
 					IS_AFTER_PIPE));
 			rstr_clear(tmp_str);

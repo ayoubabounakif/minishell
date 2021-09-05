@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:48:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/05 10:35:53 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/05 16:40:13 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 		return (NULL);
 	if (syx->is_error)
 	{
-		printf("%s\n", strerror(errno));
+		printf("%s\n", syx->error_message);
 		syx->is_error = 0;	
 		return (NULL);
 	}
@@ -164,7 +164,7 @@ t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 	if (syx->is_error)
 	{	
 		syx->is_error = 0;
-		printf("%s\n", strerror(errno));
+		printf("%s\n", syx->error_message);
 		return (NULL);
 		
 	}

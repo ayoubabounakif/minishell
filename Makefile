@@ -40,7 +40,7 @@ NAME = minishell
 CC = gcc
 CFLAGS = -g3 -fsanitize=address
 # CFLAGS = -g 
-READLINE = -lreadline
+READLINE = -lreadline -L /goinfre/$(USER)/.brew/opt/readline/lib -I /goinfre/$(USER)/.brew/opt/readline/include
 
 all:$(NAME)
 $(NAME):

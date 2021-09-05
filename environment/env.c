@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:52:05 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/05 13:28:37 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/05 15:37:50 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,7 @@ void		expandNormalTokens(void *data, t_dlist env_lst)
 		if (ft_strnstr(mask, "$V", ft_strlen(mask)))
 			{
 				tmp_str = ft_itoa(g_vars.exit_code);
+				// cmd->tokens_simpl[i] = str_find_and_replace(cmd->tokens_simpl[i], "$?", tmp_str);
 				cmd->tokens_simpl[i] = find_replace_env_vars_in_a_token(cmd->tokens_simpl[i], env_lst);
 				cmd->tokens_simpl[i] = str_find_and_replace(cmd->tokens_simpl[i], "$?", tmp_str);
 				free(tmp_str);

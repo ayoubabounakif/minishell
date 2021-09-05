@@ -37,8 +37,7 @@ int		main(int ac, char **av, char **envp)
 			if (!parsed_line)
 				continue ;
 			
-			printf("@@@ Exit_code = %d @@%s@\n", g_vars.exit_code, get_mask(line));
-			expandEnvVarsInParsedData(parsed_line, env_list);
+			printf("@@@ Exit_code = %d @@%s@\n", g_vars.exit_code, get_mask(line));	
 			executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);
 			free(line);	
