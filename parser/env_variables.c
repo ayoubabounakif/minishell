@@ -105,8 +105,8 @@ char    *find_replace_env_vars_in_a_token(char *token, t_dlist env_list)
                 else
                     r_str = str_find_and_replace(r_str, tmp, is_key_found);
             }
-            else
-            {
+            else if (!ft_strnstr(token + i, "$?", 2))
+            { 
                 if (!r_str)
                     r_str = str_find_and_replace(token, tmp, "");
                 else

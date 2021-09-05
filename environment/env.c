@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:52:05 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/04 14:27:47 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/05 13:28:37 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,21 +235,32 @@ void		expandNormalTokens(void *data, t_dlist env_lst)
 	t_commands_table	cmd;
 	int					i;
 	char				*tmp_str;
-
+	char				*mask;
+	
+	mask = NULL;
 	i = 0;
 	cmd = data;
 	while (i < cmd->tokens->len)
 	{
-		if (ft_strnstr(cmd->tokens_simpl[i] , "$?", ft_strlen(cmd->tokens_simpl[i])))
+		mask = get_mask(cmd->tokens_simpl[i]);
+		/* if (ft_strnstr(cmd->tokens_simpl[i] , "$?", ft_strlen(cmd->tokens_simpl[i]))
+		&& ft_strnstr(mask, "$V", ft_strlen(mask)))
 			{
 				tmp_str = ft_itoa(g_vars.exit_code);
 				cmd->tokens_simpl[i] = str_find_and_replace(cmd->tokens_simpl[i], "$?", tmp_str);
-			}	
-			else if (ft_strnstr(cmd->tokens_simpl[i], "$", ft_strlen(cmd->tokens_simpl[i])))
+			}	 */
+		if (ft_strnstr(mask, "$V", ft_strlen(mask)))
+			{
+				tmp_str = ft_itoa(g_vars.exit_code);
 				cmd->tokens_simpl[i] = find_replace_env_vars_in_a_token(cmd->tokens_simpl[i], env_lst);
+				cmd->tokens_simpl[i] = str_find_and_replace(cmd->tokens_simpl[i], "$?", tmp_str);
+				free(tmp_str);
+			}
+		free(mask);
 		i++;
 	}	
 }
+
 void		expandRedirFiles(void *data, t_dlist env_lst)
 {
 	t_commands_table	cmd;
@@ -275,11 +286,6 @@ void		expandRedirFiles(void *data, t_dlist env_lst)
 
 void		expandEnvVarsInParsedData(t_dlist parsed_data_lst, t_dlist env_lst)
 {
-	char    **token_array;
-	int     i;
-	char	*tmp_str;
-
-	i = 0;
 	dlist_move_cursor_to_head(parsed_data_lst);
 	while (parsed_data_lst->cursor_n != parsed_data_lst->sentinel)
 	{

@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:48:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/04 16:06:44 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/05 10:35:53 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,12 +154,13 @@ t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 	if (syx->is_error)
 	{
 		printf("%s\n", strerror(errno));
-		syx->is_error = 0;
-		
+		syx->is_error = 0;	
 		return (NULL);
 	}
 	// cmd_tbs_lists = cmd_tables_list(parsing_line, env_list);
 	cmd_tbs_lists = cmd_tables(parsing_line, env_list);
+	expandEnvVarsInParsedData(cmd_tbs_lists, env_list);
+	remove_quotes(cmd_tbs_lists);
 	if (syx->is_error)
 	{	
 		syx->is_error = 0;

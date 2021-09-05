@@ -12,7 +12,7 @@
 
 #include "../parser.h"
 
-int				is_red_cmd_non_split(char *token_)
+int				is_red_cmd_non_split(char *token_, char *mask)
 {
 	char *token;	
 	int i;
@@ -25,7 +25,7 @@ int				is_red_cmd_non_split(char *token_)
 	token = (char*)token_;	
 	while (token[i])
 	{
-		if (token[i] == '>' || token[i] == '<')
+		if (mask[i] == '>' || mask[i] == '<')
 			r = 1;
 		else
 			al = 1;	
@@ -59,17 +59,19 @@ t_arrptr		split_token_w_red(char *token)
 	t_rstr rs;
 	t_arrptr	arr;
 	int			i;
+	char		*mask;
 
+	mask = get_mask(token);
 	i = 0;
 	rs = rstr_create(0);
 	arr = empty_arrptr_create(free);
 	while(token[i])
 	{
-		if (token[i] != '>' && token[i] != '<')
+		if (mask[i] != '>' && mask[i] != '<')
 		{
 			rstr_add(rs, token[i]);
 		}
-		else if (token[i] == '>' || token[i] == '<')
+		else if (mask[i] == '>' || mask[i] == '<')
 		{
 			if (rs->len)
 				arrptr_add(arr, rstr_to_cstr(rs));
@@ -79,6 +81,7 @@ t_arrptr		split_token_w_red(char *token)
 		}
 		i++;
 	}
+	free(mask);
 	rstr_destroy(rs);
 	return (arr);
 }
@@ -100,13 +103,15 @@ void			tokens_split_w_red(t_dlist tokens)
 	char *mask;
 
 	dlist_move_cursor_to_head(tokens);
-	mask = get_mask((char*)(tokens->cursor_n->value));
+	// mask = get_mask((char*)(tokens->cursor_n->value));
+	mask = NULL;
 	if (*(char*)(tokens->cursor_n->value) == '"'
 	|| *(char*)(tokens->cursor_n->value) == '\'')
 		return ;
     while (tokens->cursor_n != tokens->sentinel) 
     {
-		if (is_red_cmd_non_split(tokens->cursor_n->value))
+		mask = get_mask((char*)(tokens->cursor_n->value));
+		if (is_red_cmd_non_split(tokens->cursor_n->value, mask))
 		{
 			t_arrptr arr =  split_token_w_red((char*)tokens->cursor_n->value);
 			remplace_cursor_node_with_array(tokens, arr);
@@ -115,4 +120,5 @@ void			tokens_split_w_red(t_dlist tokens)
 		}	
         dlist_move_cursor_to_next(tokens);	
 	}
+	free(mask);
  }

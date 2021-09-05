@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 19:05:40 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/04 16:42:14 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/05 13:11:51 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char		get_mask_character(t_state *state, char *s, int i)
 				state->env_variable = 0;
 			return ('V');
 		}
+		if (s[i] == '$')
+			return ('$');
 		state->env_variable = 0;
 	}
 	else if (s[i] == '$')
@@ -84,16 +86,6 @@ char		get_mask_character(t_state *state, char *s, int i)
 		state->env_variable = 1;
 		return ('$');
 	}
-	/* if (state->skip == 1)
-	{
-		state->skip = 0;
-		return ('L');
-	}	 */
-/* 	else if (s[i] == '\\')
-	{
-		state->skip = 1;
-		return ('\\');
-	}	 */
 	else if (s[i] == '\'')
 	{
 		state->inside_squote = 1;

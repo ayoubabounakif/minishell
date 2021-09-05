@@ -108,7 +108,7 @@ t_arrptr			get_pipelines(char *str);
 /*
 ** is a token composed of a words and rederection signs
 */
-int				is_red_cmd_non_split(char *token_);
+int				is_red_cmd_non_split(char *token_, char *mask);
 
 /*
 **	divide a string that contains a 
@@ -282,5 +282,6 @@ void		cmd_tables_list_destroy_(t_dlist cmds_array);
 t_dlist		parse_line(char *parsing_line, t_dlist env_list);
 void		expandEnvVarsInParsedData(t_dlist parsed_data_lst, t_dlist env_lst);
 char		*remove_quotes_from_stringImproved(char *a_token, char type_of_quotes);
+void remove_quotes(t_dlist parsed_line);
 
 #endif

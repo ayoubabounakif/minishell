@@ -38,8 +38,8 @@ LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
 
 NAME = minishell
 CC = gcc
-# CFLAGS = -g3 -fsanitize=address
-CFLAGS = -g 
+CFLAGS = -g3 -fsanitize=address
+# CFLAGS = -g 
 READLINE = -lreadline
 
 all:$(NAME)

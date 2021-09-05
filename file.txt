@@ -1,0 +1,16 @@
+420sh.c
+CPCA
+Makefile
+README.md
+builtins
+dlist
+dodo.txt
+environment
+execution
+file.txt
+heredoc
+includes
+libft
+minishell
+parser
+signals
