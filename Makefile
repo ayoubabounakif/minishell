@@ -7,7 +7,6 @@ SRCS = 420sh.c \
 ./parser/command_table_generator.c \
 ./parser/quotes_proccessing.c\
 ./parser/env_variables.c\
-./parser/expand_env_vars.c\
 ./parser/syntax_checking.c\
 ./parser/tokens.c\
 \
