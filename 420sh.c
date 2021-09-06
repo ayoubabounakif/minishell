@@ -12,6 +12,17 @@
 
 # include "includes/minishell.h"
 
+void	processHeredoc(t_dlist pipeline)
+{
+	dlist_move_cursor_to_head(pipeline);
+	while (pipeline->cursor_n->n != pipeline->sentinel)
+	{
+		
+		dlist_move_cursor_to_next(pipeline);
+	}
+	return ;
+}
+
 int		main(int ac, char **av, char **envp)
 {
 	(void)ac;
@@ -36,7 +47,7 @@ int		main(int ac, char **av, char **envp)
 			add_history(line);
 			if (!parsed_line)
 				continue ;	
-			// printf("@@@ Exit_code = %d @@%s@\n", g_vars.exit_code, get_mask(line));	
+			processHeredoc(parsed_line);
 			executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);
 			free(line);

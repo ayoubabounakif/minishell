@@ -12,14 +12,16 @@
 
 #include "../includes/minishell.h"
 
-void	implement_heredoc(char *hdoc_limit, int fd)
+void	implement_heredoc(char *hdoc_delim, int fd)
 {
 	char	*buf;
 
 	while (420)
 	{
 		buf = readline("> ");
-		if (strcmp(buf, hdoc_limit) == HEREDOC_DELIM)
+		if (!buf)
+			break ;
+		if (strcmp(buf, hdoc_delim) == HEREDOC_DELIM)
 		{
 			free(buf);
 			break ;
@@ -66,9 +68,13 @@ void	heredoc(t_redir_file rf, int *fdin)
 
 	ft_memset(template, 0, sizeof(template));
 	ft_strlcpy(template,"/tmp/heredoc-XXX", 21);
+
 	ft_putendl_fd(template, STDOUT_FILENO);
+
 	ft_mkstemp(template);
+
 	ft_putendl_fd(template, STDOUT_FILENO);
+	
 	fd = open(template, O_CREAT | O_WRONLY, 0644);
 	if (fd < 0)
 	{
