@@ -35,12 +35,11 @@ int		main(int ac, char **av, char **envp)
 			parsed_line = parse_line(line, env_list);
 			add_history(line);
 			if (!parsed_line)
-				continue ;
-			
+				continue ;	
 			// printf("@@@ Exit_code = %d @@%s@\n", g_vars.exit_code, get_mask(line));	
 			executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);
-			free(line);	
+			free(line);
 		}
 		else if (!line)
 			exit(EXIT_FAILURE);
