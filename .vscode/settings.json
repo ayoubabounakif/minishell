@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "heredoc.h": "c",
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "sstream": "c"
     }
 }

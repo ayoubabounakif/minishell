@@ -48,6 +48,7 @@ t_commands_table	cmd_table(t_pipeline pl, t_dlist env_list)
 	return (ct);
 }
 
+
 void				cmd_table_destroy(void *cmd_tab_)
 {
 	t_commands_table cmd_tab;
@@ -60,7 +61,7 @@ void				cmd_table_destroy(void *cmd_tab_)
 	*/ 
 	tokens_destroy(cmd_tab->tokens_unproccessed);
 	arrptr_destroy(cmd_tab->tokens);	
-	arrptr_destroy(cmd_tab->redir_files);		
+	arrptr_destroy(cmd_tab->redir_files);	
 	while (cmd_tab->tokens_simpl[i])	
 	{
 		free(cmd_tab->tokens_simpl[i]);

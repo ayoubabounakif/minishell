@@ -6,21 +6,26 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:45:21 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/07 11:42:30 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/07 17:17:34 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
 
-unsigned int generate_random_value(void)
+char *generate_random_value(void)
 {
 	int			fd;	
 	unsigned	randval;
+	char		*rand_string;
+	char		*r_string;
 
 	fd = open("/dev/random", O_RDONLY);
 	read(fd, &randval, sizeof(randval));
 	close(fd);
-	return (randval);
+	rand_string = ft_itoa(randval);
+	r_string = ft_strjoin("/tmp/heredoc-", rand_string);
+	free(rand_string);
+	return (r_string);
 }
 
 t_arrptr	get_array_of_heredoc_files(t_commands_table cmd)
@@ -41,23 +46,24 @@ t_arrptr	get_array_of_heredoc_files(t_commands_table cmd)
 	return (her_arr);
 }
 
-int		heredoc_repl_save(char *file)
+char	*heredoc_repl_save(char *file)
 {
-	int		fd;
+	int 	fd;
 	char	*line;
-	char	*tmp_str;
+	char	*random_string;
 	
-	tmp_str = ft_itoa(generate_random_value());
-	fd = open(tmp_str, O_RDWR, S_IRWXU);
+	
+	random_string = generate_random_value();		
+	fd = open(random_string, O_CREAT | O_RDWR, S_IRWXU);
 	while (1)
 	{	
 		line = readline("heredoc> ");
 		if (!ft_strncmp(line, file, ft_strlen(file)))
 		{
 			free(line);
-			free(tmp_str);
+			// free(tmp_str);
 			close(fd);
-			return (fd);
+			return (random_string);
 		}
 		ft_putstr_fd(line, fd);
 		ft_putchar_fd('\n', fd);
@@ -81,12 +87,25 @@ void	heredoc_repl_non_save(char *file)
 	}
 }
 
-int     heredoc_for_one_cmd_table(t_commands_table cmd)
+void	turn_last_heredoc_delName_into_filename(t_commands_table cmd, char *file_name)
+{
+	int i;
+	t_redir_file rf;
+
+	i = 0;
+	while (i < cmd->redir_files->len - 1)	
+		i++;	
+	rf = arrptr_get(cmd->redir_files, i);
+	free(rf->file_name);
+	rf->file_name = ft_strdup(file_name);
+}
+
+char	*heredoc_for_one_cmd_table(t_commands_table cmd)
 {
 	t_arrptr 	hdoc_file_names;
 	int			i;
 	char		*str;
-	int			fd;
+	char		*ret_file_name;
 
 	hdoc_file_names = get_array_of_heredoc_files(cmd);	
 	i = 0;
@@ -100,10 +119,9 @@ int     heredoc_for_one_cmd_table(t_commands_table cmd)
 	if (hdoc_file_names->len >= 1)
 	{
 		str = arrptr_get(hdoc_file_names, i);
-		fd = heredoc_repl_save(str);
+		ret_file_name = heredoc_repl_save(str);
+		turn_last_heredoc_delName_into_filename(cmd, ret_file_name);
 	}
-	else
-		fd = -42;
 	arrptr_destroy(hdoc_file_names);
-	return (fd);
+	return (ret_file_name);
 }

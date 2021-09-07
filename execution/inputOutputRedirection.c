@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputOutputRedirection.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 19:09:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/06/27 19:10:05 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/07 18:03:21 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,24 @@ void	heredoc(t_redir_file rf, int *fdin)
 	return ;
 }
 
+void	searchForLastInAndLastOut(t_commands_table command, char whichOne, int *fdin)
+{
+	int				i = 0;
+	char			*tmpNameHolder;
+
+	t_redir_file	rf;
+
+	while (i < command->redir_files->len)
+	{
+		if (rf->file_type == REDI_INPUT_FILE || rf->file_type == REDI_HEREDOC_FILE)
+			tmpNameHolder = ft_strdup(rf->file_name);
+		i++;
+	}
+	ft_putstr_fd("Last IN_FILENO: ", STDERR_FILENO);
+	ft_putstr_fd(tmpNameHolder, STDERR_FILENO);
+	return ;
+}
+
 void	inputOutputRedirection(t_commands_table command)
 {
 	int i;
@@ -102,7 +120,7 @@ void	inputOutputRedirection(t_commands_table command)
 	while (i < command->redir_files->len)
 	{
 		rf = arrptr_get(command->redir_files, i);
-		if (rf->file_type == REDI_INPUT_FILE)
+		if (rf->file_type == REDI_INPUT_FILE || rf->file_type == REDI_HEREDOC_FILE)
 		{
 			if (fdin != STDIN_FILENO)
 				close(fdin);
@@ -120,28 +138,27 @@ void	inputOutputRedirection(t_commands_table command)
 				close(fdout);
 			fdout = open(rf->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		}
-		else if (rf->file_type == REDI_HEREDOC_FILE)
-		{
-			if (fdin != STDIN_FILENO)
-				close(fdin);
-			heredoc(rf, &fdin);
-		}
-		if (fdin < 0 || fdout < 0)
-		{
-			ft_putendl_fd(strerror(errno), STDERR_FILENO);
-			return ;
-		}
+		// if (fdin < 0 || fdout < 0)
+		// {
+		// 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+		// 	g_vars.exit_code = 1;
+		// 	exit(g_vars.exit_code);
+		// }
 		i++;
 	}
+	searchForLastInAndLastOut(command, REDI_INPUT_FILE, &fdin);
+	exit(111);
 	if ((rf->file_type == REDI_INPUT_FILE || rf->file_type == REDI_HEREDOC_FILE)
 		&& fdin > 2)
 	{
+		ft_putendl_fd("PUSSY", STDERR_FILENO);
 		dup2(fdin, STDIN_FILENO);
 		close(fdin);
 	}
 	else if ((rf->file_type == REDI_OUTPUT_FILE || rf->file_type == REDI_APPEND_FILE)
 		&& fdout > 2)
 	{
+		ft_putendl_fd("another OUT PUSSY", STDERR_FILENO);
 		dup2(fdout, STDOUT_FILENO);
 		close(fdout);
 	}

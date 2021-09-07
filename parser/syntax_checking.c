@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 21:19:42 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/05 18:50:55 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/07 16:08:21 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,15 @@ void    check_pipes_n_semiclns(char *parsing_line, t_syx_check syx)
 			syntax_set_error(syx, "error around the pipe or semicolon");
 		i++;
 	}
+	free(mask);
+}
+void	check_redir_syntax(char *parsing_line)
+{
+	int i;
+	char	*mask;
+	
+	mask = get_mask(parsing_line);
+	i = 0;
+	printf("%s\n", mask);
 	free(mask);
 }

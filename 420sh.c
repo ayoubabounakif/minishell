@@ -14,14 +14,16 @@
 
 
 void	processHeredoc(t_dlist pipeline)
-{
-	int fd;
+{	
 	dlist_move_cursor_to_head(pipeline);	
 	while (pipeline->cursor_n != pipeline->sentinel)
 	{
-		fd = heredoc_for_one_cmd_table(pipeline->cursor_n->value);
+		heredoc_for_one_cmd_table(pipeline->cursor_n->value);
+
 		//do some proccessing with the fd
-		close(fd);
+
+		//unlinking
+		
 		dlist_move_cursor_to_next(pipeline);
 	}
 	return ;
@@ -51,8 +53,9 @@ int		main(int ac, char **av, char **envp)
 			add_history(line);
 			if (!parsed_line)
 				continue ;	
-			// processHeredoc(parsed_line);
-			executeParsedLine(parsed_line, env_list);
+			processHeredoc(parsed_line);
+			 executeParsedLine(parsed_line, env_list);
+			// printf("%s", get_mask(line));
 			dlist_destroy(parsed_line);
 			free(line);
 		}
