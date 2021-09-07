@@ -27,8 +27,8 @@ static int	__export_env__(char **tokens, t_dlist env_list)
 	dlist_move_cursor_to_head(env_list);
 	while (env_list->cursor_n != env_list->sentinel)
 	{
-		_420sh_env = env_list->cursor_n->value;
-		if (_420sh_env->value == NULL)
+		_420sh_env = env_list->cursor_n->value;	
+		if (_420sh_env->value == NULL)			
 			printf("declare -x %s\n", _420sh_env->key);
 		else
 			printf("declare -x %s%c\"%s\"\n", _420sh_env->key, _420sh_env->sep, _420sh_env->value);
@@ -107,7 +107,7 @@ static int	exportHelper(char *token, t_dlist env_list)
 		else if (!(strchr(token, '=')))
 		{
 			if (check_env(token, env_list, 0) == 1)
-				dlist_pushback(env_list, env_create(token, NULL));
+				dlist_pushback(env_list, env_create(ft_strdup(token), NULL));
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:52:05 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/05 15:37:50 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/07 14:00:44 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ t_env	*env_create(char *key, char *value)
 	env = malloc(sizeof(struct s_env));
 	env->key = key;
 	env->sep = '=';
-	env->value = value;
+	if (value)
+		env->value = value;
+	else
+		env->value = NULL;
 	return (env);
 }
 
