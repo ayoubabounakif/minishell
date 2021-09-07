@@ -41,25 +41,31 @@ t_arrptr	get_array_of_heredoc_files(t_commands_table cmd)
 	return (her_arr);
 }
 
-int		heredoc_repl_save(char *file, char is_safe_output)
+int		heredoc_repl_save(char *file)
 {
 	int		fd;
 	char	*line;
+	char	*tmp_str;
 	
-	fd = open(file, O)
+	tmp_str = ft_itoa(generate_random_value());
+	fd = open(tmp_str, O_CREAT | O_RDWR);
 	while (1)
 	{	
-		line = readline("heredoc> ");	
-		if (ft_strncmp(line, file, ft_strlen(file)))
+		line = readline("heredoc> ");
+		if (!ft_strncmp(line, file, ft_strlen(file)))
 		{
 			free(line);
-			return (-420);
+			free(tmp_str);
+			close(fd);
+			return (fd);
 		}
+		ft_putstr_fd(line, fd);
+		ft_putchar_fd(line, '\n');
 		free(line);		
-	}
+	}	
 }
 
-int		heredoc_repl_non_save(char *file, char is_safe_output)
+void	heredoc_repl_non_save(char *file)
 {	
 	char	*line;
 	
@@ -69,28 +75,29 @@ int		heredoc_repl_non_save(char *file, char is_safe_output)
 		if (ft_strncmp(line, file, ft_strlen(file)))
 		{
 			free(line);
-			return (-420);
+			return ;
 		}
 		free(line);		
 	}
-}
-
-int		heredoc_repls_before_last_file(t_arrptr hdoc_file_names)
-{
-
 }
 
 int     heredoc_for_one_cmd_table(t_commands_table cmd)
 {
 	t_arrptr 	hdoc_file_names;
 	int			i;
+	char		*str;
+	int			fd;
 
 	hdoc_file_names = get_array_of_heredoc_files(cmd);
 	i = 0;
+	str = arrptr_get(hdoc_file_names, i);
 	while (i < hdoc_file_names->len - 1 && (hdoc_file_names->len > 1))
 	{
-		heredoc_repls_before_last_file(hdoc_file_names);
+		str = arrptr_get(hdoc_file_names, i);	
+		heredoc_repl_non_save(str);
 		i++;
 	}	
+	fd = heredoc_repl_save(str);
 	arrptr_destroy(hdoc_file_names);
+	return (fd);
 }
