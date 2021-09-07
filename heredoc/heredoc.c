@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:45:21 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/06 19:35:39 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/07 11:42:30 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		heredoc_repl_save(char *file)
 	char	*tmp_str;
 	
 	tmp_str = ft_itoa(generate_random_value());
-	fd = open(tmp_str, O_CREAT | O_RDWR);
+	fd = open(tmp_str, O_RDWR, S_IRWXU);
 	while (1)
 	{	
 		line = readline("heredoc> ");
@@ -60,7 +60,7 @@ int		heredoc_repl_save(char *file)
 			return (fd);
 		}
 		ft_putstr_fd(line, fd);
-		ft_putchar_fd(line, '\n');
+		ft_putchar_fd('\n', fd);
 		free(line);		
 	}	
 }
@@ -71,13 +71,13 @@ void	heredoc_repl_non_save(char *file)
 	
 	while (1)
 	{	
-		line = readline("heredoc> ");	
-		if (ft_strncmp(line, file, ft_strlen(file)))
+		line = readline("heredoc> ");		
+		if (!ft_strncmp(line, file, ft_strlen(file)))
 		{
 			free(line);
 			return ;
 		}
-		free(line);		
+		free(line);	
 	}
 }
 
@@ -88,16 +88,22 @@ int     heredoc_for_one_cmd_table(t_commands_table cmd)
 	char		*str;
 	int			fd;
 
-	hdoc_file_names = get_array_of_heredoc_files(cmd);
+	hdoc_file_names = get_array_of_heredoc_files(cmd);	
 	i = 0;
 	str = arrptr_get(hdoc_file_names, i);
-	while (i < hdoc_file_names->len - 1 && (hdoc_file_names->len > 1))
+	while (i < hdoc_file_names->len - 1)
 	{
-		str = arrptr_get(hdoc_file_names, i);	
+		str = arrptr_get(hdoc_file_names, i);
 		heredoc_repl_non_save(str);
 		i++;
-	}	
-	fd = heredoc_repl_save(str);
+	}
+	if (hdoc_file_names->len >= 1)
+	{
+		str = arrptr_get(hdoc_file_names, i);
+		fd = heredoc_repl_save(str);
+	}
+	else
+		fd = -42;
 	arrptr_destroy(hdoc_file_names);
 	return (fd);
 }

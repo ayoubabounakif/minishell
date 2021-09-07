@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/07/07 13:26:35 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/07 07:31:45 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../parser/parser.h"
+# include "../heredoc/heredoc.h"
+
 
 enum	MACROS {
 	TRUE = 1,

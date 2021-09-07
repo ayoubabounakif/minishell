@@ -12,12 +12,16 @@
 
 # include "includes/minishell.h"
 
+
 void	processHeredoc(t_dlist pipeline)
 {
-	dlist_move_cursor_to_head(pipeline);
-	while (pipeline->cursor_n->n != pipeline->sentinel)
+	int fd;
+	dlist_move_cursor_to_head(pipeline);	
+	while (pipeline->cursor_n != pipeline->sentinel)
 	{
-		
+		fd = heredoc_for_one_cmd_table(pipeline->cursor_n->value);
+		//do some proccessing with the fd
+		close(fd);
 		dlist_move_cursor_to_next(pipeline);
 	}
 	return ;

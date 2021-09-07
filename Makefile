@@ -10,6 +10,8 @@ SRCS = 420sh.c \
 ./parser/syntax_checking.c\
 ./parser/tokens.c\
 \
+./heredoc/heredoc.c\
+\
 ./execution/executeParsedLine.c \
 ./execution/forkPipes.c \
 ./execution/spawnProc.c \
