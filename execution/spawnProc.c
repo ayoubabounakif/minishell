@@ -14,7 +14,7 @@
 
 int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
-	if (isBuiltin(command->tokens_simpl[0]) == TRUE)
+	if (isBuiltin(command->tokens_simpl[0]) == TRUE && !command->redir_files->len)
 		return (executeBuiltins(command, envl));
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD)
@@ -29,7 +29,7 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 		if (command->redir_files->len != 0)
 			inputOutputRedirection(command);
 		if (isBuiltin(command->tokens_simpl[0]) == TRUE)
-			return (executeBuiltins(command, envl));
+			exit(executeBuiltins(command, envl));
 		else
 			execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl));
 	}

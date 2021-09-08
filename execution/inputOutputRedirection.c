@@ -103,6 +103,7 @@ void	searchForLastIn(t_commands_table command, int *fdin)
 		if (rf->file_type == REDI_INPUT_FILE || rf->file_type == REDI_HEREDOC_FILE)
 		{
 			wasHere = 1;
+			ft_putendl_fd(rf->file_name, STDERR_FILENO);
 			tmpNameHolder = rf->file_name;
 		}
 		i++;
@@ -183,8 +184,9 @@ void	inputOutputRedirection(t_commands_table command)
 				close(fdout);
 			fdout = open(rf->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		}
-		if (fdin < 0 || fdout < 0)
+		if ((fdin < 0 || fdout < 0) && rf->file_type != REDI_HEREDOC_FILE)
 		{
+			ft_putendl_fd(rf->file_name, STDERR_FILENO);
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
 			g_vars.exit_code = 1;
 			exit(g_vars.exit_code);
