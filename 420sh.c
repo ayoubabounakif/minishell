@@ -56,12 +56,13 @@ int		main(int ac, char **av, char **envp)
 				continue ;	
 			processHeredoc(parsed_line);
 			executeParsedLine(parsed_line, env_list);
-			// printf("|%s|\n", get_mask(line));
+
 			dlist_destroy(parsed_line);
 			free(line);
 		}
 		else if (!line)
 			exit(EXIT_FAILURE);
 	}
+	// printf("|%d|\n", rstr_lookup(cstr_to_rstr("somestring"), "somestring"));
 	return (EXIT_SUCCESS);
 }

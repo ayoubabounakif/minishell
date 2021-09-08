@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 21:19:42 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/08 16:26:20 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/08 17:43:49 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ int check_if_not_redir_sign(char *parse_line, char *mask)
 int	is_betweenRedirSings_space(char *mask)
 {
 	t_rstr rs;
-	char *str;
-	int i;
+		int i;
 
 	rs = rstr_create(0);
 	i = 0;
@@ -134,20 +133,21 @@ int	is_betweenRedirSings_space(char *mask)
 			rstr_add(rs, mask[i]);
 		i++;
 	}
-	str = rstr_to_cstr(rs);
-	printf("$%s$\n", str);
-	if (ft_strnstr(str, ">>>", ft_strlen(str))
-		|| ft_strnstr(str, "<<<", ft_strlen(str))
-		|| ft_strnstr(str, "<>", ft_strlen(str))
-		|| ft_strnstr(str, "><", ft_strlen(str)))
-		{	
-			printf("fuck\n");
-			rstr_destroy(rs);
-			free(str);
-			return (1);
-		}
+	
+	if (rstr_lookup(rs, ">>>")
+	|| rstr_lookup(rs, "<<<")
+	|| rstr_lookup(rs, "<>")
+	|| rstr_lookup(rs, "><")
+	|| rstr_lookup(rs, ">|")
+	|| rstr_lookup(rs, "<|")
+	|| (rstr_get(rs, rs->len - 1) == '>')
+	|| (rstr_get(rs, rs->len - 1) == '<'))
+	{	
+		rstr_destroy(rs);	
+		return (1);
+	}	
 	rstr_destroy(rs);
-	free(str);
+	// free(str);
 	return (0);
 }
 
@@ -164,5 +164,6 @@ void	check_redir_syntax(char *parsing_line, t_syx_check syx)
 		syntax_set_error(syx, "error around redirection sign");
 	if (is_betweenRedirSings_space(mask))
 		syntax_set_error(syx, "error around redirection sign!");
+	//if (mask[ft_strlen(parsing_line) - 1])
 	free(mask);
 }
