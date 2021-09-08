@@ -6,7 +6,7 @@
 #    By: khafni <khafni@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 13:57:23 by aabounak          #+#    #+#              #
-#    Updated: 2021/05/23 20:41:42 by aabounak         ###   ########.fr        #
+#    Updated: 2021/09/08 16:29:51 by khafni           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnlen.c \
 ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
 ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c \
 ft_lstlast.c ft_lstnew.c ft_lstsize.c ft_mem_grow.c rstring.c rstr_methods1.c \
+rstr_methods2.c\
 ft_split_first_sep.c ft_exit.c
 
 OBJ = $(SRC:.c=.o)

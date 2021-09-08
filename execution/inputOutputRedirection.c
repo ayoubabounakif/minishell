@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 19:09:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/07 18:03:21 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/08 13:06:59 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	inputOutputRedirection(t_commands_table command)
 		}
 		// if (fdin < 0 || fdout < 0)
 		// {
-		// 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+		// 	ft_utendl_fd(strerror(errno), STDERR_FILENO);
 		// 	g_vars.exit_code = 1;
 		// 	exit(g_vars.exit_code);
 		// }

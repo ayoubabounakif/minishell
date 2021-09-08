@@ -1,6 +1,15 @@
 #include "libft.h"
 
-void rstr_find_and_replace(t_rstr haystack, char *needle)
+/* int	rstr_lookup(t_rstr haystack, char *needle)
 {
+	int	i;
+	int j;
 
-}
+	i = 0;
+	j = 0;
+	while (i < haystack->len)
+	{
+		while (j < haystack->len && j <  needle[j])
+	}
+	return (0);
+} */
