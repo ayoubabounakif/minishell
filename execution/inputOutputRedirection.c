@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void	implement_heredoc(char *hdoc_delim, int fd)
+/* void	implement_heredoc(char *hdoc_delim, int fd)
 {
 	char	*buf;
 
@@ -87,25 +87,70 @@ void	heredoc(t_redir_file rf, int *fdin)
 	unlink(template);
 	*fdin = fd;
 	return ;
-}
+} */
 
-void	searchForLastInAndLastOut(t_commands_table command, char whichOne, int *fdin)
+void	searchForLastIn(t_commands_table command, int *fdin)
 {
 	int				i = 0;
-	char			*tmpNameHolder;
-
+	int				wasHere = 0;
+	char			*tmpNameHolder = NULL;
 	t_redir_file	rf;
 
+	tmpNameHolder = malloc(100);
 	while (i < command->redir_files->len)
 	{
+		rf = arrptr_get(command->redir_files, i);
 		if (rf->file_type == REDI_INPUT_FILE || rf->file_type == REDI_HEREDOC_FILE)
-			tmpNameHolder = ft_strdup(rf->file_name);
+		{
+			wasHere = 1;
+			tmpNameHolder = rf->file_name;
+		}
 		i++;
 	}
-	ft_putstr_fd("Last IN_FILENO: ", STDERR_FILENO);
-	ft_putstr_fd(tmpNameHolder, STDERR_FILENO);
+	if (wasHere)
+	{
+		if (*fdin > 2)
+		{
+			ft_putendl_fd("PUSSY", STDERR_FILENO);
+			dup2(*fdin, STDIN_FILENO);
+			close(*fdin);
+		}
+	}
+	free(tmpNameHolder);
 	return ;
 }
+
+void	searchForLastOut(t_commands_table command, int *fdout)
+{
+	int				i = 0;
+	int				wasHere = 0;
+	char			*tmpNameHolder = NULL;
+	t_redir_file	rf;
+
+	tmpNameHolder = malloc(100);
+	while (i < command->redir_files->len)
+	{
+		rf = arrptr_get(command->redir_files, i);
+		if (rf->file_type == REDI_OUTPUT_FILE || rf->file_type == REDI_APPEND_FILE)
+		{
+			wasHere = 1;
+			tmpNameHolder = rf->file_name;
+		}
+		i++;
+	}
+	if (wasHere)
+	{
+		if (*fdout > 2)
+		{
+			ft_putendl_fd("another OUT PUSSY", STDERR_FILENO);
+			dup2(*fdout, STDOUT_FILENO);
+			close(*fdout);
+		}
+	}
+	free(tmpNameHolder);
+	return ;
+}
+
 
 void	inputOutputRedirection(t_commands_table command)
 {
@@ -138,29 +183,15 @@ void	inputOutputRedirection(t_commands_table command)
 				close(fdout);
 			fdout = open(rf->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		}
-		// if (fdin < 0 || fdout < 0)
-		// {
-		// 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		// 	g_vars.exit_code = 1;
-		// 	exit(g_vars.exit_code);
-		// }
+		if (fdin < 0 || fdout < 0)
+		{
+			ft_putendl_fd(strerror(errno), STDERR_FILENO);
+			g_vars.exit_code = 1;
+			exit(g_vars.exit_code);
+		}
 		i++;
 	}
-	searchForLastInAndLastOut(command, REDI_INPUT_FILE, &fdin);
-	exit(111);
-	if ((rf->file_type == REDI_INPUT_FILE || rf->file_type == REDI_HEREDOC_FILE)
-		&& fdin > 2)
-	{
-		ft_putendl_fd("PUSSY", STDERR_FILENO);
-		dup2(fdin, STDIN_FILENO);
-		close(fdin);
-	}
-	else if ((rf->file_type == REDI_OUTPUT_FILE || rf->file_type == REDI_APPEND_FILE)
-		&& fdout > 2)
-	{
-		ft_putendl_fd("another OUT PUSSY", STDERR_FILENO);
-		dup2(fdout, STDOUT_FILENO);
-		close(fdout);
-	}
+	searchForLastIn(command, &fdin);
+	searchForLastOut(command, &fdout);
 	return ;
 }
