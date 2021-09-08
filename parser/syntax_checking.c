@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 21:19:42 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/07 16:08:21 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/08 17:43:49 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,62 @@ void    check_pipes_n_semiclns(char *parsing_line, t_syx_check syx)
 	}
 	free(mask);
 }
-void	check_redir_syntax(char *parsing_line)
+
+int check_if_not_redir_sign(char *parse_line, char *mask)
+{
+	if (ft_strnstr(mask, ">>>", ft_strlen(mask))
+	|| ft_strnstr(mask, "<<<", ft_strlen(mask))
+	|| ft_strnstr(mask, "<>", ft_strlen(mask))
+	|| ft_strnstr(mask, "><", ft_strlen(mask)))	
+		return (1);
+	return (0);
+}
+
+
+int	is_betweenRedirSings_space(char *mask)
+{
+	t_rstr rs;
+		int i;
+
+	rs = rstr_create(0);
+	i = 0;
+	while (mask[i])
+	{
+		if (mask[i] != 'W')
+			rstr_add(rs, mask[i]);
+		i++;
+	}
+	
+	if (rstr_lookup(rs, ">>>")
+	|| rstr_lookup(rs, "<<<")
+	|| rstr_lookup(rs, "<>")
+	|| rstr_lookup(rs, "><")
+	|| rstr_lookup(rs, ">|")
+	|| rstr_lookup(rs, "<|")
+	|| (rstr_get(rs, rs->len - 1) == '>')
+	|| (rstr_get(rs, rs->len - 1) == '<'))
+	{	
+		rstr_destroy(rs);	
+		return (1);
+	}	
+	rstr_destroy(rs);
+	// free(str);
+	return (0);
+}
+
+
+
+void	check_redir_syntax(char *parsing_line, t_syx_check syx)
 {
 	int i;
 	char	*mask;
 	
 	mask = get_mask(parsing_line);
 	i = 0;
-	printf("%s\n", mask);
+	if (check_if_not_redir_sign(parsing_line, mask))
+		syntax_set_error(syx, "error around redirection sign");
+	if (is_betweenRedirSings_space(mask))
+		syntax_set_error(syx, "error around redirection sign!");
+	//if (mask[ft_strlen(parsing_line) - 1])
 	free(mask);
 }

@@ -50,16 +50,19 @@ int		main(int ac, char **av, char **envp)
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
+			// check_redir_syntax(line);
 			add_history(line);
 			if (!parsed_line)
 				continue ;	
 			processHeredoc(parsed_line);
 			executeParsedLine(parsed_line, env_list);
+
 			dlist_destroy(parsed_line);
 			free(line);
 		}
 		else if (!line)
 			exit(EXIT_FAILURE);
 	}
+	// printf("|%d|\n", rstr_lookup(cstr_to_rstr("somestring"), "somestring"));
 	return (EXIT_SUCCESS);
 }

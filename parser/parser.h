@@ -171,6 +171,7 @@ struct s_syntax
 
 t_syx_check	syntax_check_create(void);
 void		syntax_destroy(t_syx_check sx);
+void		check_redir_syntax(char *parsing_line, t_syx_check syx);
 void check_pipes_n_semiclns(char *parsing_pipeline, t_syx_check syx);
 void		preparse_syntax(char *parsing_pipeline);
 void		syntax_set_error(t_syx_check sx, char *error_message);

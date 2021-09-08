@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:48:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/05 16:40:13 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/08 13:36:50 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,8 @@ t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 	t_dlist     cmd_tbs_lists;
 
 	syx = syntax_check_create(); 
-	check_pipes_n_semiclns(parsing_line, syx); 
+	check_pipes_n_semiclns(parsing_line, syx);
+	check_redir_syntax(parsing_line, syx);
 	if (is_space_only(parsing_line))
 		return (NULL);
 	if (syx->is_error)
