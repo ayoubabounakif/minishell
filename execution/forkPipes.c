@@ -38,6 +38,8 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 		{
 			if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl))
 			{
+				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
+					return ;
 				((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
 				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
 				{
@@ -61,6 +63,8 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 	{
 		if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl))
 		{
+			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
+				return ;
 			((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
 			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
 			{

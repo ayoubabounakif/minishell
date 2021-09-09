@@ -36,8 +36,7 @@ static char	*getBinPath(char *command, char **splittedPath)
 	while (splittedPath[i])
 	{
 		binPath = ft_strjoin(splittedPath[i], "/");
-		if (command)
-			binPath = ft_strjoin(binPath, command);
+		binPath = ft_strjoin(binPath, command);
 		binFd = open(binPath, O_RDONLY);
 		if (binFd > 0)
 		{

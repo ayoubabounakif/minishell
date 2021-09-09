@@ -6,13 +6,13 @@
 /*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 18:06:43 by aabounak          #+#    #+#             */
-/*   Updated: 2020/12/15 12:55:46 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/09 10:44:39 by aabounak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*g_alloc[400];
+void	*g_alloc[100000];
 int		g_all = 0;
 
 void	to_free(void)
