@@ -46,7 +46,7 @@ int		main(int ac, char **av, char **envp)
 	signal(SIGINT, sig_handler);
 	while (420)
 	{
-		line = readline("420-shell (*∀*)y─┛ => ");		
+		line = readline("\n \033[0;32m420\033[0;36mshell \033[0;32m(*∀*)y─\033[0;37m┛ => \33[0m");		
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
@@ -62,7 +62,6 @@ int		main(int ac, char **av, char **envp)
 		}
 		else if (!line)
 			exit(EXIT_FAILURE);
-	}
-	// printf("|%d|\n", rstr_lookup(cstr_to_rstr("somestring"), "somestring"));
+	}	
 	return (EXIT_SUCCESS);
 }
