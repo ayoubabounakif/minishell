@@ -107,9 +107,7 @@ void	cmd_table_fill(t_commands_table cmdt , t_pipeline pl)
 		dlist_move_cursor_to_next(up->tokens);
 		dlist_move_cursor_to_next(up->tokens_masks);
 	}
-
-	
-	cmdt->tokens_simpl = malloc(sizeof(char*) * (cmdt->tokens->len + 1));	
+	cmdt->tokens_simpl = malloc(sizeof(char *) * (cmdt->tokens->len + 1));
 	i = 0;
 	while (i < cmdt->tokens->len)
 	{	
@@ -173,9 +171,7 @@ int					is_token_a_r_o_file(t_commands_table cmdt)
 	&& !ft_strnstr((char*)(up->tokens->cursor_p->value), ">>", 2))
 		return (1);
 	return (0);
-		
 }
-
 
 int					is_token_a_r_i_file(t_commands_table cmdt)
 {
@@ -195,7 +191,6 @@ int					is_token_a_r_i_file(t_commands_table cmdt)
 		return (1);
 	return (0);
 }
-
 
 int					is_normal_token(t_commands_table cmdt)
 {
@@ -240,8 +235,6 @@ void                cmd_table_fill_tokens(t_commands_table cmdt)
 		dlist_move_cursor_to_next(up->tokens_masks);	
 	}	
 }
-
-
 
 t_command	*command_table(t_commands_table cmd, t_dlist env_list)
 {

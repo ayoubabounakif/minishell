@@ -57,7 +57,7 @@ char	*heredoc_repl_save(char *file)
 	fd = open(random_string, O_CREAT | O_RDWR, S_IRWXU);
 	while (1)
 	{	
-		line = readline("> ");
+		line = readline("heredoc> ");
 		if (!line)
 			break ;
 		if (!ft_strncmp(line, file, ft_strlen(file)))
@@ -82,7 +82,7 @@ void	heredoc_repl_non_save(char *file)
 	
 	while (1)
 	{	
-		line = readline("> ");		
+		line = readline("heredoc> ");	
 		if (!line)
 			break ;
 		if (!ft_strncmp(line, file, ft_strlen(file)))

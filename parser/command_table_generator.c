@@ -167,7 +167,6 @@ t_dlist		parse_line(char *parsing_line, t_dlist env_list)
 		syx->is_error = 0;
 		printf("%s\n", syx->error_message);
 		return (NULL);
-		
 	}
 	return (cmd_tbs_lists);
 }
