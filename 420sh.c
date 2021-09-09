@@ -46,7 +46,7 @@ int		main(int ac, char **av, char **envp)
 	signal(SIGINT, sig_handler);
 	while (420)
 	{
-		line = readline("\n \033[0;32m420\033[0;36mshell \033[0;32m(*∀*)y─\033[0;37m┛ => \33[0m");		
+		line = readline("\033[0;32m420\033[0;36mshell \033[0;32m(*∀*)y─\033[0;37m┛ => \33[0m");		
 		if (line && *line)
 		{
 			parsed_line = parse_line(line, env_list);
@@ -56,7 +56,6 @@ int		main(int ac, char **av, char **envp)
 				continue ;	
 			processHeredoc(parsed_line);
 			executeParsedLine(parsed_line, env_list);
-
 			dlist_destroy(parsed_line);
 			free(line);
 		}

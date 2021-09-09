@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 15:06:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/09 07:34:00 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/09 15:49:39 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ static void	process(int sign_num)
 
 void	sig_handler(int sign_num)
 {
-	if (sign_num == SIGINT)
+	if (sign_num == SIGINT && g_vars.pid == 0)
 	{
 		ft_putchar_fd('\n', 2);
 		rl_on_new_line();
 		rl_replace_line("", 1); 
 		rl_redisplay();
 	}
-	else if (sign_num == SIGQUIT)
+	else if (sign_num == SIGQUIT && g_vars.pid == 0)
 	{
 		ft_putchar_fd('\r', 1);
 
