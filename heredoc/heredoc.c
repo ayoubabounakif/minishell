@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:45:21 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/07 17:17:34 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/09 08:43:16 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ char	*heredoc_repl_save(char *file)
 	fd = open(random_string, O_CREAT | O_RDWR, S_IRWXU);
 	while (1)
 	{	
-		line = readline("heredoc> ");
+		line = readline("> ");
+		if (!line)
+			break ;
 		if (!ft_strncmp(line, file, ft_strlen(file)))
 		{
 			free(line);
@@ -67,8 +69,11 @@ char	*heredoc_repl_save(char *file)
 		}
 		ft_putstr_fd(line, fd);
 		ft_putchar_fd('\n', fd);
-		free(line);		
-	}	
+		free(line);
+	}
+	free(line);
+	close(fd);
+	return (NULL);
 }
 
 void	heredoc_repl_non_save(char *file)
@@ -77,7 +82,9 @@ void	heredoc_repl_non_save(char *file)
 	
 	while (1)
 	{	
-		line = readline("heredoc> ");		
+		line = readline("> ");		
+		if (!line)
+			break ;
 		if (!ft_strncmp(line, file, ft_strlen(file)))
 		{
 			free(line);
@@ -85,6 +92,7 @@ void	heredoc_repl_non_save(char *file)
 		}
 		free(line);	
 	}
+	free(line);
 }
 
 void	turn_last_heredoc_delName_into_filename(t_commands_table cmd, char *file_name)
@@ -92,12 +100,17 @@ void	turn_last_heredoc_delName_into_filename(t_commands_table cmd, char *file_na
 	int i;
 	t_redir_file rf;
 
-	i = 0;
-	while (i < cmd->redir_files->len - 1)	
-		i++;	
-	rf = arrptr_get(cmd->redir_files, i);
-	free(rf->file_name);
-	rf->file_name = ft_strdup(file_name);
+	i = cmd->redir_files->len - 1;
+	while (i >= 0)
+	{
+		rf = arrptr_get(cmd->redir_files, i);	
+		if (rf->file_type == REDI_HEREDOC_FILE)
+		{
+			free(rf->file_name);
+			rf->file_name = ft_strdup(file_name);
+		}
+		i--;
+	}	
 }
 
 char	*heredoc_for_one_cmd_table(t_commands_table cmd)
