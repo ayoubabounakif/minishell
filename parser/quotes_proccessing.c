@@ -1,83 +1,28 @@
-#include "parser.h" 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes_proccessing.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/10 13:27:03 by khafni            #+#    #+#             */
+/*   Updated: 2021/09/10 13:27:04 by khafni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char *remove_skip_from_skipped_quotes_front(char *a_token)
+#include "parser.h"
+
+char	*remove_quotes_from_stringImproved(char *a_token, char type_of_quotes)
 {
-    t_rstr rs;
-    t_rstr rs_tmp;
-    char    *str;
-    int     i;
-
-    rs = cstr_to_rstr(a_token);
-    rs_tmp = rstr_create(rs->len - 1);
-    i = 1;
-    while (i < rs->len)
-    {
-        rstr_add(rs_tmp, rstr_get(rs, i));
-        i++;
-    }
-    str = rstr_to_cstr(rs_tmp);
-    rstr_destroy(rs);
-    free(a_token);
-    return (str);
-}
-
-char *remove_skip_from_skipped_quotes_back(char *a_token)
-{
-    t_rstr rs;
-    t_rstr rs_tmp;
-    char    *str;
-    int     i;
-
-    rs = cstr_to_rstr(a_token);
-    rs_tmp = rstr_create(rs->len - 1);
-    i = 0;
-    while (i < rs->len - 1)
-    {
-        rstr_add(rs_tmp, rstr_get(rs, i));
-        i++;
-    }
-    if (a_token[ft_strlen(a_token) - 1] == '\'')
-        rstr_set(rs_tmp, i, '\'');
-    else if (a_token[ft_strlen(a_token) - 1] == '\"')
-        rstr_set(rs_tmp, rs_tmp->len - 1, '\"');
-    str = rstr_to_cstr(rs_tmp);
-    rstr_destroy(rs);
-    free(a_token);
-    return (str);
-}
-
-char *remove_quotes_from_string(char *a_token)
-{
-    t_rstr rs;
-    t_rstr rs_tmp;
-    char    *str;
-    int     i;
-
-    rs = cstr_to_rstr(a_token);
-    rs_tmp = rstr_create(rs->len - 2);
-    i = 1;
-    while (i < rs->len - 1)
-    {
-        rstr_add(rs_tmp, rstr_get(rs, i));
-        i++;
-    }
-    str = rstr_to_cstr(rs_tmp);
-    rstr_destroy(rs);
-    free(a_token);
-    return (str);
-}
-
-char *remove_quotes_from_stringImproved(char *a_token, char type_of_quotes)
-{
-    char	*mask;
-    t_rstr	tmp_str;
+	char	*mask;
+	t_rstr	tmp_str;
 	int		i;
 	char	*r_str;
-    
+
 	i = 0;
-    mask = get_mask(a_token);
+	mask = get_mask(a_token);
 	tmp_str = rstr_create(0);
-	while(a_token[i])
+	while (a_token[i])
 	{
 		if (mask[i] != type_of_quotes)
 			rstr_add(tmp_str, a_token[i]);
@@ -86,105 +31,59 @@ char *remove_quotes_from_stringImproved(char *a_token, char type_of_quotes)
 	r_str = rstr_to_cstr(tmp_str);
 	rstr_destroy(tmp_str);
 	free(a_token);
-    free(mask);
+	free(mask);
 	return (r_str);
-	
 }
 
-/* void process_tokens_from_quotes(t_tokens tks)
+void	process_tokens_from_quotes(t_tokens tks)
 {
-    char *v;
-    char *v_m;
-    
+	char	*v;
+	char	*v_m;
 
-    dlist_move_cursor_to_head(tks->tokens);
-    dlist_move_cursor_to_head(tks->tokens_masks);
-    while (tks->tokens->cursor_n != tks->tokens->sentinel)
-    {
-        v = tks->tokens->cursor_n->value;
-        v_m = tks->tokens_masks->cursor_n->value;
-        if (v && (v[0] == '\'' || v[0] == '\"'))
-        {
-            v = remove_quotes_from_string(v);
-            v_m = remove_quotes_from_string(v_m);
-            tks->tokens->cursor_n->value = v;
-            tks->tokens_masks->cursor_n->value = v_m;
-        }
-        else if (v && (v[0] == '\\') && ((v[1] == '\'' || v[1] == '\"')))
-        {
-            v = remove_skip_from_skipped_quotes_front(v);
-            v_m = remove_skip_from_skipped_quotes_front(v_m);
-            tks->tokens->cursor_n->value = v;
-            tks->tokens_masks->cursor_n->value = v_m;
-        }
-        if (ft_strlen(v) > 3 && (v[ft_strlen(v) - 2] == '\\') && ((v[ft_strlen(v) - 1] == '\'' || v[ft_strlen(v) - 1] == '\"')))
-        {
-            v = remove_skip_from_skipped_quotes_back(v);
-            v_m = remove_skip_from_skipped_quotes_back(v_m);
-            tks->tokens->cursor_n->value = v;
-            tks->tokens_masks->cursor_n->value = v_m;
-        }
-        dlist_move_cursor_to_next(tks->tokens);
-        dlist_move_cursor_to_next(tks->tokens_masks);
-    }
-} */
-
-
-void process_tokens_from_quotes(t_tokens tks)
-{
-    char *v;
-    char *v_m;
-    
-    dlist_move_cursor_to_head(tks->tokens);
-    // dlist_move_cursor_to_head(tks->tokens_masks);
-    while (tks->tokens->cursor_n != tks->tokens->sentinel)
-    {
+	dlist_move_cursor_to_head(tks->tokens);
+	while (tks->tokens->cursor_n != tks->tokens->sentinel)
+	{
 		v = tks->tokens->cursor_n->value;
-        // v_m = tks->tokens_masks->cursor_n->value;
 		if (ft_strchr(v, '"'))
-		{
-			tks->tokens->cursor_n->value = remove_quotes_from_stringImproved(v, '"');
-			// tks->tokens_masks->cursor_n->value = remove_quotes_from_ stringImproved(v_m, '"');
-		}
-        if (ft_strchr(v, '\''))
-		{
-			tks->tokens->cursor_n->value = remove_quotes_from_stringImproved(v, '\'');
-			// tks->tokens_masks->cursor_n->value = remove_quotes_from_stringImproved(v_m, '\'');
-		}      
-        dlist_move_cursor_to_next(tks->tokens);
-        // dlist_move_cursor_to_next(tks->tokens_masks);
-    }
+			tks->tokens->cursor_n->value = remove_quotes_from_stringImproved(v,
+					'"');
+		if (ft_strchr(v, '\''))
+			tks->tokens->cursor_n->value = remove_quotes_from_stringImproved(v,
+					'\'');
+		dlist_move_cursor_to_next(tks->tokens);
+	}
 }
 
-void remove_quotes_from_tokens(void *data)
+void	remove_quotes_from_tokens(void *data)
 {
-    t_commands_table	cmd;
-    int					i;
-    char                *mask;
-    char                *value;
+	t_commands_table	cmd;
+	int					i;
+	char				*mask;
+	char				*value;
 
-    i = 0;
-    cmd = data; 
-    while (i < cmd->tokens->len)
-    { 
-        value = cmd->tokens_simpl[i];
-        mask = get_mask(value);
-        if (ft_strchr(mask, '"')) 
-            cmd->tokens_simpl[i] = remove_quotes_from_stringImproved(value, '"'); 
-        if (ft_strchr(mask, '\''))  
-            cmd->tokens_simpl[i] = remove_quotes_from_stringImproved(value, '\''); 
-        free(mask);
-        i++;
-    }
+	i = 0;
+	cmd = data;
+	while (i < cmd->tokens->len)
+	{
+		value = cmd->tokens_simpl[i];
+		mask = get_mask(value);
+		if (ft_strchr(mask, '"'))
+			cmd->tokens_simpl[i] = remove_quotes_from_stringImproved(value,
+					'"');
+		if (ft_strchr(mask, '\''))
+			cmd->tokens_simpl[i] = remove_quotes_from_stringImproved(value,
+					'\'');
+		free(mask);
+		i++;
+	}
 }
-void remove_quotes_from_redir_names(void *data); 
 
-void remove_quotes(t_dlist parsed_line)
+void	remove_quotes(t_dlist parsed_line)
 {
-    dlist_move_cursor_to_head(parsed_line);
-    while (parsed_line->cursor_n != parsed_line->sentinel)
-    {	
-        remove_quotes_from_tokens(parsed_line->cursor_n->value);
-        dlist_move_cursor_to_next(parsed_line); 
-    }
+	dlist_move_cursor_to_head(parsed_line);
+	while (parsed_line->cursor_n != parsed_line->sentinel)
+	{
+		remove_quotes_from_tokens(parsed_line->cursor_n->value);
+		dlist_move_cursor_to_next(parsed_line);
+	}
 }

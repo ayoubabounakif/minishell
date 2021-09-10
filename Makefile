@@ -1,9 +1,12 @@
 SRCS = 420sh.c \
 \
+./parser/mask_helpers.c\
 ./parser/mask.c \
 ./parser/pipelines.c \
 ./parser/redirection_splitting/reder_split.c \
 ./parser/command_table/command_table.c \
+./parser/command_table/command_table_methods.c\
+./parser/command_table/fill_cmd_table.c\
 ./parser/command_table_generator.c \
 ./parser/quotes_proccessing.c\
 ./parser/env_variables.c\

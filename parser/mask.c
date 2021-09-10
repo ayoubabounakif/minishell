@@ -6,28 +6,23 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 19:05:40 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/05 13:11:51 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/10 16:03:41 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void		init_states(t_state *state)
+void	init_states(t_state *state)
 {
 	state->skip = 0;
 	state->inside_squote = 0;
-	state->inside_dquote = 0; 
+	state->inside_dquote = 0;
 	state->env_variable = 0;
 	state->env_variable_dq = 0;
 }
 
-char		get_mask_char_inside_dq(t_state *state, char *s, int i)
+char	get_mask_char_inside_dq(t_state *state, char *s, int i)
 {
-/* 	if (s[i] == '\\' && state->skip == 0)
-	{
-		state->skip = 1;
-		return ('\\');
-	} */
 	if (state->env_variable_dq == 1)
 	{
 		if (ft_isalnum(s[i]) || s[i] == '?')
@@ -36,12 +31,11 @@ char		get_mask_char_inside_dq(t_state *state, char *s, int i)
 				state->env_variable_dq = 0;
 			return ('V');
 		}
-		else if(s[i] == ' ')
+		else if (s[i] == ' ')
 		{
 			state->env_variable_dq = 0;
 			return (' ');
 		}
-		//state->env_variable = 0;
 	}
 	if (s[i] == '$')
 	{
@@ -55,6 +49,23 @@ char		get_mask_char_inside_dq(t_state *state, char *s, int i)
 	}
 	return ('S');
 }
+
+/* char	get_mask_character(t_state *state, char *s, int i)
+{
+	if (state->inside_squote == 1)
+	{
+		if (s[i] == '\'')
+		{
+			state->inside_squote = 0;
+			return ('\'');
+		}
+		return ('L');
+	}
+	if (state->inside_dquote == 1)
+		return (get_mask_char_inside_dq(state, s, i));
+	return (get_mask_c_helper2(state, s, i));
+} */
+
 
 char		get_mask_character(t_state *state, char *s, int i)
 {
@@ -109,12 +120,65 @@ char		get_mask_character(t_state *state, char *s, int i)
 	return ('N');
 }
 
+/* char		get_mask_character(t_state *state, char *s, int i)
+{
+	if (state->inside_squote == 1)
+	{
+		if (s[i] == '\'')
+		{
+			state->inside_squote = 0;
+			return ('\'');
+		}
+		return ('L');
+	}
+	if (state->inside_dquote == 1)
+		return (get_mask_char_inside_dq(state, s, i));	
+	if (state->env_variable == 1)
+	{
+		if (ft_isalnum(s[i]) || s[i] == '?')
+		{
+			if (s[i] == '?')
+				state->env_variable = 0;
+			return ('V');
+		}
+		if (s[i] == '$')
+			return ('$');
+		state->env_variable = 0;
+	}
+	else if (s[i] == '$')
+	{
+		state->env_variable = 1;
+		return ('$');
+	}
+	else if (s[i] == '\'')
+	{
+		state->inside_squote = 1;
+		return ('\'');
+	}	
+	else if (s[i] == '\"')
+	{
+		state->inside_dquote = 1;
+		return ('\"');
+	}
+	else if (s[i] == ';')
+		return (';');
+	else if (s[i] == '|')
+		return ('|');	
+	else if (s[i] == '>')
+		return ('>');	
+	else if (s[i] == '<')
+		return ('<');
+	else if (s[i] == ' ')
+		return ('W');
+	return ('N');
+} */
+
 char	*get_mask(char *s)
 {
-	int			i;
-	int			len;
-	char		*dst;
-	t_state		state;
+	int		i;
+	int		len;
+	char	*dst;
+	t_state	state;
 
 	i = 0;
 	len = ft_strlen(s);
