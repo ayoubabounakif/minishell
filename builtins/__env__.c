@@ -12,15 +12,26 @@
 
 #include "../includes/minishell.h"
 
+#define ALL_GOOD 1
+#define ERROR 0
+
+static int	checkArgs(char **tokens)
+{
+	if (tab_len(tokens) != 1)
+	{
+		printErrorMessage(tokens[1], "No such file or directory");
+		g_vars.exit_code = 127;
+		return (ERROR);
+	}
+	return (ALL_GOOD);
+}
+
 int	__env__(t_commands_table command, t_dlist env_list)
 {
 	t_env		*_420sh_env;
 
-	if (tab_len(command->tokens_simpl) != 1)
-	{
-		ft_putstr_fd("env: too many arguments\n", STDERR_FILENO);
+	if (!checkArgs(command->tokens_simpl))
 		return (EXIT_FAILURE);
-	}
 	else
 	{
 		dlist_move_cursor_to_head(env_list);
@@ -31,10 +42,12 @@ int	__env__(t_commands_table command, t_dlist env_list)
 				dlist_move_cursor_to_next(env_list);
 			else
 			{
-				printf("%s%c%s\n", _420sh_env->key, _420sh_env->sep, _420sh_env->value);
+				printf("%s%c%s\n",
+					_420sh_env->key, _420sh_env->sep, _420sh_env->value);
 				dlist_move_cursor_to_next(env_list);
 			}
 		}
 	}
+	g_vars.exit_code = 0;
 	return (EXIT_SUCCESS);
 }

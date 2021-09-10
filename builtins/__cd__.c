@@ -23,22 +23,23 @@ either as a stand alone string or as the initial portion of a path: ~/bin. Note 
 
 #include "../includes/minishell.h"
 
-int __cd__(t_commands_table command, t_dlist env_list)
+int	__cd__(t_commands_table command, t_dlist env_list)
 {
 	char	*cmd;
 	char	*arg;
-    
+
 	cmd = command->tokens_simpl[0];
-    arg = command->tokens_simpl[1];
-    if (arg == NULL) {
-        arg = ft_getenv("HOME", env_list);
-        if (!arg)
-        {
-            printErrorMessage(cmd, "HOME not set");
+	arg = command->tokens_simpl[1];
+	if (arg == NULL)
+	{
+		arg = ft_getenv("HOME", env_list);
+		if (!arg)
+		{
+			printErrorMessage(cmd, "HOME not set");
 			g_vars.exit_code = 1;
-            return (errno);
-        }
-    }
+			return (errno);
+		}
+	}
 	if (chdir(arg) == 0)
 		return (EXIT_SUCCESS);
 	else

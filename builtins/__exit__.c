@@ -29,9 +29,9 @@ static int	exitSyntaxChecker(int *ac, char **tokens)
 	return (EXIT_SUCCESS);
 }
 
-int __exit__(t_commands_table command, t_dlist env_list)
+int	__exit__(t_commands_table command, t_dlist env_list)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (!command->tokens_simpl[1])
@@ -50,7 +50,7 @@ int __exit__(t_commands_table command, t_dlist env_list)
 		}
 		else
 		{
-			ft_putstr_fd("exit\n", STDERR_FILENO);
+			ft_putendl_fd("exit", STDERR_FILENO);
 			g_vars.exit_code = ft_atoi(command->tokens_simpl[1]);
 			exit(g_vars.exit_code);
 		}

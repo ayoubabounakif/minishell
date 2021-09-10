@@ -14,7 +14,7 @@
 
 void	unset_env(char **tokens, int i, t_dlist env_list)
 {
-	t_env 		*_420sh_env;
+	t_env	*_420sh_env;
 
 	if (!(env_list))
 		return ;
@@ -52,8 +52,8 @@ static int	checkSyntax(char *token)
 
 int	__unset__(t_commands_table command, t_dlist env_list)
 {
-	int			i;
-	int			flag;
+	int	i;
+	int	flag;
 
 	flag = 1;
 	if (tab_len(command->tokens_simpl) > 1)
@@ -65,8 +65,9 @@ int	__unset__(t_commands_table command, t_dlist env_list)
 				unset_env(command->tokens_simpl, i, env_list);
 			else
 			{
-				printf("420sh: unset: `%s': not a valid identifier\n", command->tokens_simpl[i]);
-				flag = 1;	// Flag is supposed to be zero
+				printf("420sh: unset: `%s': not a valid identifier\n",
+					command->tokens_simpl[i]);
+				flag = 1;
 			}
 		}
 	}

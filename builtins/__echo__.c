@@ -19,17 +19,23 @@ void	setFlagNIndex(char *arg, int *flagRef, int *indexRef)
 {
 	int		i;
 
-	i = 2;
-	if (strncmp(arg, "-n", 2) == 0)
-		(*flagRef) = SUPPRESS_OUTPUT_TRAILING_NEWLINE;
-	if (*flagRef == SUPPRESS_OUTPUT_TRAILING_NEWLINE)
+	if (ft_strncmp(arg, "-n", 2) == 0)
 	{
-		while (arg[i] == 'n')
+		i = 2;
+		while (arg[i])
+		{
+			if (arg[i] != 'n')
+			{
+				(*flagRef) = OUTPUT_TRAILING_NEWLINE;
+				return ;
+			}
 			i++;
-		(*indexRef) = i;
+		}
+		(*flagRef) = SUPPRESS_OUTPUT_TRAILING_NEWLINE;
 	}
-	printf("%s %d\n", arg, i);
-	exit(2000);
+	if ((*flagRef) == SUPPRESS_OUTPUT_TRAILING_NEWLINE)
+		(*indexRef) = 2;
+	return ;
 }
 
 int	checkArg(char *arg)

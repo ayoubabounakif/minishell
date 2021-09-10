@@ -12,12 +12,12 @@
 
 #include "../includes/minishell.h"
 
-int __pwd__(t_commands_table command, t_dlist env_list)
+int	__pwd__(t_commands_table command, t_dlist env_list)
 {
-	(void)env_list;
 	char	cwd[1024];
 	char	*token;
 
+	(void)env_list;
 	token = command->tokens_simpl[1];
 	chdir(token);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
