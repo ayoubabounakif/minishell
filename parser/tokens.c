@@ -1,26 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokens.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/10 11:56:21 by khafni            #+#    #+#             */
+/*   Updated: 2021/09/10 11:56:24 by khafni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
-/*
-** tokens take a pipeline aka a cmd_line
-** and its mask and returns them as tokens so
-** a further parsing on the tokens can be done
-** and we can get a command table from every group
-** of tokens
-*/
-t_tokens		tokens(t_pipeline pl)
+void	tokens_helper(t_pipeline pl, t_tokens tk, t_rstr tmp_str,
+			t_rstr tmp_str_m)
 {
-	t_tokens	tk;
-	t_rstr		tmp_str;
-	t_rstr		tmp_str_m;
-	int i;
+	int	i;
 
-	tk = malloc(sizeof(struct s_tokens));
 	i = 0;
-	tmp_str = rstr_create(0);
-	tmp_str_m = rstr_create(0);	
-	tk->tokens = dlist_empty_create(free, NULL, NULL);
-	tk->tokens_masks = dlist_empty_create(free, NULL, NULL);
-	while(pl->cmd_line_m[i])
+	while (pl->cmd_line_m[i])
 	{
 		if (pl->cmd_line_m[i] != 'W')
 		{
@@ -36,10 +34,33 @@ t_tokens		tokens(t_pipeline pl)
 		}
 		i++;
 	}
+}
+
+/*
+** tokens take a pipeline aka a cmd_line
+** and its mask and returns them as tokens so
+** a further parsing on the tokens can be done
+** and we can get a command table from every group
+** of tokens
+*/
+t_tokens	tokens(t_pipeline pl)
+{
+	t_tokens	tk;
+	t_rstr		tmp_str;
+	t_rstr		tmp_str_m;
+	int			i;
+
+	tk = malloc(sizeof(struct s_tokens));
+	i = 0;
+	tmp_str = rstr_create(0);
+	tmp_str_m = rstr_create(0);
+	tk->tokens = dlist_empty_create(free, NULL, NULL);
+	tk->tokens_masks = dlist_empty_create(free, NULL, NULL);
+	tokens_helper(pl, tk, tmp_str, tmp_str_m);
 	if (tmp_str_m->len)
 	{
 		dlist_pushback(tk->tokens, rstr_to_cstr(tmp_str));
-		dlist_pushback(tk->tokens_masks, rstr_to_cstr(tmp_str_m));	
+		dlist_pushback(tk->tokens_masks, rstr_to_cstr(tmp_str_m));
 	}
 	tokens_split_w_red(tk->tokens);
 	tokens_split_w_red(tk->tokens_masks);
@@ -48,9 +69,9 @@ t_tokens		tokens(t_pipeline pl)
 	return (tk);
 }
 
-void			tokens_destroy(t_tokens tks)
+void	tokens_destroy(t_tokens tks)
 {
 	dlist_destroy(tks->tokens);
-	dlist_destroy(tks->tokens_masks);	
+	dlist_destroy(tks->tokens_masks);
 	free(tks);
 }
