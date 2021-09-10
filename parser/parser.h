@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/10 14:59:13 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/10 18:09:04 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ typedef struct s_state
 void				init_states(t_state *state);
 char				get_mask_char_inside_dq(t_state *state, char *s, int i);
 char				get_mask_character(t_state *state, char *s, int i);
-char				get_mask_c_helper2(t_state *state, char *s, int i);
+char				get_mask_character_helper_last(char c);
+char				get_mask_character_helper(t_state *state, char *s, int i);
+char				get_mask_character_helper3(t_state *state, char *s, int i);
 char				get_mask_c_helper(t_state *state, char *s, int i);
 char				*get_mask(char *s);
 t_arrptr			split_using_mask(char *str, char *str_mask, char del);
@@ -251,7 +253,7 @@ void				command_table_destroy(void *cmd_tab_);
 ** to get one pipeline a time
 */
 
-int	check_if_rd_got_afile(t_commands_table cmdt);
+int					check_if_rd_got_afile(t_commands_table cmdt);
 t_dlist				cmd_tables(char *parsing_text, t_dlist env_list);
 void				cmd_tables_destroy(t_dlist cmd_tables_list);
 t_dlist				cmd_tables_list_(char *parsing_text, t_dlist env_list);
