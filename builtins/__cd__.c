@@ -21,7 +21,7 @@ so one can type cd ~, or just cd to change to the home directory but cd "~" to c
 either as a stand alone string or as the initial portion of a path: ~/bin. Note that ~name should expand to the home directory of the user name.
  */
 
-#include "../includes/minishell.h"\
+#include "../includes/minishell.h"
 
 int __cd__(t_commands_table command, t_dlist env_list)
 {

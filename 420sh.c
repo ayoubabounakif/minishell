@@ -18,12 +18,7 @@ void	processHeredoc(t_dlist pipeline)
 	dlist_move_cursor_to_head(pipeline);	
 	while (pipeline->cursor_n != pipeline->sentinel)
 	{
-		heredoc_for_one_cmd_table(pipeline->cursor_n->value);
-
-		//do some proccessing with the fd
-
-		//unlinking
-		
+		heredoc_for_one_cmd_table(pipeline->cursor_n->value);	
 		dlist_move_cursor_to_next(pipeline);
 	}
 	return ;

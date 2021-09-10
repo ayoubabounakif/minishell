@@ -17,10 +17,19 @@
 
 void	setFlagNIndex(char *arg, int *flagRef, int *indexRef)
 {
-	if (strcmp(arg, "-n") == 0)
+	int		i;
+
+	i = 2;
+	if (strncmp(arg, "-n", 2) == 0)
 		(*flagRef) = SUPPRESS_OUTPUT_TRAILING_NEWLINE;
 	if (*flagRef == SUPPRESS_OUTPUT_TRAILING_NEWLINE)
-		(*indexRef) = 2;
+	{
+		while (arg[i] == 'n')
+			i++;
+		(*indexRef) = i;
+	}
+	printf("%s %d\n", arg, i);
+	exit(2000);
 }
 
 int	checkArg(char *arg)
