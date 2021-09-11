@@ -7,6 +7,7 @@ SRCS = 420sh.c \
 ./parser/redirection_splitting/reder_split1.c \
 ./parser/command_table/command_table.c \
 ./parser/command_table/command_table_methods.c\
+./parser/command_table/command_table_methods1.c\
 ./parser/command_table/fill_cmd_table.c\
 ./parser/command_table_generator.c \
 ./parser/command_table_generator1.c \

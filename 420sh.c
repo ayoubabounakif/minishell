@@ -26,14 +26,15 @@ void	processHeredoc(t_dlist pipeline)
 
 int		main(int ac, char **av, char **envp)
 {
-	(void)ac;
-	(void)av;
 
-	char		*line = NULL;	
+	char		*line;	
 	t_dlist 	parsed_line; 
 	t_dlist		env_list;
-	t_syx_check	sx;		
 
+	line = NULL;
+	t_syx_check	sx;		
+	(void)ac;
+	(void)av;
 	sx = syntax_check_create();
 	env_list = get_envs(envp);
 	signal(SIGQUIT, sig_handler);

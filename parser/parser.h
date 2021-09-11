@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 14:26:29 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 15:25:51 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,8 @@ typedef struct s_commands_table
 	t_arrptr		redir_files;
 	char			is_after_p_or_sc;
 	char			is_there_a_red_error;
+	void			**v;
+	t_arrptr		ar;
 }	*t_commands_table;
 
 int					is_normal_token(t_commands_table cmdt);

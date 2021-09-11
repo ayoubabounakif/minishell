@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 14:29:09 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/10 14:45:10 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 15:17:17 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	is_token_a_r_o_file(t_commands_table cmdt)
 
 int	is_token_a_r_i_file(t_commands_table cmdt)
 {
-	t_tokens	up;		
+	t_tokens	up;	
 
 	up = cmdt->tokens_unproccessed;
 	if (up->tokens->cursor_p == up->tokens->sentinel)
