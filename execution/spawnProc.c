@@ -27,15 +27,19 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 		}
 		if (pipeFds[WRITE] > 2)
 			close(pipeFds[WRITE]);
-		if (command->redir_files->len != 0)
+		if (command->redir_files->len)
 			inputOutputRedirection(command);
 		if (isBuiltin(command->tokens_simpl[0]) == TRUE)
 			exit(executeBuiltins(command, envl));
 		else
+		{
+			if (command->tokens_simpl[0] == NULL)
+				exit(g_vars.exit_code);
 			execve(
 				command->tokens_simpl[0],
 				command->tokens_simpl,
 				env_list_to_env_array(envl));
+		}
 	}
 	return (EXIT_SUCCESS);
 }
@@ -53,10 +57,14 @@ int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 		if (isBuiltin(command->tokens_simpl[0]) == TRUE)
 			exit(executeBuiltins(command, envl));
 		else
+		{
+			if (command->tokens_simpl[0] == NULL)
+				exit(g_vars.exit_code);
 			execve(
 				command->tokens_simpl[0],
 				command->tokens_simpl,
 				env_list_to_env_array(envl));
+		}
 	}
 	return (EXIT_SUCCESS);
 }

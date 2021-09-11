@@ -38,14 +38,15 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 		{
 			if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]))
 			{
-				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
-					return ;
-				((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
-				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
+				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] != NULL)
 				{
-					printErrorMessage(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], "");
-					g_vars.exit_code = 127;
-					return ;
+					((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
+					if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
+					{
+						printErrorMessage(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], "");
+						g_vars.exit_code = 127;
+						return ;
+					}
 				}
 			}
 		}
@@ -63,14 +64,15 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 	{
 		if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]))
 		{
-			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
-				return ;
-			((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
-			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
+			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] != NULL)
 			{
-				printErrorMessage(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], "");
-				g_vars.exit_code = 127;
-				return ;
+				((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
+				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
+				{
+					printErrorMessage(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], "");
+					g_vars.exit_code = 127;
+					return ;
+				}
 			}
 		}
 	}

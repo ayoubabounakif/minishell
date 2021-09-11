@@ -56,7 +56,7 @@ LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
 NAME = minishell
 CC = gcc 
 # CFLAGS = -g3
-CFLAGS = -g3 -Wall -Wextra -Werror
+CFLAGS = -g3 -Wall -Wextra -Werror -fsanitize=address
 LDFLAGS= -L /goinfre/$(USER)/.brew/opt/readline/lib
 CPPFLAGS= -I /goinfre/$(USER)/.brew/opt/readline/include
 READLINE = -lreadline $(LDFLAGS) $(CPPFLAGS)

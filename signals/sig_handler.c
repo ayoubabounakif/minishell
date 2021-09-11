@@ -24,7 +24,6 @@ void	sig_handler(int sign_num)
 	else if (sign_num == SIGQUIT)
 	{
 		ft_putchar_fd('\r', 1);
-
 		rl_on_new_line();
 		rl_redisplay();
 	}

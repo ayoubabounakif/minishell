@@ -16,17 +16,16 @@ void	searchForLastIn(t_commands_table command, int *fdin)
 {
 	int				i = 0;
 	int				wasHere = 0;
-	char			*tmpNameHolder = NULL;
+	char			*tmpNameHolder;
 	t_redir_file	rf;
 
-	tmpNameHolder = malloc(100);
+	tmpNameHolder = NULL;
 	while (i < command->redir_files->len)
 	{
 		rf = arrptr_get(command->redir_files, i);
 		if (rf->file_type == REDI_INPUT_FILE || rf->file_type == REDI_HEREDOC_FILE)
 		{
 			wasHere = 1;
-			ft_putendl_fd(rf->file_name, STDERR_FILENO);
 			tmpNameHolder = rf->file_name;
 		}
 		i++;
@@ -40,7 +39,6 @@ void	searchForLastIn(t_commands_table command, int *fdin)
 			close(*fdin);
 		}
 	}
-	free(tmpNameHolder);
 	return ;
 }
 
@@ -48,10 +46,10 @@ void	searchForLastOut(t_commands_table command, int *fdout)
 {
 	int				i = 0;
 	int				wasHere = 0;
-	char			*tmpNameHolder = NULL;
+	char			*tmpNameHolder;
 	t_redir_file	rf;
 
-	tmpNameHolder = malloc(100);
+	tmpNameHolder = NULL;
 	while (i < command->redir_files->len)
 	{
 		rf = arrptr_get(command->redir_files, i);
@@ -71,10 +69,8 @@ void	searchForLastOut(t_commands_table command, int *fdout)
 			close(*fdout);
 		}
 	}
-	free(tmpNameHolder);
 	return ;
 }
-
 
 void	inputOutputRedirection(t_commands_table command)
 {
@@ -109,7 +105,6 @@ void	inputOutputRedirection(t_commands_table command)
 		}
 		if ((fdin < 0 || fdout < 0) && rf->file_type != REDI_HEREDOC_FILE)
 		{
-			ft_putendl_fd(rf->file_name, STDERR_FILENO);
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
 			g_vars.exit_code = 1;
 			exit(g_vars.exit_code);
