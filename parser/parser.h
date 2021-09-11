@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/10 18:09:04 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 08:10:26 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ typedef struct s_syntax
 t_syx_check			syntax_check_create(void);
 void				syntax_destroy(t_syx_check sx);
 void				check_redir_syntax(char *parsing_line, t_syx_check syx);
+void				check_if_between_pipes_is_empty(char *parsing_line, char *mask, t_syx_check syx);
 void				check_pipes_n_semiclns(char *parsing_pipeline,
 						t_syx_check syx);
 void				preparse_syntax(char *parsing_pipeline);

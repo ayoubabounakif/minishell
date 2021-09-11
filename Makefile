@@ -11,6 +11,7 @@ SRCS = 420sh.c \
 ./parser/quotes_proccessing.c\
 ./parser/env_variables.c\
 ./parser/syntax_checking.c\
+./parser/syntax_checking2.c\
 ./parser/tokens.c\
 \
 ./heredoc/heredoc.c\

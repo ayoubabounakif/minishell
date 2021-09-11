@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:54:31 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/10 18:12:56 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 08:52:54 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,5 @@ char	get_mask_character_helper_last(char c)
 		return ('<');
 	else if (c == ' ')
 		return ('W');
-	return ('N');
-}
-
-char	get_mask_character_helper(t_state *state, char *s, int i)
-{
-	if (s[i] == '$')
-	{
-		state->env_variable = 1;
-		return ('$');
-	}
-	else if (s[i] == '\'')
-	{
-		state->inside_squote = 1;
-		return ('\'');
-	}	
-	else if (s[i] == '\"')
-	{
-		state->inside_dquote = 1;
-		return ('\"');
-	}
 	return ('N');
 }

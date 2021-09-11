@@ -52,7 +52,7 @@ char *str_find_and_replace(char *haystack, char *needle, char *new_needle)
 
 	haystack_ = cstr_to_rstr(haystack);
 	rslt = rstr_find_and_replace(haystack_, needle, new_needle);
-	//rstr_destroy(haystack_);
+	// rstr_destroy(haystack_);
 	return(rslt);
 }
 
