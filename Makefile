@@ -20,6 +20,7 @@ SRCS = 420sh.c \
 \
 ./heredoc/heredoc.c \
 ./heredoc/generate_random_value.c \
+./heredoc/processHeredoc.c \
 \
 ./execution/executeParsedLine.c \
 ./execution/forkPipes.c \
