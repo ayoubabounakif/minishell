@@ -6,19 +6,20 @@ SRCS = 420sh.c \
 ./parser/redirection_splitting/reder_split.c \
 ./parser/redirection_splitting/reder_split1.c \
 ./parser/command_table/command_table.c \
-./parser/command_table/command_table_methods.c\
-./parser/command_table/command_table_methods1.c\
-./parser/command_table/fill_cmd_table.c\
+./parser/command_table/command_table_methods.c \
+./parser/command_table/command_table_methods1.c \
+./parser/command_table/fill_cmd_table.c \
 ./parser/command_table_generator.c \
 ./parser/command_table_generator1.c \
-./parser/quotes_proccessing.c\
-./parser/env_variables.c\
-./parser/env_variables2.c\
-./parser/syntax_checking.c\
-./parser/syntax_checking2.c\
-./parser/tokens.c\
+./parser/quotes_proccessing.c \
+./parser/env_variables.c \
+./parser/env_variables2.c \
+./parser/syntax_checking.c \
+./parser/syntax_checking2.c \
+./parser/tokens.c \
 \
-./heredoc/heredoc.c\
+./heredoc/heredoc.c \
+./heredoc/generate_random_value.c \
 \
 ./execution/executeParsedLine.c \
 ./execution/forkPipes.c \
@@ -54,7 +55,6 @@ LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
 NAME = minishell
 CC = gcc
 CFLAGS = -g3 -fsanitize=address -Wall -Wextra -Werror
-# CFLAGS = -g 
 LDFLAGS= -L /goinfre/$(USER)/.brew/opt/readline/lib
 CPPFLAGS= -I /goinfre/$(USER)/.brew/opt/readline/include
 READLINE = -lreadline $(LDFLAGS) $(CPPFLAGS)
@@ -67,6 +67,7 @@ $(NAME):
 	@echo "\033[0;32mCompiling minishell"
 	@$(CC) $(CFLAGS) $(SRCS) $(LIBRARIES) -o $(NAME) $(READLINE)
 	@rm -rf minishell.dSYM
+	@rm -rf .vscode
 
 clean:
 	@$(MAKE) -C CPCA clean
