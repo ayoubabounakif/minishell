@@ -45,7 +45,7 @@ void	tokens_split_w_red(t_dlist tokens)
 			dlist_move_cursor_to_head(tokens);
 			arrptr_destroy(arr);
 		}	
+		free(mask);
 		dlist_move_cursor_to_next(tokens);
-	}
-	free(mask);
+	}	
 }

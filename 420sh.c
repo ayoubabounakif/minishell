@@ -46,6 +46,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			if (parsed_line)
 				dlist_destroy(parsed_line);
+			free(line);
 			exit(EXIT_FAILURE);
 		}	
 	}	

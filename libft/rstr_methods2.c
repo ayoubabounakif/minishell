@@ -3,14 +3,12 @@
 int	rstr_lookup(t_rstr haystack, char *needle)
 {
 	int	i;
-	int j;
-	int count;
+	int j;	
 	
 	(void)needle;
 	(void)haystack;
 	i = 0;
-	j = 0;
-	count = 0;
+	j = 0;	
 	
 	while (i < haystack->len)
 	{
