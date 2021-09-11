@@ -12,23 +12,23 @@
 
 #include "../parser.h"
 
-int				is_red_cmd_non_split(char *token_, char *mask)
+int	is_red_cmd_non_split(char *token_, char *mask)
 {
-	char *token;	
-	int i;
-	int r;
-	int al;
+	char	*token;	
+	int		i;
+	int		r;
+	int		al;
 
 	i = 0;
 	r = 0;
 	al = 0;
-	token = (char*)token_;	
+	token = (char *)token_;
 	while (token[i])
 	{
 		if (mask[i] == '>' || mask[i] == '<')
 			r = 1;
 		else
-			al = 1;	
+			al = 1;
 		i++;
 	}
 	if (r == 1 && al == 1)
@@ -37,9 +37,9 @@ int				is_red_cmd_non_split(char *token_, char *mask)
 		return (0);
 }
 
-void			split_token_w_red_help(char *token, int *i, t_arrptr arr)
+void	split_token_w_red_help(char *token, int *i, t_arrptr arr)
 {
-	t_rstr rs;
+	t_rstr	rs;
 
 	rs = rstr_create(1);
 	while (token[*i] && (token[*i] == '>' || token[*i] == '<'))
@@ -54,71 +54,37 @@ void			split_token_w_red_help(char *token, int *i, t_arrptr arr)
 	rstr_destroy(rs);
 }
 
-t_arrptr		split_token_w_red(char *token)
+void		split_token_w_red_helper(char *token, char *mask, t_rstr rs, t_arrptr ar)
 {
-	t_rstr rs;
-	t_arrptr	arr;
-	int			i;
-	char		*mask;
+	
+}
 
-	mask = get_mask(token);
-	i = 0;
-	rs = rstr_create(0);
-	arr = empty_arrptr_create(free);
-	while(token[i])
+t_arrptr	split_token_w_red(char *token)
+{
+	t_split_token_w_red stwk;
+
+	stwk.token = token;
+	stwk.mask = get_mask(token);
+	stwk.i = 0;
+	stwk.rs = rstr_create(0);
+	stwk.arr = empty_arrptr_create(free);
+	while (stwk.token[stwk.i])
 	{
-		if (mask[i] != '>' && mask[i] != '<')
+		if (stwk.mask[stwk.i] != '>' && stwk.mask[stwk.i] != '<')
 		{
-			rstr_add(rs, token[i]);
+			rstr_add(stwk.rs, token[stwk.i]);
 		}
-		else if (mask[i] == '>' || mask[i] == '<')
+		else if (stwk.mask[stwk.i] == '>' || stwk.mask[stwk.i] == '<')
 		{
-			if (rs->len)
-				arrptr_add(arr, rstr_to_cstr(rs));
-			split_token_w_red_help(token, &i, arr);
-		rstr_clear(rs);
+			if (stwk.rs->len)
+				arrptr_add(stwk.arr, rstr_to_cstr(stwk.rs));
+			split_token_w_red_help(token, &(stwk.i), stwk.arr);
+			rstr_clear(stwk.rs);
 			continue ;
 		}
-		i++;
+		stwk.i++;
 	}
-	free(mask);
-	rstr_destroy(rs);
-	return (arr);
+	free(stwk.mask);
+	rstr_destroy(stwk.rs);
+	return (stwk.arr);
 }
-
-void remplace_cursor_node_with_array(t_dlist l, t_arrptr arr)
-{
-	int i = 0;
-
-	dlist_remove_after_cursor(l, 1);
-	 	while (i < arr->len)
-		{
-			dlist_insert_before_cursor(l, strdup(arrptr_get(arr, i)));
-			i++;
-		}
-}
-
-void			tokens_split_w_red(t_dlist tokens)
-{	
-	char *mask;
-
-	dlist_move_cursor_to_head(tokens);
-	// mask = get_mask((char*)(tokens->cursor_n->value));
-	mask = NULL;
-	if (*(char*)(tokens->cursor_n->value) == '"'
-	|| *(char*)(tokens->cursor_n->value) == '\'')
-		return ;
-    while (tokens->cursor_n != tokens->sentinel) 
-    {
-		mask = get_mask((char*)(tokens->cursor_n->value));
-		if (is_red_cmd_non_split(tokens->cursor_n->value, mask))
-		{
-			t_arrptr arr =  split_token_w_red((char*)tokens->cursor_n->value);
-			remplace_cursor_node_with_array(tokens, arr);
-			dlist_move_cursor_to_head(tokens);
-			arrptr_destroy(arr);
-		}	
-        dlist_move_cursor_to_next(tokens);	
-	}
-	free(mask);
- }

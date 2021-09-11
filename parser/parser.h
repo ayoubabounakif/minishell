@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 08:10:26 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 13:35:40 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,30 @@
 # define IS_AFTER_PIPE 1
 # define IS_AFTER_SEMICOLON 2
 # define NO_PIPE_OR_SEMICOLON 3
+
+/*
+** norm hacking structures "the norm sucks you can't change my mind"
+*/
+
+typedef struct s_find_replace_env
+{
+	char	*token;
+	char	*token_mask;
+	int		i;
+	t_dlist	env_list;
+	char	*is_key_found;
+	char	*r_str;
+	char	*tmp;
+}	t_find_replace_env;
+
+typedef struct s_split_token_w_red
+{
+	char		*token;
+	t_rstr		rs;	
+	t_arrptr	arr;
+	int			i;
+	char		*mask;
+}	t_split_token_w_red;
 
 /*
 ** 
@@ -168,7 +192,8 @@ typedef struct s_syntax
 t_syx_check			syntax_check_create(void);
 void				syntax_destroy(t_syx_check sx);
 void				check_redir_syntax(char *parsing_line, t_syx_check syx);
-void				check_if_between_pipes_is_empty(char *parsing_line, char *mask, t_syx_check syx);
+void				check_if_between_pipes_is_empty(char *parsing_line,
+						char *mask, t_syx_check syx);
 void				check_pipes_n_semiclns(char *parsing_pipeline,
 						t_syx_check syx);
 void				preparse_syntax(char *parsing_pipeline);
@@ -243,6 +268,18 @@ typedef struct s_command
 	char		is_after_p_or_sc;
 	char		is_there_a_red_error;
 }				t_command;
+
+typedef struct s_cmd_tables_list
+{
+	t_dlist		tmp_list_of_command_tables_non_splitted;
+	t_dlist		list_of_command_tables_lists;
+	t_dlist		a_command_table_list;
+	t_command	*cmd_tab;
+	int			is_it_time_for_a_new_list;
+	int			is_it_end_of_list;
+	char		*parsing_text;
+	t_dlist		env_list;
+}	t_cmd_tables_list;
 
 t_command			*command_table(t_commands_table cmd, t_dlist env_list);
 void				command_table_destroy(void *cmd_tab_);
