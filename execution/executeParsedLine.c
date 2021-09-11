@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
-int		testForUppercaseBuiltins(t_dlist pipeline)
+int	testForUppercaseBuiltins(t_dlist pipeline)
 {
 	char	*token;
 
@@ -30,10 +30,10 @@ int		testForUppercaseBuiltins(t_dlist pipeline)
 	return (EXIT_SUCCESS);
 }
 
-void		executeParsedLine(t_dlist parsed_line, t_dlist envl)
+void	executeParsedLine(t_dlist parsed_line, t_dlist envl)
 {	
 	if (testForUppercaseBuiltins(parsed_line) == UPPERCASE_BUILTINS)
 		;
 	else
-		forkPipes(parsed_line, envl);	
+		forkPipes(parsed_line, envl);
 }

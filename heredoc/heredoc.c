@@ -12,7 +12,7 @@
 
 #include "heredoc.h"
 
-char *generate_random_value(void)
+char	*generate_random_value(void)
 {
 	int			fd;	
 	unsigned	randval;
@@ -57,7 +57,7 @@ char	*heredoc_repl_save(char *file)
 	fd = open(random_string, O_CREAT | O_RDWR, S_IRWXU);
 	while (1)
 	{	
-		line = readline("heredoc> ");
+		line = readline("> ");
 		if (!line)
 			break ;
 		if (!ft_strncmp(line, file, ft_strlen(file)))
@@ -82,7 +82,7 @@ void	heredoc_repl_non_save(char *file)
 	
 	while (1)
 	{	
-		line = readline("heredoc> ");	
+		line = readline("> ");	
 		if (!line)
 			break ;
 		if (!ft_strncmp(line, file, ft_strlen(file)))
@@ -95,7 +95,8 @@ void	heredoc_repl_non_save(char *file)
 	free(line);
 }
 
-void	turn_last_heredoc_delName_into_filename(t_commands_table cmd, char *file_name)
+void
+	turn_last_heredoc_delName_into_filename(t_commands_table cmd, char *file_name)
 {
 	int i;
 	t_redir_file rf;
