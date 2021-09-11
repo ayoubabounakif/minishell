@@ -25,7 +25,6 @@
 # include "../parser/parser.h"
 # include "../heredoc/heredoc.h"
 
-
 enum	MACROS {
 	TRUE = 1,
 	FALSE = 0,
@@ -95,17 +94,28 @@ int			__exit__(t_commands_table command, t_dlist env_list);
 /*
 **	env
 **/
-t_env		*env_create(char *key, char *value);
-void		env_destroy(void *env_);
-int			env_unset(t_dlist env_list, char *key);
-char		*ft_getenv(char *name, t_dlist env_list);
-t_dlist		get_envs(char **env);
-char		*get_value(char *line);
-char		*binPath(char *cmd, t_dlist envl);
 char		**env_list_to_env_array(t_dlist env_list);
-void		env_array_destroy(char **env_array);
 char		*find_envv_akey_value(char *key, t_dlist env_list);
 t_env		*find_envv_key_node(char *key, t_dlist env_list);
-void    	expand_env_variables_test(t_commands_table cmd, t_dlist env_list);
-void        last_commandCode_expend(t_dlist env_lst);
+
+/*
+**	env-subroutines
+*/
+t_env		*env_create(char *key, char *value);
+void		env_destroy(void *env_);
+void		env_array_destroy(char **env_array);
+
+/*
+**	env-getters
+*/
+char		*ft_getenv(char *name, t_dlist env_list);
+t_dlist		get_envs(char **env);
+char		*get_key(char *line);
+char		*get_value(char *line);
+
+/*
+**	expansion
+*/
+void		expandEnvVarsInParsedData(t_dlist parsed_data_lst, t_dlist env_lst);
+void		last_commandCode_expend(t_dlist env_lst);
 #endif

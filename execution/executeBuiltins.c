@@ -12,10 +12,10 @@
 
 #include "../includes/minishell.h"
 
-int executeBuiltins(t_commands_table command, t_dlist envl)
+int	executeBuiltins(t_commands_table command, t_dlist envl)
 {
-	int i;
-	const char *builtin_str[] = {
+	int			i;
+	const char	*builtin_str[] = {
 		"echo",
 		"cd",
 		"pwd",
@@ -24,7 +24,7 @@ int executeBuiltins(t_commands_table command, t_dlist envl)
 		"env",
 		"exit",
 	};
-	int (*builtin_func[])(t_commands_table command, t_dlist) = {
+	int			(*builtin_func[])(t_commands_table command, t_dlist) = {
 		&__echo__,
 		&__cd__,
 		&__pwd__,
@@ -38,7 +38,7 @@ int executeBuiltins(t_commands_table command, t_dlist envl)
 	while (i < 7)
 	{
 		if (strcmp(command->tokens_simpl[0], builtin_str[i]) == 0)
-			return (*builtin_func[i])(command, envl);
+			return ((*builtin_func[i])(command, envl));
 		i++;
 	}
 	return (EXIT_SUCCESS);

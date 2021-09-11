@@ -14,7 +14,8 @@
 
 int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
-	if (isBuiltin(command->tokens_simpl[0]) == TRUE && !command->redir_files->len)
+	if (isBuiltin(command->tokens_simpl[0]) == TRUE
+		&& !command->redir_files->len)
 		return (executeBuiltins(command, envl));
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD)
@@ -31,7 +32,10 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 		if (isBuiltin(command->tokens_simpl[0]) == TRUE)
 			exit(executeBuiltins(command, envl));
 		else
-			execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl));
+			execve(
+				command->tokens_simpl[0],
+				command->tokens_simpl,
+				env_list_to_env_array(envl));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -49,7 +53,10 @@ int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 		if (isBuiltin(command->tokens_simpl[0]) == TRUE)
 			exit(executeBuiltins(command, envl));
 		else
-			execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl));
+			execve(
+				command->tokens_simpl[0],
+				command->tokens_simpl,
+				env_list_to_env_array(envl));
 	}
 	return (EXIT_SUCCESS);
 }

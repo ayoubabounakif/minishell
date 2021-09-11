@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	isBuiltin(char *token)
 {
-	int		i;
-	static const char *builtins[7] = {
+	int					i;
+	static const char	*builtins[7] = {
 		"echo",
 		"cd",
 		"pwd",
@@ -24,7 +24,7 @@ int	isBuiltin(char *token)
 		"env",
 		"exit",
 	};
-	static const char *uppercaseBuiltins[7] = {
+	static const char	*uppercaseBuiltins[7] = {
 		"ECHO",
 		"CD",
 		"PWD",

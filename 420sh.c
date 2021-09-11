@@ -41,14 +41,11 @@ int		main(int ac, char **av, char **envp)
 	signal(SIGINT, sig_handler);
 	while (420)
 	{
-		// line = readline("\033[0;32m420\033[0;36mshell \033[0;32m(*∀*)y─\033[0;37m┛ => \33[0m");	
-		line = readline("420shell(*∀*)y─┛ => ");	
+		line = readline("420shell (*∀*)y─┛ => ");	
 		parsed_line = NULL;
 		if (line && *line)
 		{
-			// printf("|%s|", get_mask(line));
 			parsed_line = parse_line(line, env_list);
-			// check_redir_syntax(line);
 			add_history(line);
 			if (!parsed_line)
 				continue ;	
