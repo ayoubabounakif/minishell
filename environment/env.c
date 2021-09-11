@@ -87,10 +87,10 @@ char    *ft_getenv(char *name, t_dlist env_list)
     t_env	*env;
 
     dlist_move_cursor_to_head(env_list);
-	while(env_list->cursor_n != env_list->sentinel)
+	while (env_list->cursor_n != env_list->sentinel)
 	{
 		env = env_list->cursor_n->value;
-		if (!ft_strncmp(name, env->key, ft_strlen(name)))		
+		if (!strcmp(name, env->key))	
 			return (env->value);
 		dlist_move_cursor_to_next(env_list);
 	}
