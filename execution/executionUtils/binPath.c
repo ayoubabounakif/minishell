@@ -50,7 +50,6 @@ static char	*getBinPath(char *command, char **splittedPath)
 
 char	*binPath(char *cmd, t_dlist envl)
 {
-	int		bin_fd;
 	char	*binPath;
 	char	**splittedPath;
 

@@ -29,7 +29,6 @@ void	cmd_table_fill_helper_(t_commands_table cmdt, t_arrptr ar)
 void	cmd_table_fill_helper(t_commands_table cmdt)
 {
 	t_tokens	up;
-	char		*tmp_str;
 	t_arrptr	ar;
 
 	up = cmdt->tokens_unproccessed;
