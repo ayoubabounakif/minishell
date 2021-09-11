@@ -12,19 +12,7 @@
 
 # include "includes/minishell.h"
 
-
-void	processHeredoc(t_dlist pipeline)
-{	
-	dlist_move_cursor_to_head(pipeline);	
-	while (pipeline->cursor_n != pipeline->sentinel)
-	{
-		heredoc_for_one_cmd_table(pipeline->cursor_n->value);	
-		dlist_move_cursor_to_next(pipeline);
-	}
-	return ;
-}
-
-int		main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 
 	char		*line;	
