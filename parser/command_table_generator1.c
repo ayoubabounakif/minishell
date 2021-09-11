@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 12:58:19 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 13:26:21 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 14:10:34 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	cmd_tables_list_helper(t_cmd_tables_list *ctl)
 	}
 }
 
-t_dlist	cmd_tables_list(char *parsing_text, t_dlist env_list)
+t_dlist	cmd_tables_list(char *parsing_text)
 {
 	t_cmd_tables_list	ctl;
 	void				**v1;
@@ -66,7 +66,7 @@ t_dlist	cmd_tables_list(char *parsing_text, t_dlist env_list)
 	v3 = (void **)&(ctl.a_command_table_list);
 	ctl.is_it_time_for_a_new_list = 0;
 	ctl.is_it_end_of_list = 0;
-	*v1 = cmd_tables_list_(parsing_text, env_list);
+	*v1 = cmd_tables_list_(parsing_text);
 	*v2 = dlist_empty_create(dlist_destroy, NULL, NULL);
 	*v3 = dlist_empty_create(command_table_destroy, NULL, NULL);
 	dlist_move_cursor_to_head(ctl.tmp_list_of_command_tables_non_splitted);
@@ -107,7 +107,7 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 		syx->is_error = 0;
 		return (NULL);
 	}
-	cmd_tbs_lists = cmd_tables(parsing_line, env_list);
+	cmd_tbs_lists = cmd_tables(parsing_line);
 	expandEnvVarsInParsedData(cmd_tbs_lists, env_list);
 	remove_quotes(cmd_tbs_lists);
 	if (syx->is_error)

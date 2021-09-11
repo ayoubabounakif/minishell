@@ -29,8 +29,7 @@ int		main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 
-	char		*line = NULL;
-	int			n = 1;
+	char		*line = NULL;	
 	t_dlist 	parsed_line; 
 	t_dlist		env_list;
 	t_syx_check	sx;		

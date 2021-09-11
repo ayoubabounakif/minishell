@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 13:27:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/10 13:27:04 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 14:10:51 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*remove_quotes_from_stringImproved(char *a_token, char type_of_quotes)
 void	process_tokens_from_quotes(t_tokens tks)
 {
 	char	*v;
-	char	*v_m;
 
 	dlist_move_cursor_to_head(tks->tokens);
 	while (tks->tokens->cursor_n != tks->tokens->sentinel)

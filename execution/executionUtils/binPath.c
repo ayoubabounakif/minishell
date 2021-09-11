@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   binPath.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 17:29:49 by aabounak          #+#    #+#             */
-/*   Updated: 2021/06/27 17:30:10 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/11 14:11:05 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char	*binPath(char *cmd, t_dlist envl)
 	int		bin_fd;
 	char	*binPath;
 	char	**splittedPath;
-	int		i;
 
 	binPath = NULL;
 	splittedPath = ft_split(ft_getenv("PATH", envl), ':');

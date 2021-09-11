@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 13:35:40 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 14:26:29 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,8 @@ typedef struct s_syntax
 t_syx_check			syntax_check_create(void);
 void				syntax_destroy(t_syx_check sx);
 void				check_redir_syntax(char *parsing_line, t_syx_check syx);
-void				check_if_between_pipes_is_empty(char *parsing_line,
-						char *mask, t_syx_check syx);
+void				check_if_between_pipes_is_empty(char *mask,
+						t_syx_check syx);
 void				check_pipes_n_semiclns(char *parsing_pipeline,
 						t_syx_check syx);
 void				preparse_syntax(char *parsing_pipeline);
@@ -244,8 +244,8 @@ int					is_token_a_r_o_file(t_commands_table cmdt);
 int					is_token_a_r_app_file(t_commands_table cmdt);
 int					is_token_a_r_heredoc_file(t_commands_table cmdt);
 
-t_commands_table	cmd_table(t_pipeline pl, t_dlist env_list);
-void				cmd_table_fill(t_commands_table cmdt, t_pipeline pl);
+t_commands_table	cmd_table(t_pipeline pl);
+void				cmd_table_fill(t_commands_table cmdt);
 
 /*
 **  handle when a command and a redirection symbol are sticked together
@@ -281,7 +281,7 @@ typedef struct s_cmd_tables_list
 	t_dlist		env_list;
 }	t_cmd_tables_list;
 
-t_command			*command_table(t_commands_table cmd, t_dlist env_list);
+t_command			*command_table(t_commands_table cmd);
 void				command_table_destroy(void *cmd_tab_);
 
 /*
@@ -292,16 +292,16 @@ void				command_table_destroy(void *cmd_tab_);
 */
 
 int					check_if_rd_got_afile(t_commands_table cmdt);
-t_dlist				cmd_tables(char *parsing_text, t_dlist env_list);
+t_dlist				cmd_tables(char *parsing_text);
 void				cmd_tables_destroy(t_dlist cmd_tables_list);
-t_dlist				cmd_tables_list_(char *parsing_text, t_dlist env_list);
+t_dlist				cmd_tables_list_(char *parsing_text);
 void				cmd_tables_list_destroy_(t_dlist cmds_array);
 
 /*
 ** public methods
 */
 
-t_dlist				cmd_tables_list(char *parsing_text, t_dlist env_list);
+t_dlist				cmd_tables_list(char *parsing_text);
 void				cmd_tables_list_destroy_(t_dlist cmds_array);
 
 t_dlist				parse_line(char *parsing_line, t_dlist env_list);

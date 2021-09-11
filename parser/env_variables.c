@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:04:00 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 10:04:03 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 14:11:37 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*rstr_find_and_replace(t_rstr haystack, char *needle, char *new_needle)
 		while (needle[j] && (needle[j] == rstr_get(haystack, i + j))
 			&& (i + j) < haystack->len)
 			j++;
-		if (j == (ft_strlen(needle)))
+		if ((size_t)j == (ft_strlen(needle)))
 		{	
 			rstrFARHelper2(&j, &i);
 			while (new_needle[j])

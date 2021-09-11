@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 14:47:08 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/10 14:50:52 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 14:01:31 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	redir_file_destroy(void *rf_)
 	free(rf);
 }
 
-t_commands_table	cmd_table(t_pipeline pl, t_dlist env_list)
+t_commands_table	cmd_table(t_pipeline pl)
 {
 	t_commands_table	ct;
 

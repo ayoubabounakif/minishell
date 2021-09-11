@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 14:40:33 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/10 15:28:39 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 14:35:21 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	cmd_table_fill_helper(t_commands_table cmdt)
 	void		**v;
 	t_arrptr	ar;
 
+	*v = NULL;
+	(void)(tmp_str);
 	up = cmdt->tokens_unproccessed;
 	dlist_move_cursor_to_head(up->tokens);
 	dlist_move_cursor_to_head(up->tokens_masks);
@@ -41,7 +43,9 @@ void	cmd_table_fill_helper(t_commands_table cmdt)
 	}
 }
 
-void	cmd_table_fill(t_commands_table cmdt, t_pipeline pl)
+
+
+void	cmd_table_fill(t_commands_table cmdt)
 {
 	int	i;
 
@@ -72,7 +76,7 @@ void	cmd_table_fill_tokens(t_commands_table cmdt)
 	}	
 }
 
-t_command	*command_table(t_commands_table cmd, t_dlist env_list)
+t_command	*command_table(t_commands_table cmd)
 {
 	t_command	*command;
 	int			i;

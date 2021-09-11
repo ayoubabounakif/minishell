@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 15:48:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 13:05:04 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 14:08:56 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** private struct and methods
 */
 
-t_dlist	cmd_tables(char *parsing_text, t_dlist env_list)
+t_dlist	cmd_tables(char *parsing_text)
 {
 	t_dlist				c_tables;
 	t_arrptr			pls;
@@ -31,8 +31,8 @@ t_dlist	cmd_tables(char *parsing_text, t_dlist env_list)
 	while (i < pls->len)
 	{
 		p = arrptr_get(pls, i);
-		ct = cmd_table(p, env_list);
-		cmd_table_fill(ct, p);
+		ct = cmd_table(p);
+		cmd_table_fill(ct);
 		dlist_pushback(c_tables, ct);
 		i++;
 	}
@@ -49,17 +49,17 @@ void	cmd_tables_destroy(t_dlist cmd_tables_list)
 ** public struct and methods
 */
 
-t_dlist	cmd_tables_list_(char *parsing_text, t_dlist env_list)
+t_dlist	cmd_tables_list_(char *parsing_text)
 {
 	t_dlist				list_;
 	t_commands_table	c_tables_tmp;
 
-	list_ = cmd_tables(parsing_text, env_list);
+	list_ = cmd_tables(parsing_text);
 	dlist_move_cursor_to_head(list_);
 	while (list_->cursor_n != list_->sentinel)
 	{
 		c_tables_tmp = list_->cursor_n->value;
-		list_->cursor_n->value = command_table(c_tables_tmp, env_list);
+		list_->cursor_n->value = command_table(c_tables_tmp);
 		dlist_move_cursor_to_next(list_);
 	}
 	list_->destroy = command_table_destroy;

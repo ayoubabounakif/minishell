@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:45:21 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/09 08:43:16 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 14:16:47 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ char	*heredoc_for_one_cmd_table(t_commands_table cmd)
 	char		*str;
 	char		*ret_file_name;
 
-	hdoc_file_names = get_array_of_heredoc_files(cmd);	
+	hdoc_file_names = get_array_of_heredoc_files(cmd);
+	ret_file_name = NULL;
 	i = 0;
 	str = arrptr_get(hdoc_file_names, i);
 	while (i < hdoc_file_names->len - 1)

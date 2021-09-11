@@ -6,14 +6,13 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 08:07:28 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 08:19:01 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 14:14:57 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	check_if_after_last_pipe(char *parsing_line,
-			char *mask, t_syx_check syx)
+void	check_if_after_last_pipe(char *mask, t_syx_check syx)
 {
 	int	i;
 	int	is_pipe;
@@ -41,8 +40,8 @@ void	check_pipes_n_semiclns(char *parsing_line, t_syx_check syx)
 	mask = get_mask(parsing_line);
 	i = 0;
 	is_pipe = 0;
-	check_if_between_pipes_is_empty(parsing_line, mask, syx);
-	check_if_after_last_pipe(parsing_line, mask, syx);
+	check_if_between_pipes_is_empty(mask, syx);
+	check_if_after_last_pipe(mask, syx);
 	if (mask[0] == '|')
 		syntax_set_error(syx, "parse error around the pipe");
 	while (mask[i])
@@ -61,7 +60,7 @@ void	check_pipes_n_semiclns(char *parsing_line, t_syx_check syx)
 	free(mask);
 }
 
-int	check_if_not_redir_sign(char *parse_line, char *mask)
+int	check_if_not_redir_sign(char *mask)
 {
 	if (ft_strnstr(mask, ">>>", ft_strlen(mask))
 		|| ft_strnstr(mask, "<<<", ft_strlen(mask))
@@ -107,7 +106,7 @@ void	check_redir_syntax(char *parsing_line, t_syx_check syx)
 
 	mask = get_mask(parsing_line);
 	i = 0;
-	if (check_if_not_redir_sign(parsing_line, mask))
+	if (check_if_not_redir_sign(mask))
 		syntax_set_error(syx, "error around redirection sign");
 	if (is_betweenRedirSings_space(mask))
 		syntax_set_error(syx, "error around redirection sign!");

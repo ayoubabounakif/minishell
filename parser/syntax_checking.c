@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 21:19:42 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 08:12:32 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/11 14:13:01 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void	syntax_set_error(t_syx_check sx, char *err_message)
 	}
 }
 
-void	check_if_between_pipes_is_empty(char *parsing_line,
-			char *mask, t_syx_check syx)
+void	check_if_between_pipes_is_empty(char *mask, t_syx_check syx)
 {
 	int	i;
 	int	is_only_spaces;
