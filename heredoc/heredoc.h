@@ -12,22 +12,16 @@
 
 #ifndef HEREDOC_H
 # define HEREDOC_H
+
 # include "../parser/parser.h"
 # include "../dlist/dlists.h"
 # include "../libft/libft.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
-
-char *generate_random_value(void);
-
-char    *heredoc_for_one_cmd_table(t_commands_table cmd);
-
-/* typedef s_heredoc
-{
-    
-}	t_heredoc; */
+char	*generate_random_value(void);
+char	*heredoc_for_one_cmd_table(t_commands_table cmd);
 #endif 
