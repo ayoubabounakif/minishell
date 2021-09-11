@@ -35,9 +35,15 @@ SRCS = 420sh.c \
 ./builtins/__env__.c \
 ./builtins/__exit__.c \
 \
+./environment/env_subroutines.c \
+./environment/env_getters.c \
 ./environment/env.c \
+./environment/env_expansion.c \
 \
-./signals/handle_sigint.c ./signals/handle_sigquit.c ./signals/sig_handler.c \
+./signals/handle_sigint.c \
+./signals/handle_sigquit.c \
+./signals/sig_handler.c \
+\
 
 LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
 
