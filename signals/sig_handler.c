@@ -12,56 +12,6 @@
 
 #include "../includes/minishell.h"
 
-static void	process(int sign_num)
-{
-	if (!kill(g_vars.pid, sign_num))
-	{
-		if (sign_num == SIGQUIT)
-		{
-			ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
-			g_vars.exit_code = 130;
-		}
-		else if (sign_num == SIGINT)
-		{
-			printf("dude\n");
-			ft_putchar_fd('\n', STDOUT_FILENO);
-			rl_on_new_line();
-			// rl_replace_line("fuck", 0);
-			rl_redisplay();
-			g_vars.exit_code = 130;
-		}
-	}
-	else if (sign_num == SIGINT)
-	{
-		ft_putchar_fd('\n', STDOUT_FILENO);
-		g_vars.exit_code = 1;
-		//ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT_FILENO);
-		//ft_putstr_fd("\x1B[32m", STDOUT_FILENO);
-		//ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT_FILENO);
-	}
-}
-
-// void		sig_handler(int sign_num)
-// {
-// 	if ((sign_num == SIGINT || sign_num == SIGQUIT) && g_vars.pid != CHILD_PROCESS)
-// 		process(sign_num);
-// 	else
-// 	{
-// 		if (sign_num == SIGINT)
-// 		{
-// 			// This will be changed with termcaps
-// 			ft_putchar_fd('\n', STDOUT_FILENO);
-// 			g_vars.exit_code = 1;
-// 			ft_putstr_fd("\x1B[36m_420sh\x1B[0m\x1B[34m :: \x1B[0m", STDOUT_FILENO);
-// 			ft_putstr_fd("\x1B[32m", STDOUT_FILENO);
-// 			ft_putstr_fd("\x1B[0m\x1B[31m$ \x1B[0m", STDOUT_FILENO);
-// 		}
-// 		// This will be changed with termcaps
-// 		else if (sign_num == SIGQUIT)
-// 			ft_putstr_fd("\b\b  \b\b", STDOUT_FILENO);
-// 	}
-//}
-
 void	sig_handler(int sign_num)
 {
 	if (sign_num == SIGINT)

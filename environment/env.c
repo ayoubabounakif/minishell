@@ -29,7 +29,6 @@ char	**env_list_to_env_array(t_dlist env_list)
 	t_env	*e;
 	char	**env_array;
 	char	*joined_str;
-	char	*joined_str_tmp;
 	int		i;
 
 	env_array = (char **)malloc((sizeof(char *) * (env_list->len + 1)));

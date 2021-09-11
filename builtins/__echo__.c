@@ -55,6 +55,8 @@ int	__echo__(t_commands_table command, t_dlist env_list)
 	int		flag;
 	char	**tokens;
 
+	tokens = NULL;
+	(void)env_list;
 	if (command->tokens_simpl)
 		tokens = command->tokens_simpl;
 	if (!checkArg(tokens[1]))

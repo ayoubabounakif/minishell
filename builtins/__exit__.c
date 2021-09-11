@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-static int	exitSyntaxChecker(int *ac, char **tokens)
+static int	exitSyntaxChecker(char **tokens)
 {
 	int		j;
 
@@ -33,6 +33,7 @@ int	__exit__(t_commands_table command, t_dlist env_list)
 {
 	int	i;
 
+	(void)env_list;
 	i = 0;
 	if (!command->tokens_simpl[1])
 	{
@@ -42,7 +43,7 @@ int	__exit__(t_commands_table command, t_dlist env_list)
 	}
 	else
 	{
-		if (exitSyntaxChecker(&i, command->tokens_simpl) != EXIT_SUCCESS)
+		if (exitSyntaxChecker(command->tokens_simpl) != EXIT_SUCCESS)
 		{
 			printErrorMessage("exit", "");
 			g_vars.exit_code = 255;

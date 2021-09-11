@@ -12,7 +12,7 @@
 
 # include "../includes/minishell.h"
 
-int	checkExecutable(char *token, t_dlist envl)
+int	checkExecutable(char *token)
 {
 	int	fd;
 
@@ -36,7 +36,7 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 		ret = isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]);
 		if (ret != TRUE)
 		{
-			if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl))
+			if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]))
 			{
 				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
 					return ;
@@ -61,7 +61,7 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 	ret = isBuiltin(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]);
 	if (ret != TRUE)
 	{
-		if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl))
+		if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]))
 		{
 			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
 				return ;
