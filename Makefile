@@ -54,7 +54,8 @@ SRCS = 420sh.c \
 LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
 
 NAME = minishell
-CC = gcc 
+# CC = gcc 
+# CC = clang 
 # CFLAGS = -g3
 # CFLAGS = -g3 -Wall -Wextra -Werror -fsanitize=address
 CFLAGS = -g3 -Wall -Wextra -Werror
