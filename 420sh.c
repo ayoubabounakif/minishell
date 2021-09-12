@@ -49,7 +49,8 @@ int	main(int ac, char **av, char **envp)
 			free(line);
 			syntax_destroy(sx);
 			exit(EXIT_FAILURE);
-		}	
+		}
+		system("leaks minishell");
 	}	
 	return (EXIT_SUCCESS);
 }

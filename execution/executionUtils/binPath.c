@@ -12,12 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-static void	freeVars(char **splittedPath, char *binPath)
+static void	freeVars(char **splittedPath, char *anotherCmd)
 {
 	int		i;
 
 	i = 0;
-	free(binPath);
+	free(anotherCmd);
 	while (splittedPath[i])
 	{
 		free(splittedPath[i]);
@@ -34,11 +34,14 @@ static char	*getBinPath(char *command, char **splittedPath)
 	char	*tmp_bin;
 
 	i = 0;
+	binPath = ft_strdup("");
 	while (splittedPath[i])
 	{
+		free(binPath);
 		binPath = ft_strjoin(splittedPath[i], "/");
-		tmp_bin = binPath;
-		binPath = ft_strjoin(binPath, command);
+		tmp_bin = ft_strdup(binPath);
+		free(binPath);
+		binPath = ft_strjoin(tmp_bin, command);
 		free(tmp_bin);
 		binFd = open(binPath, O_RDONLY);
 		if (binFd > 0)
@@ -48,6 +51,7 @@ static char	*getBinPath(char *command, char **splittedPath)
 		}
 		i++;
 	}
+	free(binPath);
 	return (NULL);
 }
 
@@ -64,6 +68,9 @@ char	*binPath(char *cmd, t_dlist envl)
 	if (binPath == NULL)
 		freeVars(splittedPath, binPath);
 	else
+	{
+		freeVars(splittedPath, cmd);
 		return (binPath);
+	}
 	return (NULL);
 }

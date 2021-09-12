@@ -29,6 +29,22 @@ static int	exitSyntaxChecker(char **tokens)
 	return (EXIT_SUCCESS);
 }
 
+void	executeExitFunct(t_commands_table command)
+{
+	if (exitSyntaxChecker(command->tokens_simpl) != EXIT_SUCCESS)
+	{
+		printErrorMessage("exit", "");
+		g_vars.exit_code = 255;
+		exit(g_vars.exit_code);
+	}
+	else
+	{
+		ft_putendl_fd("exit", STDERR_FILENO);
+		g_vars.exit_code = ft_atoi(command->tokens_simpl[1]);
+		exit(g_vars.exit_code);
+	}
+}
+
 int	__exit__(t_commands_table command, t_dlist env_list)
 {
 	int	i;
@@ -42,19 +58,6 @@ int	__exit__(t_commands_table command, t_dlist env_list)
 		exit(g_vars.exit_code);
 	}
 	else
-	{
-		if (exitSyntaxChecker(command->tokens_simpl) != EXIT_SUCCESS)
-		{
-			printErrorMessage("exit", "");
-			g_vars.exit_code = 255;
-			exit(g_vars.exit_code);
-		}
-		else
-		{
-			ft_putendl_fd("exit", STDERR_FILENO);
-			g_vars.exit_code = ft_atoi(command->tokens_simpl[1]);
-			exit(g_vars.exit_code);
-		}
-	}
+		executeExitFunct(command);
 	return (EXIT_SUCCESS);
 }

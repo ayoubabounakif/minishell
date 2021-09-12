@@ -23,6 +23,6 @@
 # include <readline/history.h>
 
 void	processHeredoc(t_dlist pipeline);
+void    heredoc_for_one_cmd_table(t_commands_table cmd);
 char	*generate_random_value(void);
-char	*heredoc_for_one_cmd_table(t_commands_table cmd);
 #endif 

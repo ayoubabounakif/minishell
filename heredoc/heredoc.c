@@ -90,13 +90,14 @@ void
 		if (rf->file_type == REDI_HEREDOC_FILE)
 		{
 			free(rf->file_name);
-			rf->file_name = file_name;
+			rf->file_name = ft_strdup(file_name);
+			rf->file_type = REDI_INPUT_FILE;
 		}
 		i--;
 	}	
 }
 
-char	*heredoc_for_one_cmd_table(t_commands_table cmd)
+void	heredoc_for_one_cmd_table(t_commands_table cmd)
 {
 	t_arrptr	hdoc_file_names;
 	int			i;
@@ -120,5 +121,4 @@ char	*heredoc_for_one_cmd_table(t_commands_table cmd)
 		turn_last_heredoc_delName_into_filename(cmd, ret_file_name);
 	}
 	arrptr_destroy(hdoc_file_names);
-	return (ret_file_name);
 }

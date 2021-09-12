@@ -34,7 +34,6 @@ void	searchForLastIn(t_commands_table command, int *fdin)
 	{
 		if (*fdin > 2)
 		{
-			ft_putendl_fd("PUSSY", STDERR_FILENO);
 			dup2(*fdin, STDIN_FILENO);
 			close(*fdin);
 		}
@@ -64,7 +63,6 @@ void	searchForLastOut(t_commands_table command, int *fdout)
 	{
 		if (*fdout > 2)
 		{
-			ft_putendl_fd("another OUT PUSSY", STDERR_FILENO);
 			dup2(*fdout, STDOUT_FILENO);
 			close(*fdout);
 		}
