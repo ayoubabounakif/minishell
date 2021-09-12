@@ -14,13 +14,13 @@
 
 int	main(int ac, char **av, char **envp)
 {
-
 	char		*line;	
 	t_dlist 	parsed_line; 
 	t_dlist		env_list;
+	t_syx_check	sx;
 
 	line = NULL;
-	t_syx_check	sx;		
+		
 	(void)ac;
 	(void)av;
 	sx = syntax_check_create();

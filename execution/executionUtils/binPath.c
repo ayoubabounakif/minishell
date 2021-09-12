@@ -31,12 +31,15 @@ static char	*getBinPath(char *command, char **splittedPath)
 	int		i;
 	int		binFd;
 	char	*binPath;
+	char	*tmp_bin;
 
 	i = 0;
 	while (splittedPath[i])
 	{
 		binPath = ft_strjoin(splittedPath[i], "/");
+		tmp_bin = binPath;
 		binPath = ft_strjoin(binPath, command);
+		free(tmp_bin);
 		binFd = open(binPath, O_RDONLY);
 		if (binFd > 0)
 		{
