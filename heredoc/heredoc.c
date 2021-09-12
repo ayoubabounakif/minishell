@@ -90,7 +90,7 @@ void
 		if (rf->file_type == REDI_HEREDOC_FILE)
 		{
 			free(rf->file_name);
-			rf->file_name = ft_strdup(file_name);
+			rf->file_name = file_name;
 			rf->file_type = REDI_INPUT_FILE;
 		}
 		i--;
