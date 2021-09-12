@@ -24,6 +24,6 @@ char	*generate_random_value(void)
 	close(fd);
 	rand_string = ft_itoa(randval);
 	r_string = ft_strjoin("/tmp/heredoc-", rand_string);
-	free(rand_string);
+	// free(rand_string);
 	return (r_string);
 }

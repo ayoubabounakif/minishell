@@ -54,11 +54,11 @@ SRCS = 420sh.c \
 LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
 
 NAME = minishell
-# CC = gcc 
-# CC = clang 
+CC = gcc 
+# CC = clang -g3  -Wall -Werror -Wextra
 # CFLAGS = -g3
-# CFLAGS = -g3 -Wall -Wextra -Werror -fsanitize=address
-CFLAGS = -g3 -Wall -Wextra -Werror
+CFLAGS = -g3 -Wall -Wextra -Werror -fsanitize=address
+# CFLAGS = -g3 -Wall -Wextra -Werror
 LDFLAGS= -L /goinfre/$(USER)/.brew/opt/readline/lib
 CPPFLAGS= -I /goinfre/$(USER)/.brew/opt/readline/include
 READLINE = -lreadline $(LDFLAGS) $(CPPFLAGS)
