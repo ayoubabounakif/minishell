@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:45:21 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 14:16:47 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/12 15:30:59 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*heredoc_repl_save(char *file)
 		free(line);
 	}
 	free(line);
+	free (random_string);
 	close(fd);
 	return (NULL);
 }
@@ -90,7 +91,7 @@ void
 		if (rf->file_type == REDI_HEREDOC_FILE)
 		{
 			free(rf->file_name);
-			rf->file_name = file_name;
+			rf->file_name = ft_strdup(file_name);
 			rf->file_type = REDI_INPUT_FILE;
 		}
 		i--;
@@ -119,6 +120,7 @@ void	heredoc_for_one_cmd_table(t_commands_table cmd)
 		str = arrptr_get(hdoc_file_names, i);
 		ret_file_name = heredoc_repl_save(str);
 		turn_last_heredoc_delName_into_filename(cmd, ret_file_name);
+		free(ret_file_name);
 	}
 	arrptr_destroy(hdoc_file_names);
 }

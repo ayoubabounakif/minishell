@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_random_value.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 16:14:18 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/11 16:14:19 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/12 15:13:42 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ char	*generate_random_value(void)
 	close(fd);
 	rand_string = ft_itoa(randval);
 	r_string = ft_strjoin("/tmp/heredoc-", rand_string);
-	// free(rand_string);
+	free(rand_string);
 	return (r_string);
 }
