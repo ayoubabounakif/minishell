@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   spawnProc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 17:22:51 by aabounak          #+#    #+#             */
-/*   Updated: 2021/06/27 17:23:02 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/12 17:40:24 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	checkExecutable(char *token)
+{
+	int	fd;
+
+	fd = open(token, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	return (1);
+}
 
 int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
@@ -33,12 +43,14 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 			exit(executeBuiltins(command, envl));
 		else
 		{
-			if (command->tokens_simpl[0] == NULL)
+			if (checkExecutable(command->tokens_simpl[0]) == 0 && command->tokens_simpl[0] != NULL)
+			{
+				printErrorMessage(command->tokens_simpl[0], "");
+				g_vars.exit_code = 127;
 				exit(g_vars.exit_code);
-			execve(
-				command->tokens_simpl[0],
-				command->tokens_simpl,
-				env_list_to_env_array(envl));
+			}
+			else if (execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl)) == -1)
+				exit(g_vars.exit_code);
 		}
 	}
 	return (EXIT_SUCCESS);
@@ -58,12 +70,14 @@ int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 			exit(executeBuiltins(command, envl));
 		else
 		{
-			if (command->tokens_simpl[0] == NULL)
+			if (checkExecutable(command->tokens_simpl[0]) == 0 && command->tokens_simpl[0] != NULL)
+			{
+				printErrorMessage(command->tokens_simpl[0], "");
+				g_vars.exit_code = 127;
 				exit(g_vars.exit_code);
-			execve(
-				command->tokens_simpl[0],
-				command->tokens_simpl,
-				env_list_to_env_array(envl));
+			}
+			else if (execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl)) == -1)
+				exit(g_vars.exit_code);
 		}
 	}
 	return (EXIT_SUCCESS);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   forkPipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 17:20:19 by aabounak          #+#    #+#             */
-/*   Updated: 2021/06/27 17:20:37 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/12 16:28:00by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	checkExecutable(char *token)
+static int	checkExecutable(char *token)
 {
 	int	fd;
 
@@ -39,15 +39,7 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 			if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]))
 			{
 				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] != NULL)
-				{
 					((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
-					if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
-					{
-						printErrorMessage(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], "");
-						g_vars.exit_code = 127;
-						return ;
-					}
-				}
 			}
 		}
 		pipe(pipeFds);
@@ -65,15 +57,7 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 		if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]))
 		{
 			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] != NULL)
-			{
 				((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
-				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] == NULL)
-				{
-					printErrorMessage(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], "");
-					g_vars.exit_code = 127;
-					return ;
-				}
-			}
 		}
 	}
 	spawnLastProc(in, pipeFds, pipeline->cursor_n->value, envl);

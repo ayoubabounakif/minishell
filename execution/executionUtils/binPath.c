@@ -6,18 +6,17 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 17:29:49 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/11 14:11:05 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/12 17:09:01 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	freeVars(char **splittedPath, char *anotherCmd)
+static void	freeVars(char **splittedPath)
 {
 	int		i;
 
 	i = 0;
-	free(anotherCmd);
 	while (splittedPath[i])
 	{
 		free(splittedPath[i]);
@@ -47,12 +46,13 @@ static char	*getBinPath(char *command, char **splittedPath)
 		if (binFd > 0)
 		{
 			close(binFd);
+			free(command);
 			return (binPath);
 		}
 		i++;
 	}
 	free(binPath);
-	return (NULL);
+	return (command);
 }
 
 char	*binPath(char *cmd, t_dlist envl)
@@ -65,12 +65,6 @@ char	*binPath(char *cmd, t_dlist envl)
 	if (splittedPath == NULL)
 		return (NULL);
 	binPath = getBinPath(cmd, splittedPath);
-	if (binPath == NULL)
-		freeVars(splittedPath, binPath);
-	else
-	{
-		freeVars(splittedPath, cmd);
-		return (binPath);
-	}
-	return (NULL);
+	freeVars(splittedPath);
+	return (binPath);
 }

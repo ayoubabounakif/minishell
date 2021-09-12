@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 14:47:08 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 14:01:31 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/12 16:30:47 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	cmd_table_destroy(void *cmd_tab_)
 		free(cmd_tab->tokens_simpl[i]);
 		i++;
 	}
+	free(cmd_tab->tokens_simpl[i]);
 	free(cmd_tab->tokens_simpl);
 	free(cmd_tab);
 }

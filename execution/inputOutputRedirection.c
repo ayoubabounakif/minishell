@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 19:09:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/08 16:48:51 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/12 17:04:38 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void	inputOutputRedirection(t_commands_table command)
 		}
 		if ((fdin < 0 || fdout < 0) && rf->file_type != REDI_HEREDOC_FILE)
 		{
-			ft_putendl_fd(strerror(errno), STDERR_FILENO);
-			g_vars.exit_code = 1;
+			printErrorMessage(rf->file_name, "");
+			g_vars.exit_code = EXIT_FAILURE;
 			exit(g_vars.exit_code);
 		}
 		i++;
