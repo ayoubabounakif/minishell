@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **envp)
 			parsed_line = parse_line(line, env_list);
 			add_history(line);
 			if (!parsed_line)
-				continue ;	
+				continue ;
 			processHeredoc(parsed_line);
 			// executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);
