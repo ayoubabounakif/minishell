@@ -22,6 +22,17 @@ static int	checkExecutable(char *token)
 	return (1);
 }
 
+static int	checkDirectory(char *token)
+{
+	DIR	*	dir;
+
+	dir = opendir(token);
+	if (dir == NULL)
+		return (0);
+	return (1);
+}
+
+
 int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
 	if (isBuiltin(command->tokens_simpl[0]) == TRUE
@@ -50,7 +61,16 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 				exit(g_vars.exit_code);
 			}
 			else if (execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl)) == -1)
+			{
+				g_vars.exit_code = 0;
+				if (checkDirectory(command->tokens_simpl[0]) == 1)
+				{
+					printErrorMessage(command->tokens_simpl[0], "is a directory");
+					g_vars.exit_code = 126;
+					exit(g_vars.exit_code);
+				}
 				exit(g_vars.exit_code);
+			}
 		}
 	}
 	return (EXIT_SUCCESS);
@@ -77,7 +97,15 @@ int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 				exit(g_vars.exit_code);
 			}
 			else if (execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl)) == -1)
+			{
+				g_vars.exit_code = 0;
+				if (checkDirectory(command->tokens_simpl[0]) == 1)
+				{
+					printErrorMessage(command->tokens_simpl[0], "is a directory");
+					g_vars.exit_code = 126;
+				}
 				exit(g_vars.exit_code);
+			}
 		}
 	}
 	return (EXIT_SUCCESS);

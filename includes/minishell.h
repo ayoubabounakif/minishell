@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <signal.h>
+# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../parser/parser.h"
