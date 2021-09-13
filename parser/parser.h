@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/13 14:57:26 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/13 17:01:02 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,9 @@ char				*print_the_env_var(char *token, char *token_mask, int i);
 char				*find_replace_env_vars_in_a_token(char *token,
 						t_dlist env_list);
 void				expand_env_variables(t_tokens tks, t_dlist env_list);
+void				firstTokenExpander(t_dlist parsed_data_lst);
+
+
 
 # define REDI_INPUT_FILE 1
 # define REDI_OUTPUT_FILE 2
