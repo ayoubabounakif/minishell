@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 12:58:19 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/13 17:03:02 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/13 17:35:17 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	is_space_only(char *str)
 	return (1);
 }
 
-t_dlist	parse_line(char *parsing_line, t_dlist env_list)
+t_dlist	parse_line(char *parsing_line)
 {
 	t_syx_check	syx;
 	t_dlist		cmd_tbs_lists;
@@ -108,8 +108,8 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 		return (NULL);
 	}
 	cmd_tbs_lists = cmd_tables(parsing_line);
-	expandEnvVarsInParsedData(cmd_tbs_lists, env_list);
-	remove_quotes(cmd_tbs_lists);
+	// expandEnvVarsInParsedData(cmd_tbs_lists, env_list);
+	// remove_quotes(cmd_tbs_lists);
 	//firstTokenExpander
 	if (syx->is_error)
 	{	

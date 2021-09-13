@@ -33,12 +33,12 @@ int	main(int ac, char **av, char **envp)
 		parsed_line = NULL;
 		if (line && *line)
 		{
-			parsed_line = parse_line(line, env_list);
+			parsed_line = parse_line(line);
 			add_history(line);
 			if (!parsed_line)
 				continue ;
 			processHeredoc(parsed_line);
-			executeParsedLine(parsed_line, env_list);
+			// executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);
 			free(line);
 		}
@@ -49,7 +49,8 @@ int	main(int ac, char **av, char **envp)
 			free(line);
 			syntax_destroy(sx);
 			exit(EXIT_FAILURE);
-		}	
+		}
+		system("leaks minishell");
 	}	
 	return (EXIT_SUCCESS);
 }
