@@ -15,26 +15,35 @@
 #define OUTPUT_TRAILING_NEWLINE 1
 #define SUPPRESS_OUTPUT_TRAILING_NEWLINE 0
 
-void	setFlagNIndex(char *arg, int *flagRef, int *indexRef)
+void	setFlagNIndex(char **tokens, int *flagRef, int *indexRef)
 {
 	int		i;
+	int		j;
 
-	if (ft_strncmp(arg, "-n", 2) == 0)
+	i = 1;
+	while (tokens[i])
 	{
-		i = 2;
-		while (arg[i])
+		if (ft_strncmp(tokens[i], "-n", 2) == 0)
 		{
-			if (arg[i] != 'n')
+			j = 2;
+			while (tokens[i][j])
 			{
-				(*flagRef) = OUTPUT_TRAILING_NEWLINE;
-				return ;
+				if (tokens[i][j] != 'n')
+				{
+					(*flagRef) = OUTPUT_TRAILING_NEWLINE;
+					return ;
+				}
+				j++;
 			}
-			i++;
+			(*flagRef) = SUPPRESS_OUTPUT_TRAILING_NEWLINE;
 		}
-		(*flagRef) = SUPPRESS_OUTPUT_TRAILING_NEWLINE;
+		i++;
 	}
 	if ((*flagRef) == SUPPRESS_OUTPUT_TRAILING_NEWLINE)
-		(*indexRef) = 2;
+	{
+		(*indexRef) = i;
+		(*indexRef)--;
+	}
 	return ;
 }
 
@@ -63,7 +72,7 @@ int	__echo__(t_commands_table command, t_dlist env_list)
 		return (EXIT_SUCCESS);
 	(i) = 1;
 	(flag) = OUTPUT_TRAILING_NEWLINE;
-	setFlagNIndex(tokens[1], (&flag), (&i));
+	setFlagNIndex(tokens, (&flag), (&i));
 	while (tokens[i])
 	{
 		ft_putstr_fd(tokens[i], STDOUT_FILENO);

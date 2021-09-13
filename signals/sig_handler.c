@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void	ext_process(int signum)
+static void	ext_process(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -29,7 +29,7 @@ void	ext_process(int signum)
 	}
 }
 
-void	process(int signum)
+static void	process(int signum)
 {
 	if (!kill(g_vars.pid, signum))
 	{
@@ -48,7 +48,7 @@ void	process(int signum)
 		ext_process(signum);
 }
 
-void		sig_handler(int signum)
+void	sig_handler(int signum)
 {
 	if ((signum == SIGINT || signum == SIGQUIT) && g_vars.pid != CHILD)
 		process(signum);
