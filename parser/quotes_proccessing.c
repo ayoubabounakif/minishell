@@ -14,47 +14,50 @@
 
 void	raqfos_helper1(t_raqfos *raqfos)
 {
-	if (raqfos->conti)
-			raqfos->conti = 0;
-	if (raqfos->sq_state && raqfos->mask[raqfos->i] != '\'')
-		rstr_add(raqfos->rs, raqfos->a_token[raqfos->i]);
-	else if (raqfos->sq_state && raqfos->mask[raqfos->i] == '\'')
+	
+	raqfos->conti = 0;
+	if (raqfos->sq_state && raqfos->mask[raqfos->i] == '\'')
 	{
 		raqfos->sq_state = 0;
 		raqfos->i++;
 		raqfos->conti = 1;
+		return ;
 	}
-	if (raqfos->dq_state && raqfos->mask[raqfos->i] != '"')
-		rstr_add(raqfos->rs, raqfos->a_token[raqfos->i]);
 	else if (raqfos->dq_state && raqfos->mask[raqfos->i] == '"')
 	{
 		raqfos->dq_state = 0;
 		raqfos->i++;
 		raqfos->conti = 1;
+		return ;
 	}
-	if (!raqfos->sq_state && !raqfos->dq_state
-		&& raqfos->mask[raqfos->i] != '\'' && raqfos->mask[raqfos->i] != '"')
-		rstr_add(raqfos->rs, raqfos->a_token[raqfos->i]);
+	
 }
 
 void	raqfos_helper2(t_raqfos *raqfos)
 {
 	if (!raqfos->sq_state && !raqfos->dq_state
 		&& raqfos->mask[raqfos->i] == '"')
-		{
-			raqfos->dq_state = 1;
-			raqfos->i++;
-			raqfos->conti = 1;
-		}
-		if (!raqfos->sq_state && !raqfos->dq_state
-			&& raqfos->mask[raqfos->i] == '\'')
-		{
-			raqfos->sq_state = 1;
-			raqfos->i++;
-			raqfos->conti = 1;
-		}
-		if (raqfos->conti == 0)	
-			raqfos->i++;		
+	{
+		raqfos->dq_state = 1;
+		raqfos->i++;
+		raqfos->conti = 1;
+		return ;
+	}
+	if (!raqfos->sq_state && !raqfos->dq_state
+		&& raqfos->mask[raqfos->i] == '\'')
+	{
+		raqfos->sq_state = 1;
+		raqfos->i++;
+		raqfos->conti = 1;
+		return ;
+	}
+	if (raqfos->sq_state && raqfos->mask[raqfos->i] != '\'')
+		rstr_add(raqfos->rs, raqfos->a_token[raqfos->i]);
+	if (raqfos->dq_state && raqfos->mask[raqfos->i] != '"')
+		rstr_add(raqfos->rs, raqfos->a_token[raqfos->i]);
+	if (!raqfos->sq_state && !raqfos->dq_state
+		&& raqfos->mask[raqfos->i] != '\'' && raqfos->mask[raqfos->i] != '"')
+		rstr_add(raqfos->rs, raqfos->a_token[raqfos->i]);
 }
 
 void remove_all_quotes_from_one_string(char *a_token, char **r_str)
@@ -72,7 +75,10 @@ void remove_all_quotes_from_one_string(char *a_token, char **r_str)
 	while (raqfos.mask[raqfos.i])
 	{
 		raqfos_helper1(&raqfos);
-		raqfos_helper2(&raqfos);
+		if (!raqfos.conti)
+			raqfos_helper2(&raqfos);
+		if (!raqfos.conti)	
+			raqfos.i++;
 	}
 	*(raqfos.r_str) = rstr_to_cstr(raqfos.rs);
 	rstr_destroy(raqfos.rs);
