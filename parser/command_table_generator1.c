@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 12:58:19 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/13 17:35:17 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/13 18:02:52 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 	t_syx_check	syx;
 	t_dlist		cmd_tbs_lists;
 
+	(void)env_list;
 	syx = syntax_check_create();
 	check_pipes_n_semiclns(parsing_line, syx);
 	check_redir_syntax(parsing_line, syx);

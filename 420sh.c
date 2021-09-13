@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **envp)
 			syntax_destroy(sx);
 			exit(EXIT_FAILURE);
 		}
-		// system("leaks minishell");
+		system("leaks minishell");
 	}	
 	return (EXIT_SUCCESS);
 }

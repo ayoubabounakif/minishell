@@ -80,6 +80,7 @@ void remove_all_quotes_from_one_string(char *a_token, char **r_str)
 		if (!raqfos.conti)	
 			raqfos.i++;
 	}
+	free(*(raqfos.r_str));
 	*(raqfos.r_str) = rstr_to_cstr(raqfos.rs);
 	rstr_destroy(raqfos.rs);
 	free(raqfos.mask);	
