@@ -12,19 +12,61 @@
 
 #include "../includes/minishell.h"
 
-void	sig_handler(int sign_num)
+void	ext_process(int signum)
 {
-	if (sign_num == SIGINT)
+	if (signum == SIGINT)
 	{
-		ft_putchar_fd('\n', 2);
+		ft_putchar_fd('\n', STDERR_FILENO);
 		rl_on_new_line();
-		rl_replace_line("", 1); 
+		rl_replace_line("", STDIN_FILENO);
 		rl_redisplay();
 	}
-	else if (sign_num == SIGQUIT)
+	else if (signum == SIGQUIT)
 	{
-		ft_putchar_fd('\r', 1);
+		ft_putchar_fd('\r', STDERR_FILENO);
 		rl_on_new_line();
 		rl_redisplay();
+	}
+}
+
+void	process(int signum)
+{
+	if (!kill(g_vars.pid, signum))
+	{
+		if (signum == SIGQUIT)
+		{
+			ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+			g_vars.exit_code = 131;
+		}
+		else if (signum == SIGINT)
+		{
+			ft_putchar_fd('\n', STDERR_FILENO);
+			g_vars.exit_code = 130;
+		}
+	}
+	else
+		ext_process(signum);
+}
+
+void		sig_handler(int signum)
+{
+	if ((signum == SIGINT || signum == SIGQUIT) && g_vars.pid != CHILD)
+		process(signum);
+	else
+	{
+		if (signum == SIGINT)
+		{
+			ft_putchar_fd('\n', STDERR_FILENO);
+			rl_on_new_line();
+			rl_replace_line("", STDIN_FILENO);
+			rl_redisplay();
+			g_vars.exit_code = 1;
+		}
+		else if (signum == SIGQUIT)
+		{
+			ft_putchar_fd('\r', STDERR_FILENO);
+			rl_on_new_line();
+			rl_redisplay();
+		}
 	}
 }

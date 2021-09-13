@@ -29,7 +29,7 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGINT, sig_handler);
 	while (420)
 	{
-		line = readline("420shell (*∀*)y─┛ => ");	
+		line = readline("420shell (*∀*)y─┛ => ");
 		parsed_line = NULL;
 		if (line && *line)
 		{
