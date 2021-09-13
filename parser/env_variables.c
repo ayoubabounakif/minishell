@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:04:00 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/13 14:12:04 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/13 18:37:28 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ char	*str_find_and_replace(char *haystack, char *needle, char *new_needle)
 	rslt = rstr_find_and_replace(haystack_, needle, new_needle, mask);
 	rstr_destroy(haystack_);
 	free(mask);
+	free(haystack);
 	return (rslt);
 }
