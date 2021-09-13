@@ -25,3 +25,14 @@ int	rstr_lookup(t_rstr haystack, char *needle)
 	}
 	return (0);
 }
+
+int	cstr_lookup(char *haystack, char *needle)
+{
+	t_rstr	rs;
+	int		i;
+	
+	rs = cstr_to_rstr(haystack);
+	i = rstr_lookup(rs, needle);
+	rstr_destroy(rs);
+	return (i);
+}

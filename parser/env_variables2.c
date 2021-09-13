@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 11:32:00 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 11:32:03 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/13 14:11:29 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,27 +86,4 @@ char	*find_replace_env_vars_in_a_token(char *token, t_dlist env_list)
 		return (token);
 	free(token);
 	return (fre.r_str);
-}
-
-void	expand_env_variables(t_tokens tks, t_dlist env_list)
-{
-	void	**value;
-	void	**value_m;
-
-	dlist_move_cursor_to_head(tks->tokens);
-	dlist_move_cursor_to_head(tks->tokens_masks);
-	while (tks->tokens->cursor_n != tks->tokens->sentinel)
-	{
-		value = &(tks->tokens->cursor_n->value);
-		value_m = &(tks->tokens->cursor_n->value);
-		if (ft_strnstr((char *)tks->tokens_masks->cursor_n->value,
-				"$", ft_strlen((char *)tks->tokens_masks->cursor_n->value)))
-		{
-			*value = find_replace_env_vars_in_a_token(*value,
-					env_list);
-			*value_m = get_mask(*value);
-		}
-		dlist_move_cursor_to_next(tks->tokens);
-		dlist_move_cursor_to_next(tks->tokens_masks);
-	}
 }

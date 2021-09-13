@@ -6,73 +6,91 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 13:27:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 14:10:51 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/13 14:17:15y khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-char	*remove_quotes_from_stringImproved(char *a_token, char type_of_quotes)
+void	raqfos_helper1(t_raqfos *raqfos)
 {
-	char	*mask;
-	t_rstr	tmp_str;
-	int		i;
-	char	*r_str;
-
-	i = 0;
-	mask = get_mask(a_token);
-	tmp_str = rstr_create(0);
-	while (a_token[i])
+	if (raqfos->conti)
+			raqfos->conti = 0;
+	if (raqfos->sq_state && raqfos->mask[raqfos->i] != '\'')
+		rstr_add(raqfos->rs, raqfos->a_token[raqfos->i]);
+	else if (raqfos->sq_state && raqfos->mask[raqfos->i] == '\'')
 	{
-		if (mask[i] != type_of_quotes)
-			rstr_add(tmp_str, a_token[i]);
-		i++;
+		raqfos->sq_state = 0;
+		raqfos->i++;
+		raqfos->conti = 1;
 	}
-	r_str = rstr_to_cstr(tmp_str);
-	rstr_destroy(tmp_str);
-	free(a_token);
-	free(mask);
-	return (r_str);
+	if (raqfos->dq_state && raqfos->mask[raqfos->i] != '"')
+		rstr_add(raqfos->rs, raqfos->a_token[raqfos->i]);
+	else if (raqfos->dq_state && raqfos->mask[raqfos->i] == '"')
+	{
+		raqfos->dq_state = 0;
+		raqfos->i++;
+		raqfos->conti = 1;
+	}
+	if (!raqfos->sq_state && !raqfos->dq_state
+		&& raqfos->mask[raqfos->i] != '\'' && raqfos->mask[raqfos->i] != '"')
+		rstr_add(raqfos->rs, raqfos->a_token[raqfos->i]);
 }
 
-void	process_tokens_from_quotes(t_tokens tks)
+void	raqfos_helper2(t_raqfos *raqfos)
 {
-	char	*v;
+	if (!raqfos->sq_state && !raqfos->dq_state
+		&& raqfos->mask[raqfos->i] == '"')
+		{
+			raqfos->dq_state = 1;
+			raqfos->i++;
+			raqfos->conti = 1;
+		}
+		if (!raqfos->sq_state && !raqfos->dq_state
+			&& raqfos->mask[raqfos->i] == '\'')
+		{
+			raqfos->sq_state = 1;
+			raqfos->i++;
+			raqfos->conti = 1;
+		}
+		if (raqfos->conti == 0)	
+			raqfos->i++;		
+}
 
-	dlist_move_cursor_to_head(tks->tokens);
-	while (tks->tokens->cursor_n != tks->tokens->sentinel)
+void remove_all_quotes_from_one_string(char *a_token, char **r_str)
+{
+	t_raqfos	raqfos;
+
+	raqfos.mask = get_mask(a_token);
+	raqfos.sq_state = 0;
+	raqfos.dq_state = 0;
+	raqfos.i = 0;
+	raqfos.rs = rstr_create(0);
+	raqfos.a_token = a_token;
+	raqfos.r_str = r_str;
+	raqfos.conti = 0;
+	while (raqfos.mask[raqfos.i])
 	{
-		v = tks->tokens->cursor_n->value;
-		if (ft_strchr(v, '"'))
-			tks->tokens->cursor_n->value = remove_quotes_from_stringImproved(v,
-					'"');
-		if (ft_strchr(v, '\''))
-			tks->tokens->cursor_n->value = remove_quotes_from_stringImproved(v,
-					'\'');
-		dlist_move_cursor_to_next(tks->tokens);
+		raqfos_helper1(&raqfos);
+		raqfos_helper2(&raqfos);
 	}
+	*(raqfos.r_str) = rstr_to_cstr(raqfos.rs);
+	rstr_destroy(raqfos.rs);
+	free(raqfos.mask);	
 }
 
 void	remove_quotes_from_tokens(void *data)
 {
 	t_commands_table	cmd;
 	int					i;
-	char				*mask;
+	
 	char				*value;
-
 	i = 0;
 	cmd = data;
 	while (i < cmd->tokens->len)
 	{
 		value = cmd->tokens_simpl[i];
-		mask = get_mask(value);
-		if (ft_strchr(mask, '"'))
-			cmd->tokens_simpl[i] = remove_quotes_from_stringImproved(value,
-					'"');
-		if (ft_strchr(mask, '\''))
-			cmd->tokens_simpl[i] = remove_quotes_from_stringImproved(value,
-					'\'');
-		free(mask);
+		remove_all_quotes_from_one_string(cmd->tokens_simpl[i], &(cmd->tokens_simpl[i]));
 		i++;
 	}
 }

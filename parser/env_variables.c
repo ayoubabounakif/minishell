@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:04:00 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 14:11:37 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/13 14:12:04 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@ void	rstrFARHelper2(int *j, int *i)
 	*j = 0;
 }
 
-char	*rstr_find_and_replace(t_rstr haystack, char *needle, char *new_needle)
+char	*rstr_find_and_replace(t_rstr haystack, char *needle, char *new_needle, char *mask)
 {
 	int		i;
 	int		j;
 	t_rstr	rs;
 	char	*str;
 
+	(void)mask;
 	i = 0;
 	rs = rstr_create(0);
 	while (i < haystack->len)
 	{
 		j = 0;
 		while (needle[j] && (needle[j] == rstr_get(haystack, i + j))
-			&& (i + j) < haystack->len)
+			&& (mask[j + i] == 'V' || mask[j + i] == '$') && (i + j) < haystack->len)
 			j++;
 		if ((size_t)j == (ft_strlen(needle)))
 		{	
@@ -57,9 +58,12 @@ char	*str_find_and_replace(char *haystack, char *needle, char *new_needle)
 {
 	t_rstr	haystack_;
 	char	*rslt;
+	char 	*mask;
 
+	mask = get_mask(haystack);
 	haystack_ = cstr_to_rstr(haystack);
-	rslt = rstr_find_and_replace(haystack_, needle, new_needle);
+	rslt = rstr_find_and_replace(haystack_, needle, new_needle, mask);
 	rstr_destroy(haystack_);
+	free(mask);
 	return (rslt);
 }

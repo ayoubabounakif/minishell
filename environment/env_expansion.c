@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_expansion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 13:20:24 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/11 13:20:41 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:40:57 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	expandNormalTokens(void *data, t_dlist env_lst)
 	cmd = data;
 	while (i < cmd->tokens->len)
 	{
-		mask = get_mask(cmd->tokens_simpl[i]);
-		if (ft_strnstr(mask, "$V", ft_strlen(mask)))
+		mask = get_mask(cmd->tokens_simpl[i]);	
+		if (cstr_lookup(mask, "$V"))
 		{
 			tmp_str = ft_itoa(g_vars.exit_code);
 			cmd->tokens_simpl[i]

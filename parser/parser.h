@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 15:25:51 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/13 14:57:26 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,18 @@ typedef struct s_split_token_w_red
 	int			i;
 	char		*mask;
 }	t_split_token_w_red;
+
+typedef struct s_raqfos
+{
+	char	*mask;
+	int		sq_state;
+	int		dq_state;
+	int		i;
+	t_rstr	rs;
+	char	*a_token;
+	char	**r_str;
+	int		conti;
+}	t_raqfos;
 
 /*
 ** 
@@ -200,7 +212,7 @@ void				preparse_syntax(char *parsing_pipeline);
 void				syntax_set_error(t_syx_check sx, char *error_message);
 
 char				*rstr_find_and_replace(t_rstr haystack, char *needle,
-						char *new_needle);
+						char *new_needle, char *mask);
 char				*str_find_and_replace(char *haystack, char *needle,
 						char *new_needle);
 char				*find_envv_akey_value(char *key, t_dlist env_list);
