@@ -91,7 +91,7 @@ int	is_space_only(char *str)
 	return (1);
 }
 
-t_dlist	parse_line(char *parsing_line)
+t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 {
 	t_syx_check	syx;
 	t_dlist		cmd_tbs_lists;
@@ -108,8 +108,8 @@ t_dlist	parse_line(char *parsing_line)
 		return (NULL);
 	}
 	cmd_tbs_lists = cmd_tables(parsing_line);
-	// expandEnvVarsInParsedData(cmd_tbs_lists, env_list);
-	// remove_quotes(cmd_tbs_lists);
+	expandEnvVarsInParsedData(cmd_tbs_lists, env_list);
+	remove_quotes(cmd_tbs_lists);
 	//firstTokenExpander
 	if (syx->is_error)
 	{	

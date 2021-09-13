@@ -321,7 +321,7 @@ void				cmd_tables_list_destroy_(t_dlist cmds_array);
 t_dlist				cmd_tables_list(char *parsing_text);
 void				cmd_tables_list_destroy_(t_dlist cmds_array);
 
-t_dlist				parse_line(char *parsing_line);
+t_dlist				parse_line(char *parsing_line, t_dlist env_list);
 void				expandEnvVarsInParsedData(t_dlist parsed_data_lst,
 						t_dlist env_lst);
 char				*remove_quotes_from_stringImproved(char *a_token,
