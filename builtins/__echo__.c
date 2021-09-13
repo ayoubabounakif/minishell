@@ -21,29 +21,24 @@ void	setFlagNIndex(char **tokens, int *flagRef, int *indexRef)
 	int		j;
 
 	i = 1;
-	while (tokens[i])
+	while (tokens[i] && (ft_strncmp(tokens[i], "-n", 2) == 0))
 	{
-		if (ft_strncmp(tokens[i], "-n", 2) == 0)
+		j = 2;
+		while (tokens[i][j])
 		{
-			j = 2;
-			while (tokens[i][j])
+			if (tokens[i][j] != 'n')
 			{
-				if (tokens[i][j] != 'n')
-				{
-					(*flagRef) = OUTPUT_TRAILING_NEWLINE;
-					return ;
-				}
-				j++;
+				(*indexRef) = i;
+				(*flagRef) = OUTPUT_TRAILING_NEWLINE;
+				return ;
 			}
-			(*flagRef) = SUPPRESS_OUTPUT_TRAILING_NEWLINE;
+			j++;
 		}
+		(*flagRef) = SUPPRESS_OUTPUT_TRAILING_NEWLINE;
 		i++;
 	}
 	if ((*flagRef) == SUPPRESS_OUTPUT_TRAILING_NEWLINE)
-	{
 		(*indexRef) = i;
-		(*indexRef)--;
-	}
 	return ;
 }
 
