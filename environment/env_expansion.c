@@ -24,7 +24,7 @@ void	expandNormalTokens(void *data, t_dlist env_lst)
 	cmd = data;
 	while (i < cmd->tokens->len)
 	{
-		mask = get_mask(cmd->tokens_simpl[i]);	
+		mask = get_mask(cmd->tokens_simpl[i]);
 		if (cstr_lookup(mask, "$V"))
 		{
 			tmp_str = ft_itoa(g_vars.exit_code);

@@ -44,11 +44,12 @@ int	main(int ac, char **av, char **envp)
 		}
 		else if (!line)
 		{
+			ft_putendl_fd("exit", STDERR_FILENO);
 			if (parsed_line)
 				dlist_destroy(parsed_line);
 			free(line);
 			syntax_destroy(sx);
-			exit(EXIT_FAILURE);
+			exit(EXIT_SUCCESS);
 		}
 		system("leaks minishell");
 	}	

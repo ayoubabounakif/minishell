@@ -16,7 +16,7 @@ static void	ext_process(int signum)
 {
 	if (signum == SIGINT)
 	{
-		ft_putchar_fd('\n', STDERR_FILENO);
+		ft_putendl_fd(NULL, STDERR_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", STDIN_FILENO);
 		rl_redisplay();
@@ -40,7 +40,7 @@ static void	process(int signum)
 		}
 		else if (signum == SIGINT)
 		{
-			ft_putchar_fd('\n', STDERR_FILENO);
+			ft_putendl_fd(NULL, STDERR_FILENO);
 			g_vars.exit_code = 130;
 		}
 	}
@@ -50,13 +50,13 @@ static void	process(int signum)
 
 void	sig_handler(int signum)
 {
-	if ((signum == SIGINT || signum == SIGQUIT) && g_vars.pid != CHILD)
+	if ((signum == SIGINT || signum == SIGQUIT) && g_vars.pid != 0)
 		process(signum);
 	else
 	{
 		if (signum == SIGINT)
 		{
-			ft_putchar_fd('\n', STDERR_FILENO);
+			ft_putendl_fd(NULL, STDERR_FILENO);
 			rl_on_new_line();
 			rl_replace_line("", STDIN_FILENO);
 			rl_redisplay();
