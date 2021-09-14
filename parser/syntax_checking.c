@@ -6,37 +6,41 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 21:19:42 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 14:21:49 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 16:03:52by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_syx_check	syntax_check_create(void)
+t_syx_check	*syntax_check_create(void)
 {
-	t_syx_check	syx;
-
-	syx = malloc(sizeof(struct s_syntax));
-	syx->is_error = 0;
-	syx->error_message = NULL;
-	return (syx);
+	static t_syx_check syx;
+	static int	init = 0;
+	if (init == 0)
+	{
+		syx.is_error = 0;
+		syx.error_message = NULL;
+		init = 1;
+	}
+	return (&syx);
 }
 
-void	syntax_destroy(t_syx_check *sx_)
+void				syntax_destroy(void)
 {
-	t_syx_check sx;
+	t_syx_check *sx;
 
-	sx = *sx_;
-	if ((sx_) == NULL)
-		return ;
+	sx = syntax_check_create();
 	if (sx->is_error)
 		free(sx->error_message);
-	free (sx);
-	(sx_) = NULL;
+	sx->error_message = NULL;
+	sx->is_error = 0;
 }
 
-void	syntax_set_error(t_syx_check sx, char *err_message)
+void	syntax_set_error(char *err_message)
 {
+	t_syx_check *sx;
+
+	sx = syntax_check_create();
 	if (!sx->is_error)
 	{
 		sx->is_error = 1;
@@ -49,8 +53,11 @@ void	syntax_set_error(t_syx_check sx, char *err_message)
 	}
 }
 
-void	syntax_print_error(t_syx_check sx)
+void	syntax_print_error(void)
 {
+	t_syx_check *sx;
+
+	sx = syntax_check_create();
 	if (sx->is_error)
 	{
 		printf("%s\n", sx->error_message);
@@ -59,7 +66,7 @@ void	syntax_print_error(t_syx_check sx)
 	}
 }
 
-void	check_if_between_pipes_is_empty(char *mask, t_syx_check syx)
+void	check_if_between_pipes_is_empty(char *mask)
 {
 	int	i;
 	int	is_only_spaces;
@@ -74,5 +81,5 @@ void	check_if_between_pipes_is_empty(char *mask, t_syx_check syx)
 		i--;
 	}
 	if (is_only_spaces)
-		syntax_set_error(syx, "error around the pipe");
+		syntax_set_error("error around the pipe");
 }

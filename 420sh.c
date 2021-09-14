@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/06/06 12:55:55y khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 16:44:38 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,21 @@ int	main(int ac, char **av, char **envp)
 	{
 		line = readline("420shell (*∀*)y─┛ => ");
 		parsed_line = NULL;
-		if (line && *line)
-		{
+		if (line)
+		{	
 			parsed_line = parse_line(line, env_list);
 			add_history(line);
 			if (!parsed_line)
 			{	
 				free(line);
 				g_vars.exit_code = 127;	
+				syntax_destroy();
 				continue ;
 			}
 			processHeredoc(parsed_line);
-			// executeParsedLine(parsed_line, env_list);
+			executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);		
+			syntax_destroy();
 			free(line);
 		}
 		else if (!line)
@@ -49,10 +51,11 @@ int	main(int ac, char **av, char **envp)
 			ft_putendl_fd("exit", STDERR_FILENO);
 			if (parsed_line)
 				dlist_destroy(parsed_line);
+			syntax_destroy();
 			free(line);	
 			exit(EXIT_SUCCESS);
 		}
-		// system("leaks minishell");
+		system("leaks minishell");
 	}	
 	return (EXIT_SUCCESS);
 }
