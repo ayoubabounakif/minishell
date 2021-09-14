@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 12:58:19 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 11:52:15 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 13:54:59 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 		return (NULL);
 	if (syx->is_error)
 	{
-		printf("%s\n", syx->error_message);
-		syx->is_error = 0;
+		syntax_print_error(syx);
+		syntax_destroy(&syx);	
 		return (NULL);
 	}
 	cmd_tbs_lists = cmd_tables(parsing_line);
@@ -113,10 +113,12 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 	firstTokenExpander(cmd_tbs_lists);
 	remove_quotes(cmd_tbs_lists);
 	if (syx->is_error)
-	{	
-		syx->is_error = 0;
-		printf("%s\n", syx->error_message);
+	{		
+		syntax_print_error(syx);
+		dlist_destroy(cmd_tbs_lists);
+		syntax_destroy(&syx);
 		return (NULL);
 	}
+	syntax_destroy(&syx);
 	return (cmd_tbs_lists);
 }

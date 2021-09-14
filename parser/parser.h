@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 10:39:23 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 13:54:25 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,13 +202,14 @@ typedef struct s_syntax
 }	*t_syx_check;
 
 t_syx_check			syntax_check_create(void);
-void				syntax_destroy(t_syx_check sx);
+void				syntax_destroy(t_syx_check *sx);
 void				check_redir_syntax(char *parsing_line, t_syx_check syx);
 void				check_if_between_pipes_is_empty(char *mask,
 						t_syx_check syx);
 void				check_pipes_n_semiclns(char *parsing_pipeline,
 						t_syx_check syx);
 void				preparse_syntax(char *parsing_pipeline);
+void				syntax_print_error(t_syx_check sx);
 void				syntax_set_error(t_syx_check sx, char *error_message);
 
 char				*rstr_find_and_replace(t_rstr haystack, char *needle,

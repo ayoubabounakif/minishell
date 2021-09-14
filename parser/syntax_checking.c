@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 21:19:42 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 14:13:01 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 13:55:20 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,17 @@ t_syx_check	syntax_check_create(void)
 	return (syx);
 }
 
-void	syntax_destroy(t_syx_check sx)
+void	syntax_destroy(t_syx_check *sx_)
 {
-	if (sx->error_message)
+	t_syx_check sx;
+
+	sx = *sx_;
+	if (*(sx_) == NULL)
+		return ;
+	if (sx->is_error)
 		free(sx->error_message);
 	free (sx);
+	*(sx_) = NULL;
 }
 
 void	syntax_set_error(t_syx_check sx, char *err_message)
@@ -38,6 +44,16 @@ void	syntax_set_error(t_syx_check sx, char *err_message)
 	{
 		sx->is_error = 1;
 		sx->error_message = ft_strdup(err_message);
+	}
+}
+
+void	syntax_print_error(t_syx_check sx)
+{
+	if (sx->is_error)
+	{
+		printf("%s\n", sx->error_message);
+		sx->is_error = 0;
+		free(sx->error_message);
 	}
 }
 
