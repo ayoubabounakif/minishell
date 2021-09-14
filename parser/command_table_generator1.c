@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 12:58:19 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 16:24:11 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 17:50:41 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,50 +80,11 @@ t_dlist	cmd_tables_list(char *parsing_text)
 	return (ctl.list_of_command_tables_lists);
 }
 
-int	is_space_only(char *str)
+void	parse_line_helper(char *parsing_line, t_dlist env_list
+		, t_dlist *cmd_tbs_lists)
 {
-	while (*str)
-	{
-		if (*str != ' ')
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
-t_dlist	parse_line(char *parsing_line, t_dlist env_list)
-{
-	t_dlist		cmd_tbs_lists;
-	t_syx_check *syx;
-
-	(void)env_list;
-	if (!ft_strlen(parsing_line))
-		return (NULL);
-	syx = syntax_check_create();
-	check_pipes_n_semiclns(parsing_line);
-	check_redir_syntax(parsing_line);
-	if (is_space_only(parsing_line) || !ft_strlen(parsing_line))
-		return (NULL);
-	if (syx->is_error)
-	{
-		syntax_print_error();
-		// syntax_destroy();	
-		return (NULL);
-	}
-	cmd_tbs_lists = cmd_tables(parsing_line);
-	expandEnvVarsInParsedData(cmd_tbs_lists, env_list);
-	firstTokenExpander(cmd_tbs_lists);
-	remove_quotes(cmd_tbs_lists);
-	if (syx->is_error)
-	{		
-		syntax_print_error();
-		dlist_destroy(cmd_tbs_lists);
-		syntax_destroy();
-		return (NULL);
-	}
-	syntax_destroy();
-	syntax_destroy();
-	syntax_destroy();
-	syntax_destroy();
-	return (cmd_tbs_lists);
+	*cmd_tbs_lists = cmd_tables(parsing_line);
+	expandEnvVarsInParsedData(*cmd_tbs_lists, env_list);
+	firstTokenExpander(*cmd_tbs_lists);
+	remove_quotes(*cmd_tbs_lists);
 }

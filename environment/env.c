@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:52:05 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/07 14:00:44 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 18:11:09 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*find_envv_akey_value(char *key, t_dlist env_list)
 	while (env_list->cursor_n != env_list->sentinel)
 	{
 		env = env_list->cursor_n->value;
-		if (!ft_strncmp(key, env->key, ft_strlen(key)))
+		if (!ft_strncmp(key, env->key, ft_strlen(env->key)))
 			return (env->value);
 		dlist_move_cursor_to_next(env_list);
 	}

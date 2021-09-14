@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 17:01:20 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 11:46:19 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 18:33:03 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_first_token_devided(char **tokens_simpl)
 	char	*first_token;
 	char	*mask;
 	int		i;
-	
+
 	first_token = tokens_simpl[0];
 	if (tokens_simpl[0] == NULL)
 		return (0);
@@ -32,38 +32,7 @@ int	is_first_token_devided(char **tokens_simpl)
 	return (0);
 }
 
-t_arrptr	first_token_changer(t_arrptr arr)
-{
-	t_arrptr	arr_r;
-	t_rstr		rs;
-	int			i;
-	char		*mask;
-	char		*str;
-
-	arr_r = empty_arrptr_create(free);
-	i = 0;
-	rs = rstr_create(0);
-	str = arrptr_get(arr, 0);
-	mask = get_mask(str);
-	while (mask[i])
-	{
-		if (mask[i] != 'W')
-			rstr_add(rs, str[i]);
-		else if(mask[i] == 'W' && rs->len)
-		{	
-			arrptr_add(arr_r, rstr_to_cstr(rs));
-			rstr_clear(rs);
-		}
-		i++;
-	}
-	if (rs->len)
-		arrptr_add(arr_r, rstr_to_cstr(rs));
-	rstr_destroy(rs);
-	free(mask);	
-	return (arr_r);
-}
-
-t_arrptr token_array_clone(void *data)
+t_arrptr	token_array_clone(void *data)
 {
 	t_commands_table	cmd;
 	t_arrptr			arr;
@@ -72,7 +41,7 @@ t_arrptr token_array_clone(void *data)
 	cmd = data;
 	arr = empty_arrptr_create(free);
 	i = 0;
-	while(cmd->tokens_simpl[i])
+	while (cmd->tokens_simpl[i])
 	{
 		arrptr_add(arr, ft_strdup(cmd->tokens_simpl[i]));
 		i++;
@@ -80,10 +49,11 @@ t_arrptr token_array_clone(void *data)
 	return (arr);
 }
 
-void	carray_to_carr(char ***tokens_simpl_, t_arrptr changed_arr, t_commands_table cmd)
+void	carray_to_carr(char ***tokens_simpl_,
+	t_arrptr changed_arr, t_commands_table cmd)
 {
-	char **tokens_simpl;
-	int i;
+	char	**tokens_simpl;
+	int		i;
 
 	i = 0;
 	tokens_simpl = *tokens_simpl_;
@@ -95,13 +65,13 @@ void	carray_to_carr(char ***tokens_simpl_, t_arrptr changed_arr, t_commands_tabl
 	free(tokens_simpl);
 	i = 0;
 	tokens_simpl = malloc(sizeof(char *) * (changed_arr->len + 1));
-	while (i < changed_arr->len)	
+	while (i < changed_arr->len)
 	{
 		tokens_simpl[i] = ft_strdup(arrptr_get(changed_arr, i));
 		i++;
 	}	
 	tokens_simpl[i] = NULL;
-	cmd->tokens_simpl = tokens_simpl;	
+	cmd->tokens_simpl = tokens_simpl;
 }
 
 void	token_array_changer(void *data)
@@ -110,7 +80,7 @@ void	token_array_changer(void *data)
 	t_arrptr			cloned_arr;
 	t_arrptr			changed_arr;
 	int					i;
-	
+
 	cmd = data;
 	cloned_arr = token_array_clone(data);
 	changed_arr = first_token_changer(cloned_arr);
@@ -128,6 +98,7 @@ void	token_array_changer(void *data)
 void	firstTokenExpander(t_dlist pDataL)
 {
 	t_commands_table	cmd;
+
 	dlist_move_cursor_to_head(pDataL);
 	while (pDataL->cursor_n != pDataL->sentinel)
 	{

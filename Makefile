@@ -11,8 +11,10 @@ SRCS = 420sh.c \
 ./parser/command_table/fill_cmd_table.c \
 ./parser/command_table_generator.c \
 ./parser/command_table_generator1.c \
+./parser/command_table_generator2.c \
 ./parser/quotes_proccessing.c \
 ./parser/firstTokenExpander.c \
+./parser/firstTokenExpander2.c \
 ./parser/env_variables.c \
 ./parser/env_variables2.c \
 ./parser/syntax_checking.c \

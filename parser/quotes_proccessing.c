@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/10 13:27:03 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/13 14:17:15y khafni           ###   ########.fr       */
+/*   Created: 2021/09/14 18:26:33 by khafni            #+#    #+#             */
+/*   Updated: 2021/09/14 18:28:17 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	raqfos_helper1(t_raqfos *raqfos)
 {
-	
 	raqfos->conti = 0;
 	if (raqfos->sq_state && raqfos->mask[raqfos->i] == '\'')
 	{
@@ -30,7 +29,6 @@ void	raqfos_helper1(t_raqfos *raqfos)
 		raqfos->conti = 1;
 		return ;
 	}
-	
 }
 
 void	raqfos_helper2(t_raqfos *raqfos)
@@ -60,7 +58,7 @@ void	raqfos_helper2(t_raqfos *raqfos)
 		rstr_add(raqfos->rs, raqfos->a_token[raqfos->i]);
 }
 
-void remove_all_quotes_from_one_string(char *a_token, char **r_str)
+void	remove_all_quotes_from_one_string(char *a_token, char **r_str)
 {
 	t_raqfos	raqfos;
 
@@ -77,27 +75,28 @@ void remove_all_quotes_from_one_string(char *a_token, char **r_str)
 		raqfos_helper1(&raqfos);
 		if (!raqfos.conti)
 			raqfos_helper2(&raqfos);
-		if (!raqfos.conti)	
+		if (!raqfos.conti)
 			raqfos.i++;
 	}
 	free(*(raqfos.r_str));
 	*(raqfos.r_str) = rstr_to_cstr(raqfos.rs);
 	rstr_destroy(raqfos.rs);
-	free(raqfos.mask);	
+	free(raqfos.mask);
 }
 
 void	remove_quotes_from_tokens(void *data)
 {
 	t_commands_table	cmd;
 	int					i;
-	
 	char				*value;
+
 	i = 0;
 	cmd = data;
 	while (i < cmd->tokens->len)
 	{
 		value = cmd->tokens_simpl[i];
-		remove_all_quotes_from_one_string(cmd->tokens_simpl[i], &(cmd->tokens_simpl[i]));
+		remove_all_quotes_from_one_string(cmd->tokens_simpl[i],
+			&(cmd->tokens_simpl[i]));
 		i++;
 	}
 }

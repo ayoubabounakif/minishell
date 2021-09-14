@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 11:32:00 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/13 18:39:12 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 18:11:41 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,5 @@ char	*find_replace_env_vars_in_a_token(char *token, t_dlist env_list)
 	free(fre.token_mask);
 	if (!fre.r_str)
 		return (token);
-	// free(token);
 	return (fre.r_str);
 }

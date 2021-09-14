@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 14:47:08 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 15:59:16 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 18:23:10 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	cmd_table_destroy(void *cmd_tab_)
 
 int	check_if_rd_got_afile(t_commands_table cmdt)
 {
-	t_tokens	up;	
+	t_tokens	up;
+
 	up = cmdt->tokens_unproccessed;
 	if (up->tokens->cursor_n == up->tokens->sentinel)
 		syntax_set_error("error around redirection sign");

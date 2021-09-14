@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 17:22:51 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/12 17:40:24 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 17:31:58 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ static int	checkDirectory(char *token)
 
 int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
-	char 	**tmp_2darray;
-	int		i;
-
-	tmp_2darray = env_list_to_env_array(envl);
-	i = 0;
 	if (isBuiltin(command->tokens_simpl[0]) == TRUE
 		&& !command->redir_files->len)
 		return (executeBuiltins(command, envl));
@@ -65,7 +60,7 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 				g_vars.exit_code = 127;
 				exit(g_vars.exit_code);
 			}
-			else if (execve(command->tokens_simpl[0], command->tokens_simpl, tmp_2darray) == -1)
+			else if (execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl)) == -1)
 			{
 				g_vars.exit_code = 0;
 				if (checkDirectory(command->tokens_simpl[0]) == 1)
@@ -78,20 +73,11 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 			}
 		}
 	}
-	while (tmp_2darray[i])
-		free(tmp_2darray[i++]);
-	free(tmp_2darray);
-	
 	return (EXIT_SUCCESS);
 }
 
 int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
-	char 	**tmp_2darray;
-	int		i;
-
-	tmp_2darray = env_list_to_env_array(envl);
-	i = 0;
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD)
 	{
@@ -110,7 +96,7 @@ int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 				g_vars.exit_code = 127;
 				exit(g_vars.exit_code);
 			}
-			else if (execve(command->tokens_simpl[0], command->tokens_simpl, tmp_2darray) == -1)
+			else if (execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl)) == -1)
 			{
 				g_vars.exit_code = 0;
 				if (checkDirectory(command->tokens_simpl[0]) == 1)
@@ -122,8 +108,5 @@ int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 			}
 		}
 	}
-	while (tmp_2darray[i])
-		free(tmp_2darray[i++]);
-	free(tmp_2darray);
 	return (EXIT_SUCCESS);
 }

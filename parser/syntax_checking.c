@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/12 21:19:42 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 16:03:52by khafni           ###   ########.fr       */
+/*   Created: 2021/09/14 18:42:49 by khafni            #+#    #+#             */
+/*   Updated: 2021/09/14 18:42:51 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 t_syx_check	*syntax_check_create(void)
 {
-	static t_syx_check syx;
-	static int	init = 0;
+	static t_syx_check	syx;
+	static int			init = 0;
+
 	if (init == 0)
 	{
 		syx.is_error = 0;
@@ -25,9 +26,9 @@ t_syx_check	*syntax_check_create(void)
 	return (&syx);
 }
 
-void				syntax_destroy(void)
+void	syntax_destroy(void)
 {
-	t_syx_check *sx;
+	t_syx_check	*sx;
 
 	sx = syntax_check_create();
 	if (sx->is_error)
@@ -38,7 +39,7 @@ void				syntax_destroy(void)
 
 void	syntax_set_error(char *err_message)
 {
-	t_syx_check *sx;
+	t_syx_check	*sx;
 
 	sx = syntax_check_create();
 	if (!sx->is_error)
@@ -48,14 +49,14 @@ void	syntax_set_error(char *err_message)
 	}
 	else
 	{
-		free(sx->error_message);	
+		free(sx->error_message);
 		sx->error_message = ft_strdup(err_message);
 	}
 }
 
 void	syntax_print_error(void)
 {
-	t_syx_check *sx;
+	t_syx_check	*sx;
 
 	sx = syntax_check_create();
 	if (sx->is_error)

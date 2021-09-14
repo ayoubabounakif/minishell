@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/14 16:44:38 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 18:00:04 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,18 @@ int	main(int ac, char **av, char **envp)
 
 	line = NULL;
 		
+	
+		
+	
 	(void)ac;
 	(void)av;	
 	env_list = get_envs(envp);
+
 	signal(SIGQUIT, sig_handler);
 	signal(SIGINT, sig_handler);
 	while (420)
 	{
-		line = readline("420shell (*∀*)y─┛ => ");
+		line = readline("\033[0;36m420shell (*∀*)y─┛ => \033[0m");
 		parsed_line = NULL;
 		if (line)
 		{	
@@ -55,7 +59,7 @@ int	main(int ac, char **av, char **envp)
 			free(line);	
 			exit(EXIT_SUCCESS);
 		}
-		// system("leaks minishell");
+		system("leaks minishell");
 	}	
 	return (EXIT_SUCCESS);
 }

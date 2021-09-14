@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 16:07:51 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 18:42:24 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,16 @@ typedef struct s_raqfos
 	char	**r_str;
 	int		conti;
 }	t_raqfos;
+
+typedef struct s_ftc
+{
+	t_arrptr	arr_r;
+	t_rstr		rs;
+	int			i;
+	char		*mask;
+	char		*str;
+	t_arrptr	arr;
+}	t_ftc;
 
 /*
 ** 
@@ -223,8 +233,6 @@ char				*find_replace_env_vars_in_a_token(char *token,
 void				expand_env_variables(t_tokens tks, t_dlist env_list);
 void				firstTokenExpander(t_dlist parsed_data_lst);
 
-
-
 # define REDI_INPUT_FILE 1
 # define REDI_OUTPUT_FILE 2
 # define REDI_APPEND_FILE 3
@@ -328,4 +336,7 @@ char				*remove_quotes_from_stringImproved(char *a_token,
 						char type_of_quotes);
 void				remove_quotes(t_dlist parsed_line);
 void				firstTokenExpander(t_dlist pDataL);
+void				parse_line_helper(char *parsing_line, t_dlist env_list,
+						t_dlist *cmd_tbs_lists);
+t_arrptr			first_token_changer(t_arrptr arr);
 #endif
