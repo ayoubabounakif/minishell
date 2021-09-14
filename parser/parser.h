@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 13:54:25 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 15:06:38 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char				get_mask_character_helper(t_state *state, char *s, int i);
 char				get_mask_character_helper3(t_state *state, char *s, int i);
 char				get_mask_c_helper(t_state *state, char *s, int i);
 char				*get_mask(char *s);
+void				destroy_mask(char **mask_);
 t_arrptr			split_using_mask(char *str, char *str_mask, char del);
 
 /*

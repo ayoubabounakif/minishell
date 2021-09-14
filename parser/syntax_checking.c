@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 21:19:42 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 13:55:20 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 14:21:49 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 t_syx_check	syntax_check_create(void)
 {
-	static t_syx_check	syx = NULL;
+	t_syx_check	syx;
 
-	if (syx == NULL)
-	{
-		syx = malloc(sizeof(struct s_syntax));
-		syx->is_error = 0;
-		syx->error_message = NULL;
-	}
+	syx = malloc(sizeof(struct s_syntax));
+	syx->is_error = 0;
+	syx->error_message = NULL;
 	return (syx);
 }
 
@@ -43,6 +40,11 @@ void	syntax_set_error(t_syx_check sx, char *err_message)
 	if (!sx->is_error)
 	{
 		sx->is_error = 1;
+		sx->error_message = ft_strdup(err_message);
+	}
+	else
+	{
+		free(sx->error_message);	
 		sx->error_message = ft_strdup(err_message);
 	}
 }
@@ -72,5 +74,5 @@ void	check_if_between_pipes_is_empty(char *mask, t_syx_check syx)
 		i--;
 	}
 	if (is_only_spaces)
-		syntax_set_error(syx, "error aroudn the pipe");
+		syntax_set_error(syx, "error around the pipe");
 }

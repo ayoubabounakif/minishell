@@ -1,0 +1,19 @@
+total 176
+drwxr-xr-x   18 khafni  2019    612 Sep 14 15:08 .
+drwx------   21 khafni  2019    714 Sep 14 14:56 ..
+drwxr-xr-x   15 khafni  2019    510 Sep 14 14:07 .git
+-rw-r--r--    1 khafni  2019   1774 Sep 14 15:07 420sh.c
+drwxr-xr-x   21 khafni  2019    714 Sep 14 15:07 CPCA
+-rw-r--r--    1 khafni  2019   2078 Sep 14 10:41 Makefile
+-rw-r--r--    1 khafni  2019    211 Aug 30 07:15 README.md
+drwxr-xr-x    9 khafni  2019    306 Sep 13 17:21 builtins
+drwxr-xr-x   18 khafni  2019    612 Sep 14 15:07 dlist
+drwxr-xr-x    6 khafni  2019    204 Sep 13 18:49 environment
+drwxr-xr-x    8 khafni  2019    272 Sep 13 18:15 execution
+-rw-r--r--    1 khafni  2019      0 Sep 14 15:08 file
+drwxr-xr-x    6 khafni  2019    204 Sep 12 15:09 heredoc
+drwxr-xr-x    3 khafni  2019    102 Sep 13 18:15 includes
+drwxr-xr-x  107 khafni  2019   3638 Sep 14 15:07 libft
+-rwxr-xr-x    1 khafni  2019  76696 Sep 14 15:07 minishell
+drwxr-xr-x   18 khafni  2019    612 Sep 14 14:07 parser
+drwxr-xr-x    3 khafni  2019    102 Sep 13 18:49 signals

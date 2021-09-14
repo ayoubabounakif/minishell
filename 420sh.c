@@ -17,13 +17,11 @@ int	main(int ac, char **av, char **envp)
 	char		*line;	
 	t_dlist 	parsed_line; 
 	t_dlist		env_list;
-	t_syx_check	sx;
 
 	line = NULL;
 		
 	(void)ac;
-	(void)av;
-	sx = syntax_check_create();
+	(void)av;	
 	env_list = get_envs(envp);
 	signal(SIGQUIT, sig_handler);
 	signal(SIGINT, sig_handler);
@@ -36,10 +34,14 @@ int	main(int ac, char **av, char **envp)
 			parsed_line = parse_line(line, env_list);
 			add_history(line);
 			if (!parsed_line)
+			{	
+				free(line);
+				g_vars.exit_code = 127;	
 				continue ;
+			}
 			processHeredoc(parsed_line);
 			executeParsedLine(parsed_line, env_list);
-			dlist_destroy(parsed_line);
+			dlist_destroy(parsed_line);		
 			free(line);
 		}
 		else if (!line)
@@ -47,8 +49,7 @@ int	main(int ac, char **av, char **envp)
 			ft_putendl_fd("exit", STDERR_FILENO);
 			if (parsed_line)
 				dlist_destroy(parsed_line);
-			free(line);
-			syntax_destroy(&sx);
+			free(line);	
 			exit(EXIT_SUCCESS);
 		}
 		system("leaks minishell");

@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 10:54:31 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/11 08:52:54 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 15:03:19 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,11 @@ char	get_mask_character_helper_last(char c)
 	else if (c == ' ')
 		return ('W');
 	return ('N');
+}
+
+void	destroy_mask(char **mask_)
+{
+	if (*mask_)
+		free(*mask_);
+	*mask_ = NULL;
 }

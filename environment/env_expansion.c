@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 13:20:24 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/13 18:39:38 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 15:11:26 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	expandNormalTokens(void *data, t_dlist env_lst)
 	{
 		mask = get_mask(cmd->tokens_simpl[i]);
 		if (cstr_lookup(mask, "$V"))
-		{
+		{		
 			tmp_str = ft_itoa(g_vars.exit_code);
 			cmd->tokens_simpl[i]
 				= find_replace_env_vars_in_a_token(
@@ -34,9 +34,16 @@ void	expandNormalTokens(void *data, t_dlist env_lst)
 			cmd->tokens_simpl[i]
 				= str_find_and_replace(
 					cmd->tokens_simpl[i], "$?", tmp_str);
-			free(tmp_str);
+			free(tmp_str);	
 		}
-		free(mask);
+		if (cstr_lookup(mask, "$V"))
+		{
+			destroy_mask(&mask);
+			free(mask);
+			expandNormalTokens(data, env_lst);
+		}
+		destroy_mask(&mask);	
+		destroy_mask(&mask);	
 		i++;
 	}
 }

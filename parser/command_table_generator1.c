@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 12:58:19 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 13:54:59 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 15:15:36 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int	is_space_only(char *str)
 
 t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 {
-	t_syx_check	syx;
 	t_dlist		cmd_tbs_lists;
+	t_syx_check syx;
 
 	(void)env_list;
 	syx = syntax_check_create();
@@ -105,7 +105,7 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 	if (syx->is_error)
 	{
 		syntax_print_error(syx);
-		// syntax_destroy(&syx);	
+		syntax_destroy(&syx);	
 		return (NULL);
 	}
 	cmd_tbs_lists = cmd_tables(parsing_line);
@@ -116,9 +116,9 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 	{		
 		syntax_print_error(syx);
 		dlist_destroy(cmd_tbs_lists);
-		// syntax_destroy(&syx);
+		syntax_destroy(&syx);
 		return (NULL);
 	}
-	// syntax_destroy(&syx);
+	syntax_destroy(&syx);
 	return (cmd_tbs_lists);
 }
