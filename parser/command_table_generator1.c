@@ -105,7 +105,7 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 	if (syx->is_error)
 	{
 		syntax_print_error(syx);
-		syntax_destroy(&syx);	
+		// syntax_destroy(&syx);	
 		return (NULL);
 	}
 	cmd_tbs_lists = cmd_tables(parsing_line);
@@ -116,9 +116,9 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 	{		
 		syntax_print_error(syx);
 		dlist_destroy(cmd_tbs_lists);
-		syntax_destroy(&syx);
+		// syntax_destroy(&syx);
 		return (NULL);
 	}
-	syntax_destroy(&syx);
+	// syntax_destroy(&syx);
 	return (cmd_tbs_lists);
 }

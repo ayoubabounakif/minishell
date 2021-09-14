@@ -30,12 +30,12 @@ void	syntax_destroy(t_syx_check *sx_)
 	t_syx_check sx;
 
 	sx = *sx_;
-	if (*(sx_) == NULL)
+	if ((sx_) == NULL)
 		return ;
 	if (sx->is_error)
 		free(sx->error_message);
 	free (sx);
-	*(sx_) = NULL;
+	(sx_) = NULL;
 }
 
 void	syntax_set_error(t_syx_check sx, char *err_message)
