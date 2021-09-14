@@ -40,7 +40,7 @@ int	main(int ac, char **av, char **envp)
 				continue ;
 			}
 			processHeredoc(parsed_line);
-			executeParsedLine(parsed_line, env_list);
+			// executeParsedLine(parsed_line, env_list);
 			dlist_destroy(parsed_line);		
 			free(line);
 		}
@@ -52,7 +52,7 @@ int	main(int ac, char **av, char **envp)
 			free(line);	
 			exit(EXIT_SUCCESS);
 		}
-		system("leaks minishell");
+		// system("leaks minishell");
 	}	
 	return (EXIT_SUCCESS);
 }
