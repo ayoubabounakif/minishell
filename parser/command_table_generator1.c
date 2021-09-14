@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 12:58:19 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/13 18:08:53 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 11:52:15 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 	}
 	cmd_tbs_lists = cmd_tables(parsing_line);
 	expandEnvVarsInParsedData(cmd_tbs_lists, env_list);
+	firstTokenExpander(cmd_tbs_lists);
 	remove_quotes(cmd_tbs_lists);
-	//firstTokenExpander
 	if (syx->is_error)
 	{	
 		syx->is_error = 0;

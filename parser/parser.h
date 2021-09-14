@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/13 17:36:34 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 10:39:23 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,4 +327,5 @@ void				expandEnvVarsInParsedData(t_dlist parsed_data_lst,
 char				*remove_quotes_from_stringImproved(char *a_token,
 						char type_of_quotes);
 void				remove_quotes(t_dlist parsed_line);
+void				firstTokenExpander(t_dlist pDataL);
 #endif

@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 15:45:21 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/12 15:30:59 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/14 12:00:40 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ char	*heredoc_repl_save(char *file)
 	fd = open(random_string, O_CREAT | O_RDWR, S_IRWXU);
 	while (420)
 	{	
-		line = readline("> ");
-		if (!line)
-			break ;
-		if (!ft_strncmp(line, file, ft_strlen(file)))
+		line = readline("> ");	
+		if (!line || !ft_strncmp(line, file, ft_strlen(file)))
 		{
-			free(line);
+			if (line)
+				free(line);
 			close(fd);
 			return (random_string);
 		}
