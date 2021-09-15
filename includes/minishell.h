@@ -80,6 +80,7 @@ char		*binPath(char *cmd, t_dlist envl);
 int			isBuiltin(char *token);
 void		printErrorMessage(char *command, char *messageToPrint);
 int			checkExecutable(char *token);
+int			checkDirectory(char *token);
 
 /*
 **	builtins

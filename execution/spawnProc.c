@@ -12,27 +12,6 @@
 
 #include "../includes/minishell.h"
 
-static int	checkExecutable(char *token)
-{
-	int	fd;
-
-	fd = open(token, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	return (1);
-}
-
-static int	checkDirectory(char *token)
-{
-	DIR	*	dir;
-
-	dir = opendir(token);
-	if (dir == NULL)
-		return (0);
-	return (1);
-}
-
-
 int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
 	char	**tmp_envl;

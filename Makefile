@@ -36,6 +36,7 @@ SRCS = 420sh.c \
 ./execution/executionUtils/isBuiltin.c \
 ./execution/executionUtils/printErrorMessage.c \
 ./execution/executionUtils/checkExecutable.c \
+./execution/executionUtils/checkDirectory.c \
 \
 ./builtins/__cd__.c \
 ./builtins/__pwd__.c \

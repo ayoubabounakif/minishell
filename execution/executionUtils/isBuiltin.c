@@ -13,7 +13,7 @@
 #include "../../includes/minishell.h"
 
 static int	checkingLoop(
-	char *token, const char builtins[7], const char *uppercaseBuiltins[7])
+	char *token, const char *builtins[7], const char *uppercaseBuiltins[7])
 {
 	int	i;
 
