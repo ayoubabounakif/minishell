@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/15 16:16:18 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 19:32:27 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ typedef struct s_ftc
 	t_arrptr	arr;
 }	t_ftc;
 
+typedef struct s_ent
+{
+	void				*cmd;
+	int					i;
+	char				*tmp_str;
+	char				*mask;
+	t_dlist				env_lst;
+}	t_ent;
 /*
 ** 
 ** +-+-+-+-+ +-+-+-+-+-+-+

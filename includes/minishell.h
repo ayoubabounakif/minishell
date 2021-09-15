@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 13:55:48 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 19:36:18 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,5 @@ char		*get_value(char *line);
 */
 void		expandEnvVarsInParsedData(t_dlist parsed_data_lst, t_dlist env_lst);
 void		last_commandCode_expend(t_dlist env_lst);
+void	expandNormalTokens(void *data, t_dlist env_lst);
 #endif

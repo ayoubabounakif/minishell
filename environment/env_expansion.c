@@ -6,45 +6,53 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 13:20:24 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 15:17:58 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 19:35:20 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	expandNormalTokens(void *data, t_dlist env_lst)
+void	expandNormalTokens_helper(t_ent *ent)
 {
 	t_commands_table	cmd;
-	int					i;
-	char				*tmp_str;
-	char				*mask;
 
-	mask = NULL;
-	i = 0;
-	cmd = data;
-	while (i < cmd->tokens->len)
+	cmd = ent->cmd;
+	ent->mask = get_mask(cmd->tokens_simpl[ent->i]);
+	if (cstr_lookup(ent->mask, "$V"))
+	{		
+		ent->tmp_str = ft_itoa(g_vars.exit_code);
+		cmd->tokens_simpl[ent->i]
+			= find_replace_env_vars_in_a_token(
+				cmd->tokens_simpl[ent->i], ent->env_lst);
+		cmd->tokens_simpl[ent->i]
+			= str_find_and_replace(
+				cmd->tokens_simpl[ent->i], "$?", ent->tmp_str);
+		free(ent->tmp_str);
+	}
+	if (cstr_lookup(ent->mask, "$V"))
 	{
-		mask = get_mask(cmd->tokens_simpl[i]);
-		if (cstr_lookup(mask, "$V"))
-		{		
-			tmp_str = ft_itoa(g_vars.exit_code);
-			cmd->tokens_simpl[i]
-				= find_replace_env_vars_in_a_token(
-					cmd->tokens_simpl[i], env_lst);
-			cmd->tokens_simpl[i]
-				= str_find_and_replace(
-					cmd->tokens_simpl[i], "$?", tmp_str);
-			free(tmp_str);	
-		}
-		if (cstr_lookup(mask, "$V"))
-		{
-			destroy_mask(&mask);
-			free(mask);
-			expandNormalTokens(data, env_lst);
-		}
-		destroy_mask(&mask);	
-		destroy_mask(&mask);	
-		i++;
+		destroy_mask(&ent->mask);
+		free(ent->mask);
+		expandNormalTokens(ent->cmd, ent->env_lst);
+	}
+}
+
+void	expandNormalTokens(void *data, t_dlist env_lst)
+{
+	t_ent				ent;
+	t_commands_table	cmd;
+
+	ent.env_lst = env_lst;
+	ent.cmd = data;
+	ent.mask = NULL;
+	ent.i = 0;
+	cmd = ent.cmd;
+	while (ent.i < cmd->tokens->len)
+	{
+		expandNormalTokens_helper(&ent);
+		destroy_mask(&ent.mask);
+		destroy_mask(&ent.mask);
+		ent.i++;
 	}
 }
 

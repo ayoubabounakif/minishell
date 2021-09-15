@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:52:05 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 15:27:13 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 19:28:25 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ char	*find_envv_akey_value(char *key, t_dlist env_list)
 	{
 		env = env_list->cursor_n->value;
 		if (is_cstrs_equal(key, env->key))
-		{
-			// printf("!|{%s} . {%s}  . {%s}|!\n", key, env->key, env->value);
 			return (env->value);
-		}
 		dlist_move_cursor_to_next(env_list);
 	}
 	return (NULL);
