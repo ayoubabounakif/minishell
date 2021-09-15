@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 12:58:09 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/13 17:35:37 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 15:07:42 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,5 @@ char 			*ft_strjoin_c(char *str, char c);
 char			*ft_strjoin_c_beggining(char *s, char c);
 int				rstr_lookup(t_rstr haystack, char *needle);
 int				cstr_lookup(char *haystack, char *needle);
-
+int				is_cstrs_equal(char *s1, char *s2);
 #endif

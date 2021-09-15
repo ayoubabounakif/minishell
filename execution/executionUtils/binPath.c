@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 17:29:49 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 11:48:41 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 16:06:00 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static char	*getBinPath(char *command, char **splittedPath)
 
 	i = 0;
 	binPath = ft_strdup("");
+	// binPath = NULL;
 	while (splittedPath[i])
 	{
 		free(binPath);
@@ -43,27 +44,28 @@ static char	*getBinPath(char *command, char **splittedPath)
 		free(tmp_bin);
 		binFd = open(binPath, O_RDONLY);
 		if (binFd > 0)
-		{
+		{	
 			close(binFd);
-			free(command);
+			free(command);	
 			return (binPath);
 		}
 		i++;
-	}
+	}	
 	free(binPath);
 	return (command);
 }
 
-char	*binPath(char *cmd, t_dlist envl, t_commands_table cmd_t)
+char	*binPath(char *cmd, t_dlist envl)
 {
 	char	*binPath;
 	char	**splittedPath;
 
-	(void)cmd_t;
 	binPath = NULL;
 	splittedPath = ft_split(ft_getenv("PATH", envl), ':');
 	if (splittedPath == NULL)
-		return (NULL);
+	{
+		return (cmd);
+	}
 	binPath = getBinPath(cmd, splittedPath);
 	freeVars(splittedPath);
 	return (binPath);

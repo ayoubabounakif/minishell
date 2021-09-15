@@ -36,3 +36,35 @@ int	cstr_lookup(char *haystack, char *needle)
 	rstr_destroy(rs);
 	return (i);
 }
+
+int				is_cstrs_equal(char *s1, char *s2)
+{
+	t_rstr	r1;
+	t_rstr	r2;
+	int		i;
+
+	if (!s1 || !s2)
+		return (0);
+	r1 = cstr_to_rstr(s1);
+	r2 = cstr_to_rstr(s2);	
+	if (r1->len != r2->len)
+	{
+		rstr_destroy(r1);
+		rstr_destroy(r2);
+		return (0);
+	}
+	i = 0;
+	while (i < r1->len)
+	{
+		if (rstr_get(r1, i) != rstr_get(r2, i))
+		{
+			rstr_destroy(r1);
+			rstr_destroy(r2);
+			return (0);
+		}
+		i++;
+	}
+	rstr_destroy(r1);
+	rstr_destroy(r2);
+	return (1);
+}

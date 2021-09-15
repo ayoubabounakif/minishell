@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/15 11:27:56 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 16:16:18 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ void				syntax_destroy(void);
 void				check_redir_syntax(char *parsing_line);
 void				check_if_between_pipes_is_empty(char *mask);
 void				check_pipes_n_semiclns(char *parsing_pipeline);
+void				is_empty_cmd(char *str);
 void				preparse_syntax(char *parsing_pipeline);
 void				syntax_print_error(void);
 void				syntax_set_error(char *error_message);

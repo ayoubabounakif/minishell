@@ -57,7 +57,9 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 			if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]))
 			{
 				if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] != NULL)
-					((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl, pipeline->cursor_n->value);
+				{	
+					((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
+				}
 			}
 		}
 		pipe(pipeFds);
@@ -75,7 +77,9 @@ void	forkPipes(t_dlist pipeline, t_dlist envl)
 		if (!checkExecutable(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0]))
 		{
 			if (((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] != NULL)
-				((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl, pipeline->cursor_n->value);
+			{
+				((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0] = binPath(((t_commands_table)pipeline->cursor_n->value)->tokens_simpl[0], envl);
+			}
 		}
 	}
 	spawnLastProc(in, pipeFds, pipeline->cursor_n->value, envl);
