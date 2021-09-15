@@ -35,6 +35,9 @@ static int	checkDirectory(char *token)
 
 int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
+	char	**tmp_envl;
+
+	tmp_envl = env_list_to_env_array(envl);
 	if (isBuiltin(command->tokens_simpl[0]) == TRUE
 		&& !command->redir_files->len)
 		return (executeBuiltins(command, envl));
@@ -60,8 +63,9 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 				g_vars.exit_code = 127;
 				exit(g_vars.exit_code);
 			}
-			else if (execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl)) == -1)
+			else if (execve(command->tokens_simpl[0], command->tokens_simpl, tmp_envl) == -1)
 			{
+				free(tmp_envl);
 				g_vars.exit_code = 0;
 				if (checkDirectory(command->tokens_simpl[0]) == 1)
 				{
@@ -71,6 +75,7 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 				}
 				exit(g_vars.exit_code);
 			}
+			
 		}
 	}
 	return (EXIT_SUCCESS);
@@ -78,6 +83,9 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 
 int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
+	char	**tmp_envl;
+
+	tmp_envl = env_list_to_env_array(envl);
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD)
 	{
@@ -96,8 +104,9 @@ int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 				g_vars.exit_code = 127;
 				exit(g_vars.exit_code);
 			}
-			else if (execve(command->tokens_simpl[0], command->tokens_simpl, env_list_to_env_array(envl)) == -1)
+			else if (execve(command->tokens_simpl[0], command->tokens_simpl, tmp_envl) == -1)
 			{
+				free(tmp_envl);
 				g_vars.exit_code = 0;
 				if (checkDirectory(command->tokens_simpl[0]) == 1)
 				{
