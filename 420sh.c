@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/14 18:00:04 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 11:18:42 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av, char **envp)
 			free(line);	
 			exit(EXIT_SUCCESS);
 		}
-		system("leaks minishell");
+		// system("leaks minishell");
 	}	
 	return (EXIT_SUCCESS);
 }
