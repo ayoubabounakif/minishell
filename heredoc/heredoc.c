@@ -40,7 +40,7 @@ char	*heredoc_repl_save(char *file)
 	fd = open(random_string, O_CREAT | O_RDWR, S_IRWXU);
 	while (420)
 	{	
-		line = readline("> ");	
+		line = readline("> ");
 		if (!line || !ft_strncmp(line, file, ft_strlen(file)))
 		{
 			if (line)
