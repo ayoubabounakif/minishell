@@ -41,7 +41,7 @@ int	main(int ac, char **av, char **envp)
 			}
 			processHeredoc(parsed_line);
 			executeParsedLine(parsed_line, env_list);
-			dlist_destroy(parsed_line);		
+			dlist_destroy(parsed_line);
 			syntax_destroy();
 			free(line);
 		}

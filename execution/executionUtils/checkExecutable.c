@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tab_len.c                                          :+:      :+:    :+:   */
+/*   checkExecutable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/23 20:40:50 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/23 20:41:00 by aabounak         ###   ########.fr       */
+/*   Created: 2021/09/15 16:53:33 by aabounak          #+#    #+#             */
+/*   Updated: 2021/09/15 16:53:36 by aabounak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	tab_len(char **tab)
-{
-	int		i;
+#include "../../includes/minishell.h"
 
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
+int	checkExecutable(char *token)
+{
+	int	fd;
+
+	fd = open(token, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	return (1);
 }

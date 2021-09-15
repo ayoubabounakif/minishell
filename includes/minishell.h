@@ -79,7 +79,7 @@ void		dup2InputOutput(int in, int out);
 char		*binPath(char *cmd, t_dlist envl, t_commands_table cmd_t);
 int			isBuiltin(char *token);
 void		printErrorMessage(char *command, char *messageToPrint);
-
+int			checkExecutable(char *token);
 
 /*
 **	builtins

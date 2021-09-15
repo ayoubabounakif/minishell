@@ -12,9 +12,28 @@
 
 #include "../../includes/minishell.h"
 
+static int	checkingLoop(
+	char *token, const char builtins[7], const char *uppercaseBuiltins[7])
+{
+	int	i;
+
+	(i) = 0;
+	while ((i) < 7)
+	{
+		if (token)
+		{
+			if (strcmp(token, uppercaseBuiltins[(i)]) == 0)
+				return (UPPERCASE_BUILTINS);
+			if (strcmp(token, builtins[(i)]) == 0)
+				return (TRUE);
+		}
+		(i)++;
+	}
+	return (FALSE);
+}
+
 int	isBuiltin(char *token)
 {
-	int					i;
 	static const char	*builtins[7] = {
 		"echo",
 		"cd",
@@ -34,17 +53,5 @@ int	isBuiltin(char *token)
 		"EXIT",
 	};
 
-	(i) = 0;
-	while ((i) < 7)
-	{
-		if (token)
-		{
-			if (strcmp(token, uppercaseBuiltins[(i)]) == 0)
-				return (UPPERCASE_BUILTINS);
-			if (strcmp(token, builtins[(i)]) == 0)
-				return (TRUE);
-		}
-		(i)++;
-	}
-	return (FALSE);
+	return (checkingLoop(token, builtins, uppercaseBuiltins));
 }
