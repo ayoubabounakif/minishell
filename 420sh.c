@@ -10,51 +10,64 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "includes/minishell.h"
+#include "includes/minishell.h"
 
-int	main(int ac, char **av, char **envp)
+void	endLoop(t_dlist *parsed_line, char **line)
 {
-	char		*line;	
-	t_dlist 	parsed_line; 
-	t_dlist		env_list;
+	ft_putendl_fd("exit", STDERR_FILENO);
+	if (*parsed_line)
+		dlist_destroy(*parsed_line);
+	syntax_destroy();
+	free(*line);
+	exit(EXIT_SUCCESS);
+}
 
-	line = NULL;
-	(void)ac;
-	(void)av;	
-	env_list = get_envs(envp);
-	signal(SIGQUIT, sig_handler);
-	signal(SIGINT, sig_handler);
+void	destroyWuss(t_dlist *parsed_line, char **line)
+{
+	dlist_destroy(*parsed_line);
+	syntax_destroy();
+	free(*line);
+}
+
+void	mariPrompt(t_dlist *parsed_line, char **line, t_dlist *env_list)
+{
 	while (420)
 	{
-		line = readline("\033[0;36m420shell (*∀*)y─┛ => \033[0m");
-		parsed_line = NULL;
-		if (line)
+		*line = readline("\033[0;36m420shell (*∀*)y─┛ => \033[0m");
+		*parsed_line = NULL;
+		if (*line)
 		{	
-			parsed_line = parse_line(line, env_list);
-			add_history(line);
-			if (!parsed_line)
+			*parsed_line = parse_line(*line, *env_list);
+			add_history(*line);
+			if (!*parsed_line)
 			{	
-				free(line);
-				g_vars.exit_code = 127;	
+				free(*line);
+				g_vars.exit_code = 127;
 				syntax_destroy();
 				continue ;
 			}
-			processHeredoc(parsed_line);
-			executeParsedLine(parsed_line, env_list);
-			dlist_destroy(parsed_line);
-			syntax_destroy();
-			free(line);
+			processHeredoc(*parsed_line);
+			executeParsedLine(*parsed_line, *env_list);
+			destroyWuss(parsed_line, line);
 		}
-		else if (!line)
-		{
-			ft_putendl_fd("exit", STDERR_FILENO);
-			if (parsed_line)
-				dlist_destroy(parsed_line);
-			syntax_destroy();
-			free(line);	
-			exit(EXIT_SUCCESS);
-		}
+		else if (!*line)
+			endLoop(parsed_line, line);
 		// system("leaks minishell");
-	}	
+	}
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	char	*line;
+	t_dlist	parsed_line;
+	t_dlist	env_list;
+
+	line = NULL;
+	(void)ac;
+	(void)av;
+	env_list = get_envs(envp);
+	signal(SIGQUIT, sig_handler);
+	signal(SIGINT, sig_handler);
+	mariPrompt(&parsed_line, &line, &env_list);
 	return (EXIT_SUCCESS);
 }
