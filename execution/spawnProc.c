@@ -12,7 +12,32 @@
 
 #include "../includes/minishell.h"
 
-int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
+static void	execute(char ***tokens_simpl, char ***tmp_envl)
+{
+	if (checkExecutable(*tokens_simpl[0]) == 0
+		&& *tokens_simpl[0] != NULL)
+	{
+		printErrorMessage(*tokens_simpl[0], "");
+		g_vars.exit_code = 127;
+		exit(g_vars.exit_code);
+	}
+	else if (execve(
+			*tokens_simpl[0], *tokens_simpl, *tmp_envl) == -1)
+	{
+		free(*tmp_envl);
+		g_vars.exit_code = 0;
+		if (checkDirectory(*tokens_simpl[0]) == 1)
+		{
+			printErrorMessage(*tokens_simpl[0], "is a directory");
+			g_vars.exit_code = 126;
+			exit(g_vars.exit_code);
+		}
+		exit(g_vars.exit_code);
+	}
+}
+
+int	spawnLastProc(
+	int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
 	char	**tmp_envl;
 
@@ -35,27 +60,7 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 		if (isBuiltin(command->tokens_simpl[0]) == TRUE)
 			exit(executeBuiltins(command, envl));
 		else
-		{
-			if (checkExecutable(command->tokens_simpl[0]) == 0 && command->tokens_simpl[0] != NULL)
-			{
-				printErrorMessage(command->tokens_simpl[0], "");
-				g_vars.exit_code = 127;
-				exit(g_vars.exit_code);
-			}
-			else if (execve(command->tokens_simpl[0], command->tokens_simpl, tmp_envl) == -1)
-			{
-				free(tmp_envl);
-				g_vars.exit_code = 0;
-				if (checkDirectory(command->tokens_simpl[0]) == 1)
-				{
-					printErrorMessage(command->tokens_simpl[0], "is a directory");
-					g_vars.exit_code = 126;
-					exit(g_vars.exit_code);
-				}
-				exit(g_vars.exit_code);
-			}
-			
-		}
+			execute(&command->tokens_simpl, &tmp_envl);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -76,25 +81,7 @@ int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 		if (isBuiltin(command->tokens_simpl[0]) == TRUE)
 			exit(executeBuiltins(command, envl));
 		else
-		{
-			if (checkExecutable(command->tokens_simpl[0]) == 0 && command->tokens_simpl[0] != NULL)
-			{
-				printErrorMessage(command->tokens_simpl[0], "");
-				g_vars.exit_code = 127;
-				exit(g_vars.exit_code);
-			}
-			else if (execve(command->tokens_simpl[0], command->tokens_simpl, tmp_envl) == -1)
-			{
-				free(tmp_envl);
-				g_vars.exit_code = 0;
-				if (checkDirectory(command->tokens_simpl[0]) == 1)
-				{
-					printErrorMessage(command->tokens_simpl[0], "is a directory");
-					g_vars.exit_code = 126;
-				}
-				exit(g_vars.exit_code);
-			}
-		}
+			execute(&command->tokens_simpl, &tmp_envl);
 	}
 	return (EXIT_SUCCESS);
 }

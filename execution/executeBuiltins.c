@@ -12,27 +12,13 @@
 
 #include "../includes/minishell.h"
 
-int	executeBuiltins(t_commands_table command, t_dlist envl)
+int	executeBuiltin(
+	t_commands_table command,
+	const char *builtin_str[],
+	int (*builtin_func[])(t_commands_table command, t_dlist),
+	t_dlist	envl)
 {
-	int			i;
-	const char	*builtin_str[] = {
-		"echo",
-		"cd",
-		"pwd",
-		"export",
-		"unset",
-		"env",
-		"exit",
-	};
-	int			(*builtin_func[])(t_commands_table command, t_dlist) = {
-		&__echo__,
-		&__cd__,
-		&__pwd__,
-		&__export__,
-		&__unset__,
-		&__env__,
-		&__exit__,
-	};
+	int	i;
 
 	i = 0;
 	while (i < 7)
@@ -42,4 +28,28 @@ int	executeBuiltins(t_commands_table command, t_dlist envl)
 		i++;
 	}
 	return (EXIT_SUCCESS);
+}
+
+int	executeBuiltins(t_commands_table command, t_dlist envl)
+{
+	const char		*builtin_str[] = {
+		"echo",
+		"cd",
+		"pwd",
+		"export",
+		"unset",
+		"env",
+		"exit",
+	};
+	const	int		(*builtin_func[])(t_commands_table command, t_dlist) = {
+		&__echo__,
+		&__cd__,
+		&__pwd__,
+		&__export__,
+		&__unset__,
+		&__env__,
+		&__exit__,
+	};
+
+	return (executeBuiltin(command, builtin_str, builtin_func, envl));
 }

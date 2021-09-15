@@ -25,7 +25,14 @@ static void	freeVars(char **splittedPath)
 	free(splittedPath);
 }
 
-static char	*getBinPath(char *command, char **splittedPath)
+char	*returnBinPath(char *binPath, int *binFd, char **command)
+{
+	close(*binFd);
+	free(*command);
+	return (binPath);
+}
+
+char	*getBinPath(char *command, char **splittedPath)
 {
 	int		i;
 	int		binFd;
@@ -34,7 +41,6 @@ static char	*getBinPath(char *command, char **splittedPath)
 
 	i = 0;
 	binPath = ft_strdup("");
-	// binPath = NULL;
 	while (splittedPath[i])
 	{
 		free(binPath);
@@ -44,11 +50,7 @@ static char	*getBinPath(char *command, char **splittedPath)
 		free(tmp_bin);
 		binFd = open(binPath, O_RDONLY);
 		if (binFd > 0)
-		{	
-			close(binFd);
-			free(command);	
-			return (binPath);
-		}
+			return (returnBinPath(binPath, &binFd, &command));
 		i++;
 	}	
 	free(binPath);
@@ -63,9 +65,7 @@ char	*binPath(char *cmd, t_dlist envl)
 	binPath = NULL;
 	splittedPath = ft_split(ft_getenv("PATH", envl), ':');
 	if (splittedPath == NULL)
-	{
 		return (cmd);
-	}
 	binPath = getBinPath(cmd, splittedPath);
 	freeVars(splittedPath);
 	return (binPath);

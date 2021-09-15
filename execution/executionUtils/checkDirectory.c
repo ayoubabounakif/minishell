@@ -14,7 +14,7 @@
 
 int	checkDirectory(char *token)
 {
-	DIR	*	dir;
+	DIR	*dir;
 
 	dir = opendir(token);
 	if (dir == NULL)
