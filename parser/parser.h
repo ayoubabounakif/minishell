@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 07:25:10 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 18:42:24 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 11:27:56 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,7 @@ typedef struct s_commands_table
 	t_arrptr		redir_files;
 	char			is_after_p_or_sc;
 	char			is_there_a_red_error;
+	char			*bin_path_garbage;
 	void			**v;
 	t_arrptr		ar;
 }	*t_commands_table;
