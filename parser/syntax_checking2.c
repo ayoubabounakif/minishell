@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 08:07:28 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/14 15:40:33 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 16:28:49 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ void	check_redir_syntax(char *parsing_line)
 	if (is_betweenRedirSings_space(mask))
 		syntax_set_error("error around redirection sign!");
 	free(mask);
+	is_empty_cmd(parsing_line);
 }

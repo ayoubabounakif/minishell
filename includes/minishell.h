@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 11:31:23 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 13:55:48 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			executeBuiltins(t_commands_table command, t_dlist envl);
 **	executionUtils
 */
 void		dup2InputOutput(int in, int out);
-char		*binPath(char *cmd, t_dlist envl, t_commands_table cmd_t);
+char		*binPath(char *cmd, t_dlist envl);
 int			isBuiltin(char *token);
 void		printErrorMessage(char *command, char *messageToPrint);
 

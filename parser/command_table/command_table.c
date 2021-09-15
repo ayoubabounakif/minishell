@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 14:47:08 by khafni            #+#    #+#             */
-/*   Updated: 2021/09/15 11:40:03 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 14:20:06 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_commands_table	cmd_table(t_pipeline pl)
 	ct->tokens_simpl = NULL;
 	ct->is_after_p_or_sc = pl->is_after_p_or_sc;
 	ct->is_there_a_red_error = 0;
-	ct->bin_path_garbage = NULL;
 	return (ct);
 }
 
@@ -64,7 +63,6 @@ void	cmd_table_destroy(void *cmd_tab_)
 	free(cmd_tab->tokens_simpl[i]);
 	free(cmd_tab->tokens_simpl);
 	free(cmd_tab);
-	free(cmd_tab->bin_path_garbage);
 }
 
 int	check_if_rd_got_afile(t_commands_table cmdt)

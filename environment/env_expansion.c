@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 13:20:24 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/14 15:11:26 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 15:17:58 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	expandRedirFiles(void *data, t_dlist env_lst)
 	while (i < cmd->redir_files->len)
 	{
 		file_name = ((t_redir_file)arrptr_get(cmd->redir_files, i))->file_name;
-		if (ft_strnstr(file_name, "$?", ft_strlen(file_name)))
+		if (cstr_lookup(file_name, "$?"))
 		{
 			tmp_str = ft_itoa(g_vars.exit_code);
 			((t_redir_file)arrptr_get(cmd->redir_files, i))->file_name
 			= str_find_and_replace(file_name, "$?", tmp_str);
 		}
-		else if (ft_strnstr(file_name, "$", ft_strlen(file_name)))
+		else if (cstr_lookup(file_name, "$"))
 			file_name
 				= find_replace_env_vars_in_a_token(file_name, env_lst);
 		i++;
