@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 17:22:51 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/14 17:31:58 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 11:22:54 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
 	char	**tmp_envl;
 
-	tmp_envl = env_list_to_env_array(envl);
 	if (isBuiltin(command->tokens_simpl[0]) == TRUE
 		&& !command->redir_files->len)
 		return (executeBuiltins(command, envl));
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD)
 	{
+		tmp_envl = env_list_to_env_array(envl);
 		if (in != STDIN_FILENO)
 		{
 			dup2(in, STDIN_FILENO);
@@ -85,10 +85,10 @@ int	spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
 	char	**tmp_envl;
 
-	tmp_envl = env_list_to_env_array(envl);
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD)
 	{
+		tmp_envl = env_list_to_env_array(envl);
 		dup2InputOutput(in, pipeFds[WRITE]);
 		if (pipeFds[READ] > 2)
 			close(pipeFds[READ]);

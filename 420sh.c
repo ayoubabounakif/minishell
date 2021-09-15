@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 11:18:42 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 11:21:23 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,9 @@ int	main(int ac, char **av, char **envp)
 	t_dlist		env_list;
 
 	line = NULL;
-		
-	
-		
-	
 	(void)ac;
 	(void)av;	
 	env_list = get_envs(envp);
-
 	signal(SIGQUIT, sig_handler);
 	signal(SIGINT, sig_handler);
 	while (420)
@@ -59,7 +54,7 @@ int	main(int ac, char **av, char **envp)
 			free(line);	
 			exit(EXIT_SUCCESS);
 		}
-		// system("leaks minishell");
+		system("leaks minishell");
 	}	
 	return (EXIT_SUCCESS);
 }
