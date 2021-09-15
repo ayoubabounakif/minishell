@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 18:05:07 by aabounak          #+#    #+#             */
-/*   Updated: 2020/12/14 18:17:27 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/15 19:02:47 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*display(char const *s1, int start, int end)
+static char	*display(char const *s1, int start, int end)
 {
 	char	*str;
 	int		i;
 
 	i = 0;
-	if (!(str = (char *)ft_malloc(sizeof(char) * ((end + 1) - start) + 1)))
-		return (0);
+	str = (char *)ft_malloc(sizeof(char) * ((end + 1) - start) + 1);
 	while (start < (end + 1))
 	{
 		str[i] = s1[start];
@@ -30,11 +29,11 @@ static char		*display(char const *s1, int start, int end)
 	return (str);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		start;
 	int		end;
-	
+
 	start = 0;
 	if (!s1)
 		return (0);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/17 12:12:05 by khafni            #+#    #+#             */
-/*   Updated: 2021/05/22 15:12:41 by khafni           ###   ########.fr       */
+/*   Created: 2021/09/15 18:43:08 by khafni            #+#    #+#             */
+/*   Updated: 2021/09/15 18:46:45 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,20 @@ char	*rstr_to_cstr(t_rstr rs)
 	return (str);
 }
 
-char    rstr_get(t_rstr rs, int index)
+char	rstr_get(t_rstr rs, int index)
 {
-        if (index < 0 || index >= rs->len)
-                return (-42);
-        return (*(rs->data + index));
+	if (index < 0 || index >= rs->len)
+		return (-42);
+	return (*(rs->data + index));
 }
 
-t_rstr			cstr_to_rstr(char *cstr)
+t_rstr	cstr_to_rstr(char *cstr)
 {
-	t_rstr rs;
+	t_rstr	rs;
 	int		i;
 
+	if (!cstr)
+		return (NULL);
 	i = 0;
 	rs = rstr_create(0);
 	while (cstr[i])
@@ -50,11 +52,10 @@ t_rstr			cstr_to_rstr(char *cstr)
 	return (rs);
 }
 
-
-void			cstr_to_rstr_without_n_rs(char *src, t_rstr dst)
+void	cstr_to_rstr_without_n_rs(char *src, t_rstr dst)
 {
 	int		i;
-	
+
 	rstr_clear(dst);
 	i = 0;
 	while (src[i])
@@ -64,10 +65,10 @@ void			cstr_to_rstr_without_n_rs(char *src, t_rstr dst)
 	}
 }
 
-t_rstr			rstr_clone(t_rstr src)
+t_rstr	rstr_clone(t_rstr src)
 {
-	t_rstr dst;
-	int i;
+	t_rstr	dst;
+	int		i;
 
 	dst = rstr_create(0);
 	i = 0;
@@ -75,6 +76,6 @@ t_rstr			rstr_clone(t_rstr src)
 	{
 		rstr_set(dst, i, rstr_get(src, i));
 		i++;
-	} 
+	}
 	return (dst);
 }

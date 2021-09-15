@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 12:58:09 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 15:07:42 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 19:00:23 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef	struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -46,7 +46,7 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t			ft_strlcpy(char *d, const char *s, size_t n);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 char			*ft_strnstr(const char *haystack,
-							const char *needle, size_t len);
+					const char *needle, size_t len);
 int				ft_atoi(const char *str);
 void			*ft_calloc(size_t count, size_t size);
 char			*ft_strdup(const char *s1);
@@ -79,30 +79,32 @@ void			*ft_mem_grow(void *addr, size_t old_size, size_t new_size);
 **	a resizable string that can be appended to its end
 **	(a char * on steroids)
 */
-typedef struct s_rstr *t_rstr;
 
-struct			s_rstr
+typedef struct s_rstr
 {
 	char		*data;
 	int			alloc;
 	int			len;
-};
+}	*t_rstr;
+
 /*
 **	rstr constructor
 */
-t_rstr			rstr_create (int alloc);
+
+t_rstr			rstr_create(int alloc);
+
 /*
 **	rstr destructor
 */
-void			rstr_destroy (void *rs);
+void			rstr_destroy(void *rs);
 /*
 **	rstr setter
 */
-void			rstr_set (t_rstr rs, size_t index, char value);
+void			rstr_set(t_rstr rs, size_t index, char value);
 /*
 **	appending to the end of the rstr
 */
-void			rstr_add (t_rstr rs, char value);
+void			rstr_add(t_rstr rs, char value);
 /*
 **	clear rstr
 */
@@ -113,7 +115,7 @@ void			rstr_clear(t_rstr rs);
 */
 
 char			*rstr_to_cstr(t_rstr rs);
-char    		rstr_get(t_rstr rs, int index);
+char			rstr_get(t_rstr rs, int index);
 t_rstr			cstr_to_rstr(char *cstr);
 /*
 **	copy a c string to a resizble string without making
@@ -125,9 +127,7 @@ void			cstr_to_rstr_without_n_rs(char *src, t_rstr dst);
 ** make a clone of a resizble string
 */
 t_rstr			rstr_clone(t_rstr src);
-
-
-char 			*ft_strjoin_c(char *str, char c);
+char			*ft_strjoin_c(char *str, char c);
 char			*ft_strjoin_c_beggining(char *s, char c);
 int				rstr_lookup(t_rstr haystack, char *needle);
 int				cstr_lookup(char *haystack, char *needle);

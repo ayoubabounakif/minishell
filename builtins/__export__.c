@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 12:39:02 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/30 16:45:37 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/15 18:37:00 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static int	check_syntax(char *token)
 	i++;
 	while (token[i] && token[i] != '=')
 	{
-		if (ft_isalnum(token[i]) == FALSE)
+		if (ft_isalnum(token[i]) == FALSE
+			&& token[i] != '_')
 			return (FALSE);
 		else
 			i++;

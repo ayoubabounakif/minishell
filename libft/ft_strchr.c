@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:56:48 by aabounak          #+#    #+#             */
-/*   Updated: 2019/10/18 16:41:22 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/15 19:06:09 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*ft_strchr(const char *s, int c)
 {
-	while (*(char*)s != '\0' && *s != (char)c)
+	while (*(char *)s != '\0' && *s != (char)c)
 		s++;
-	if (*(char*)s == (char)c)
-		return ((char*)s);
+	if (*(char *)s == (char)c)
+		return ((char *)s);
 	return (0);
 }

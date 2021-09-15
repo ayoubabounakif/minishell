@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 18:04:17 by aabounak          #+#    #+#             */
-/*   Updated: 2020/12/15 12:48:41 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/15 19:09:00 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-char	*sp = NULL; /* the start position of the string */
+char	*sp = NULL;
 
 char	*ft_strtok(char * str, char *delimiters)
 {
     int		i = 0;
     int		len = ft_strlen(delimiters);
- 
-    /* check in the delimiters */
+  
     if (len == 0)
         printf("delimiters are empty\n");
  
