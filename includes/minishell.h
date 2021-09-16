@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 19:36:18 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/16 10:31:22 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ enum	MACROS {
 	WRITE = 1,
 	UPPERCASE_BUILTINS = 2,
 	HEREDOC_DELIM = 0,
-	CHILD = 0
+	CHILD = 0,
+	YES_PIPE = 1
 };
 
 /*
@@ -43,6 +44,7 @@ typedef struct	s_vars
 {
 	pid_t		pid;
 	int			exit_code;
+	int			noneOfUrBusiness;
 }				t_vars;
 
 typedef struct s_env

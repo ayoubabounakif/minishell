@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forkPipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 17:34:34 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 17:34:35 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/16 10:31:08 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	forkPipes(t_dlist pipel, t_dlist envl)
 	int		pipeFds[2];
 	int		in;
 
+	g_vars.noneOfUrBusiness = 0;
 	in = STDIN_FILENO;
 	dlist_move_cursor_to_head(pipel);
 	while (pipel->cursor_n->n != pipel->sentinel)
@@ -55,10 +56,18 @@ void	forkPipes(t_dlist pipel, t_dlist envl)
 		if (in != STDIN_FILENO)
 			close(in);
 		in = pipeFds[READ];
+		g_vars.noneOfUrBusiness = YES_PIPE;
 		dlist_move_cursor_to_next(pipel);
 	}
 	multiPurposeCheck(
 		&((t_commands_table)pipel->cursor_n->value)->tokens_simpl[0], envl);
-	spawnLastProc(in, pipeFds, pipel->cursor_n->value, envl);
+	// if (pipel->len == 1)
+	// {
+	// 	if (isBuiltin(((t_commands_table)pipel->cursor_n->value)->tokens_simpl[0]) == TRUE
+	// 		&& !((t_commands_table)pipel->cursor_n->value)->redir_files->len)
+	// 		exit(executeBuiltins(((t_commands_table)pipel->cursor_n->value), envl));
+	// }
+	// else
+	spawnLastProc(in, pipeFds, pipel->cursor_n->value, envl);	
 	parentProcess();
 }

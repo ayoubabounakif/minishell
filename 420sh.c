@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 13:21:06 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/16 08:57:10 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	mariPrompt(t_dlist *parsed_line, char **line, t_dlist *env_list)
 		}
 		else if (!*line)
 			endLoop(parsed_line, line);
-		// system("leaks minishell");
 	}
 }
 
