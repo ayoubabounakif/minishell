@@ -37,6 +37,14 @@ void	is_empty_cmd(char *str)
 	free(tmp);
 }
 
+void	parse_line_hack(t_dlist cmd_tbs_lists)
+{
+	g_vars.exit_code = 258;
+	syntax_print_error();
+	dlist_destroy(cmd_tbs_lists);
+	syntax_destroy();
+}
+
 t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 {
 	t_dlist		cmd_tbs_lists;
@@ -58,10 +66,7 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 	parse_line_helper(parsing_line, env_list, &cmd_tbs_lists);
 	if (syx->is_error)
 	{
-		g_vars.exit_code = 258;
-		syntax_print_error();
-		dlist_destroy(cmd_tbs_lists);
-		syntax_destroy();
+		parse_line_hack(cmd_tbs_lists);
 		return (NULL);
 	}
 	syntax_destroy();

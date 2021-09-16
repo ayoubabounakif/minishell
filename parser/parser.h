@@ -24,7 +24,6 @@
 # define IS_AFTER_SEMICOLON 2
 # define NO_PIPE_OR_SEMICOLON 3
 
-
 typedef struct s_vars
 {
 	pid_t		pid;

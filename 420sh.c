@@ -54,7 +54,6 @@ void	mariPrompt(t_dlist *parsed_line, char **line, t_dlist *env_list)
 		}
 		else if (!*line)
 			endLoop(parsed_line, line);
-		system("leaks minishell");
 	}
 }
 

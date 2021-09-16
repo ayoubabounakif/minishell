@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:55:21 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/16 14:09:45 by khafni           ###   ########.fr       */
+/*   Updated: 2019/10/20 19:22:38 by aabounak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int	find_size(int nb)
-{
-	int	size;
-
-	size = 1;
-	if (nb < 0)
-	{
-		nb = -nb;
-		size++;
-	}
-	while (nb > 0)
-	{
-		nb /= 10;
-		size *= 10;
-	}
-	return (size);
-}
-
-static int	find_digits(int n)
+static int	digitlen(int n)
 {
 	int	i;
 
 	i = 0;
 	if (n == 0)
-	{
-		i++;
-		return (i);
-	}
+		return (1);
 	if (n < 0)
-	{
 		i++;
-		n *= -1;
-	}
-	while (n > 0)
+	while (n != 0)
 	{
 		n /= 10;
 		i++;
@@ -57,28 +33,26 @@ static int	find_digits(int n)
 
 char	*ft_itoa(int n)
 {
-	int		i;
-	int		sign;
-	int		size;
+	int		m;
 	char	*str;
+	long	nb;
 
-	i = 0;
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	str = (char *)malloc(sizeof(char) * (find_digits(n) + 1));
-	sign = n;
-	if (sign < 0)
+	nb = n;
+	m = digitlen(n);
+	str = (char *)malloc(m + 1);
+	if (nb == 0)
+		str[0] = 0 + '0';
+	if (nb < 0)
 	{
-		str[i++] = '-';
-		n = -n;
+		nb *= -1;
+		str[0] = '-';
 	}
-	size = find_size(n);
-	while (size)
+	while (nb != 0)
 	{
-		str[i++] = (n / size) + '0';
-		n %= size;
-		size /= 10;
+		str[m - 1] = nb % 10 + '0';
+		nb /= 10;
+		m--;
 	}
-	str[i++] = '\0';
+	str[digitlen(n)] = '\0';
 	return (str);
 }
