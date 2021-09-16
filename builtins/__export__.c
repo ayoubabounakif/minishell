@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 12:39:02 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 18:37:00 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/16 13:57:35 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ static int	exportHelper(char *token, t_dlist env_list)
 		}
 	}
 	else
+	{
+		g_vars.exit_code = 1;
 		printErrorMessage(token, "not a valid identifier");
+	}
 	return (EXIT_SUCCESS);
 }
 

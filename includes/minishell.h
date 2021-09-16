@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 17:15:55 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/16 10:31:22 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/16 14:02:55 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "../parser/parser.h"
 # include "../heredoc/heredoc.h"
 
-enum	MACROS {
+enum	e_MACROS {
 	TRUE = 1,
 	FALSE = 0,
 	READ = 0,
@@ -40,7 +40,7 @@ enum	MACROS {
 /*
 ** _420sh STRUCTS
 */
-typedef struct	s_vars
+typedef struct s_vars
 {
 	pid_t		pid;
 	int			exit_code;
@@ -69,8 +69,10 @@ void		sig_handler(int sign_num);
 */
 void		executeParsedLine(t_dlist parsed_line, t_dlist envl);
 void		forkPipes(t_dlist pipeline, t_dlist envl);
-int			spawnProc(int in, int *pipeFds, t_commands_table command, t_dlist envl);
-int			spawnLastProc(int in, int *pipeFds, t_commands_table command, t_dlist envl);
+int			spawnProc(
+				int in, int *pipeFds, t_commands_table command, t_dlist envl);
+int			spawnLastProc(
+				int in, int *pipeFds, t_commands_table command, t_dlist envl);
 void		inputOutputRedirection(t_commands_table command);
 int			executeBuiltins(t_commands_table command, t_dlist envl);
 
@@ -122,5 +124,5 @@ char		*get_value(char *line);
 */
 void		expandEnvVarsInParsedData(t_dlist parsed_data_lst, t_dlist env_lst);
 void		last_commandCode_expend(t_dlist env_lst);
-void	expandNormalTokens(void *data, t_dlist env_lst);
+void		expandNormalTokens(void *data, t_dlist env_lst);
 #endif

@@ -6,11 +6,14 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 17:22:51 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/16 12:51:00 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/16 13:58:22 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+#define MOVE_FORWARD 5000
+#define EXECUTE_BUILTIN 5001
 
 static void	execute(char ***tokens_simpl, char ***tmp_envl)
 {
@@ -41,17 +44,24 @@ static void	execute(char ***tokens_simpl, char ***tmp_envl)
 	}
 }
 
+int	builtinCondition(t_commands_table command)
+{
+	if (g_vars.noneOfUrBusiness == 0)
+	{
+		if (isBuiltin(command->tokens_simpl[0]) == TRUE
+			&& !command->redir_files->len)
+			return (EXECUTE_BUILTIN);
+	}
+	return (MOVE_FORWARD);
+}
+
 int	spawnLastProc(
 	int in, int *pipeFds, t_commands_table command, t_dlist envl)
 {
 	char	**tmp_envl;
 
-	if (g_vars.noneOfUrBusiness == 0)
-	{
-		if (isBuiltin(command->tokens_simpl[0]) == TRUE
-			&& !command->redir_files->len)
-			return (executeBuiltins(command, envl));
-	}
+	if (builtinCondition(command) != MOVE_FORWARD)
+		return (executeBuiltins(command, envl));
 	g_vars.pid = fork();
 	if (g_vars.pid == CHILD)
 	{

@@ -6,75 +6,12 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 18:04:17 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/15 19:09:00 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/16 14:03:55 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
-
-char	*sp = NULL;
-
-char	*ft_strtok(char * str, char *delimiters)
-{
-    int		i = 0;
-    int		len = ft_strlen(delimiters);
-  
-    if (len == 0)
-        printf("delimiters are empty\n");
- 
-    /* if the original string has nothing left */
-    if (!str && !sp)
-    	return NULL;
- 
-    /* initialize the sp during the first call */
-    if (str && !sp)
-        sp = str;
- 
-    /* find the start of the substring, skip delimiters */
-    char*	p_start = sp;
-    while (1)
-	{
-		for (i = 0; i < len; i++)
-		{
-            if (*p_start == delimiters[i])
-			{
-            	p_start ++;
-            	break ;
-            }
-        }
-        if (i == len)
-		{
-			sp = p_start;
-			break ;
-        }
-    }
- 
-    /* return NULL if nothing left */
-    if (*sp == '\0')
-	{
-		sp = NULL;
-		return sp;
-    }
-
-	/* find the end of the substring, and
-		replace the delimiter with null */
-	while (*sp != '\0')
-	{
-		for (i = 0; i < len; i++)
-		{
-			if (*sp == delimiters[i])
-			{
-            	*sp = '\0';
-            	break ;
-			}
-		}
-        sp ++;
-        if (i < len)
-            break ;
-    }
-    return p_start;
-}
 
 static int		number_of_words(char *str, char c)
 {
@@ -87,8 +24,6 @@ static int		number_of_words(char *str, char c)
 	indicator = 0;
 	while (str[i] != '\0')
 	{
-		// if (str[i] == '\\')
-			// i++;
 		if (str[i] != '\0' && str[i] != c)
 		{
 			if (indicator != 1)

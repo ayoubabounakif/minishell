@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 11:40:22 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/16 13:11:38 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/16 13:44:15 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	endLoop(t_dlist *parsed_line, char **line)
 		dlist_destroy(*parsed_line);
 	syntax_destroy();
 	free(*line);
-	exit(EXIT_SUCCESS);
+	if (g_vars.exit_code == 1)
+		exit(g_vars.exit_code);
+	else
+		exit(EXIT_SUCCESS);
 }
 
 void	destroyWuss(t_dlist *parsed_line, char **line)
@@ -52,7 +55,7 @@ void	mariPrompt(t_dlist *parsed_line, char **line, t_dlist *env_list)
 		}
 		else if (!*line)
 			endLoop(parsed_line, line);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 }
 

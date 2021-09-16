@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   __unset__.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 12:38:19 by aabounak          #+#    #+#             */
-/*   Updated: 2021/05/06 12:38:20 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/16 13:40:52 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ int	__unset__(t_commands_table command, t_dlist env_list)
 				unset_env(command->tokens_simpl, i, env_list);
 			else
 			{
+				g_vars.exit_code = 1;
 				printf("420sh: unset: `%s': not a valid identifier\n",
 					command->tokens_simpl[i]);
-				flag = 1;
+				return (g_vars.exit_code);
 			}
 		}
 	}
-	return (flag);
+	return (EXIT_SUCCESS);
 }

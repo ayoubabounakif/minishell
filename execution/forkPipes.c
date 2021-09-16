@@ -6,16 +6,18 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 17:34:34 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/16 12:34:04 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/16 13:50:12 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	parentProcess(void)
+void	parentProcess(int *in)
 {
 	int	status;
 
+	if (*in != STDIN_FILENO)
+		close(*in);
 	while (waitpid(-1, &status, 0) > 0)
 		if (WIFEXITED(status))
 			g_vars.exit_code = WEXITSTATUS(status);
@@ -61,15 +63,6 @@ void	forkPipes(t_dlist pipel, t_dlist envl)
 	}
 	multiPurposeCheck(
 		&((t_commands_table)pipel->cursor_n->value)->tokens_simpl[0], envl);
-	// if (pipel->len == 1)
-	// {
-	// 	if (isBuiltin(((t_commands_table)pipel->cursor_n->value)->tokens_simpl[0]) == TRUE
-	// 		&& !((t_commands_table)pipel->cursor_n->value)->redir_files->len)
-	// 		exit(executeBuiltins(((t_commands_table)pipel->cursor_n->value), envl));
-	// }
-	// else
 	spawnLastProc(in, pipeFds, pipel->cursor_n->value, envl);
-	if (in != STDIN_FILENO)
-		close(in);
-	parentProcess();
+	parentProcess(&in);
 }
