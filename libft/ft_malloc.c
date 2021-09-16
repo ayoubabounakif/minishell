@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 18:06:43 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/09 10:44:39 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/16 14:10:21 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	*ft_malloc(size_t n)
 {
 	void	*tmp;
 
-	if (!(tmp = malloc(n)))
+	tmp = malloc(n);
+	if (!tmp)
 		return (NULL);
 	g_alloc[g_all] = tmp;
 	g_all++;

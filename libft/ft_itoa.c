@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:55:21 by aabounak          #+#    #+#             */
-/*   Updated: 2019/10/20 19:22:38 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/16 14:09:45 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int			find_size(int nb)
+int	find_size(int nb)
 {
-	int		size;
+	int	size;
 
 	size = 1;
 	if (nb < 0)
@@ -24,14 +24,17 @@ int			find_size(int nb)
 		nb = -nb;
 		size++;
 	}
-	while (((nb /= 10) > 0))
+	while (nb > 0)
+	{
+		nb /= 10;
 		size *= 10;
+	}
 	return (size);
 }
 
 static int	find_digits(int n)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (n == 0)
@@ -52,7 +55,7 @@ static int	find_digits(int n)
 	return (i);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	int		i;
 	int		sign;
@@ -62,8 +65,7 @@ char		*ft_itoa(int n)
 	i = 0;
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
-	if (!(str = (char *)malloc(sizeof(char) * (find_digits(n) + 1))))
-		return (0);
+	str = (char *)malloc(sizeof(char) * (find_digits(n) + 1));
 	sign = n;
 	if (sign < 0)
 	{

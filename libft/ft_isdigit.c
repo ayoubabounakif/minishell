@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabounak <aabounak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:54:31 by aabounak          #+#    #+#             */
-/*   Updated: 2020/12/19 10:27:50 by aabounak         ###   ########.fr       */
+/*   Updated: 2021/09/16 14:08:45 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isdigit(int i)
+int	ft_isdigit(int i)
 {
 	if (i >= 48 && i <= 57)
 		return (1);
