@@ -54,17 +54,16 @@ SRCS = 420sh.c \
 ./signals/sig_handler.c \
 \
 
-LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
-
 NAME = minishell
 CC = gcc
-CC = clang
-CFLAGS = -g3 -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 LDFLAGS= -L /goinfre/$(USER)/.brew/opt/readline/lib
 CPPFLAGS= -I /goinfre/$(USER)/.brew/opt/readline/include
 READLINE = -lreadline $(LDFLAGS) $(CPPFLAGS)
+LIBRARIES = ./CPCA/CPCA.a ./libft/libft.a ./dlist/DLIST.a
 
-all:$(NAME)
+all: $(NAME)
+
 $(NAME):
 	@$(MAKE) -C CPCA
 	@$(MAKE) -C libft 
@@ -85,3 +84,5 @@ fclean:
 	@echo "\033[0;33mEverything cleaned"
 
 re : fclean all
+
+.PHONY: clean fclean all re
