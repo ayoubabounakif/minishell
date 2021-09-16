@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 17:34:34 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/16 10:31:08 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/16 12:34:04 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	forkPipes(t_dlist pipel, t_dlist envl)
 	// 		exit(executeBuiltins(((t_commands_table)pipel->cursor_n->value), envl));
 	// }
 	// else
-	spawnLastProc(in, pipeFds, pipel->cursor_n->value, envl);	
+	spawnLastProc(in, pipeFds, pipel->cursor_n->value, envl);
+	if (in != STDIN_FILENO)
+		close(in);
 	parentProcess();
 }

@@ -6,7 +6,7 @@
 /*   By: khafni <khafni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/27 17:22:51 by aabounak          #+#    #+#             */
-/*   Updated: 2021/09/16 10:32:09 by khafni           ###   ########.fr       */
+/*   Updated: 2021/09/16 12:51:00 by khafni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ static void	execute(char ***tokens_simpl, char ***tmp_envl)
 	{
 		free(*tmp_envl);
 		g_vars.exit_code = 0;
+		if (strcmp(strerror(errno), "Permission denied") == 0)
+		{
+			printErrorMessage(*tokens_simpl[0], "");
+			exit(127);
+		}
 		if (checkDirectory(*tokens_simpl[0]) == 1)
 		{
 			printErrorMessage(*tokens_simpl[0], "is a directory");
