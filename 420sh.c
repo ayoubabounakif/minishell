@@ -45,7 +45,6 @@ void	mariPrompt(t_dlist *parsed_line, char **line, t_dlist *env_list)
 			if (!*parsed_line)
 			{	
 				free(*line);
-				g_vars.exit_code = 258;
 				syntax_destroy();
 				continue ;
 			}
@@ -55,6 +54,7 @@ void	mariPrompt(t_dlist *parsed_line, char **line, t_dlist *env_list)
 		}
 		else if (!*line)
 			endLoop(parsed_line, line);
+		system("leaks minishell");
 	}
 }
 

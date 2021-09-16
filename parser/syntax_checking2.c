@@ -111,5 +111,4 @@ void	check_redir_syntax(char *parsing_line)
 	if (is_betweenRedirSings_space(mask))
 		syntax_set_error("error around redirection sign!");
 	free(mask);
-	is_empty_cmd(parsing_line);
 }

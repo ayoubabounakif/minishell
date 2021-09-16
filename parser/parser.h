@@ -24,6 +24,15 @@
 # define IS_AFTER_SEMICOLON 2
 # define NO_PIPE_OR_SEMICOLON 3
 
+
+typedef struct s_vars
+{
+	pid_t		pid;
+	int			exit_code;
+	int			noneOfUrBusiness;
+}				t_vars;
+
+t_vars			g_vars;
 /*
 ** norm hacking structures "the norm sucks you can't change my mind"
 */

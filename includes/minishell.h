@@ -40,12 +40,6 @@ enum	e_MACROS {
 /*
 ** _420sh STRUCTS
 */
-typedef struct s_vars
-{
-	pid_t		pid;
-	int			exit_code;
-	int			noneOfUrBusiness;
-}				t_vars;
 
 typedef struct s_env
 {
@@ -54,8 +48,6 @@ typedef struct s_env
 	char		sep;
 	int			has_value;
 }				t_env;
-
-t_vars			g_vars;
 
 /*
 **	signals

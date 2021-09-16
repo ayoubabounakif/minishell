@@ -51,12 +51,14 @@ t_dlist	parse_line(char *parsing_line, t_dlist env_list)
 		return (NULL);
 	if (syx->is_error)
 	{
+		g_vars.exit_code = 258;
 		syntax_print_error();
 		return (NULL);
 	}
 	parse_line_helper(parsing_line, env_list, &cmd_tbs_lists);
 	if (syx->is_error)
-	{		
+	{
+		g_vars.exit_code = 258;
 		syntax_print_error();
 		dlist_destroy(cmd_tbs_lists);
 		syntax_destroy();
