@@ -42,8 +42,9 @@ Your shell should:
   - ctrl-C print a new prompt on a newline.<br/>
   - ctrl-D exit the shell.<br/>
   - ctrl-\ do nothing.<br/>
-readline function can produce some leak you don’t need to fix this.<br/>
+
+<p readline function can produce some leak you don’t need to fix this.<br/>
 But beware your own code should not produce leaks.<br/>
 You should limit yourself to the subject description.<br/>
 Anything not asked is not required.<br/>
-For every point, if you have any doubt take bash as a reference.<br/>
+For every point, if you have any doubt take bash as a reference.<br/></p>
