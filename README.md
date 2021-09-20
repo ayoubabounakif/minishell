@@ -10,7 +10,7 @@ a computer using interactive lines of commands in a language somewhat close to e
 With Minishell, you’ll be able to travel through time and come back to problems<br/>
 people faced when Windows didn’t exist.<br/>
 
-Your shell should:
+### Your shell should:
 
 - Not interpret unclosed quotes or unspecified special characters like \ or ;.<br/>
 - Not use more than one global variable, think about it and be ready to explain why you do it.<br/>
