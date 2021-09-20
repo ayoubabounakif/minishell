@@ -20,13 +20,13 @@ Your shell should:
 - Have a working History.<br/>
 - Search and launch the right executable (based on the PATH variable or by using relative or absolute path)<br/>
 - It must implement the builtins:<br/>
-  - ◦ echo with option -n<br/>
-  - ◦ cd with only a relative or absolute path<br/>
-  - ◦ pwd with no options<br/>
-  - ◦ export with no options<br/>
-  - ◦ unset with no options<br/>
-  - ◦ env with no options or arguments<br/>
-  - ◦ exit with no options<br/>
+  - echo with option -n<br/>
+  - cd with only a relative or absolute path<br/>
+  - pwd with no options<br/>
+  - export with no options<br/>
+  - unset with no options<br/>
+  - env with no options or arguments<br/>
+  - exit with no options<br/>
 - ’ inhibit all interpretation of a sequence of characters.<br/>
 - " inhibit all interpretation of a sequence of characters except for $.<br/>
 - Redirections:<br/>
