@@ -30,8 +30,8 @@ Your shell should:
 - ’ inhibit all interpretation of a sequence of characters.<br/>
 - " inhibit all interpretation of a sequence of characters except for $.<br/>
 - Redirections:<br/>
-  - < should redirect input.<br/>
-  - > should redirect output.<br/>
+  - “<“ should redirect input.<br/>
+  - “>“ should redirect output.<br/>
   - “<<” read input from the current source until a line containing only the delimiter is seen. it doesn’t need to update history!<br/>
   - “>>” should redirect output with append mode.<br/>
 - Pipes | The output of each command in the pipeline is connected via a pipe to the input of the next command.<br/>
