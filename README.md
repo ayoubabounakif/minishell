@@ -1,9 +1,9 @@
 # 42cursus-minishell
 <p The objective of this project is for you to create a simple shell. Yes, your<br/>
-little bash or zsh. You will learn a lot about processes and file descriptors<br/></p>
+little bash or zsh. You will learn a lot about processes and file descriptors<br/>
 
 ## Introduction:
-<p The existence of shells is linked to the very existence of IT. At the time, all coders agreed<br/>
+The existence of shells is linked to the very existence of IT. At the time, all coders agreed<br/>
 that communicating with a computer using aligned 1/0 switches was seriously<br/>
 irritating. It was only logical that they came up with the idea to communicate with<br/>
 a computer using interactive lines of commands in a language somewhat close to english.<br/>
