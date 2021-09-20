@@ -10,8 +10,11 @@ a computer using interactive lines of commands in a language somewhat close to e
 With Minishell, you’ll be able to travel through time and come back to problems<br/>
 people faced when Windows didn’t exist.<br/>
 
+# FINISH THIS DOWNPART OF README
+
 Your shell should:
-<p • Not interpret unclosed quotes or unspecified special characters like \ or ;.<br/>
+
+• Not interpret unclosed quotes or unspecified special characters like \ or ;.<br/>
 • Not use more than one global variable, think about it and be ready to explain why you do it.<br/>
 • Show a prompt when waiting for a new command.<br/>
 • Have a working History.<br/>
@@ -38,7 +41,8 @@ Your shell should:
 • When interactive:<br/>
   ◦ ctrl-C print a new prompt on a newline.<br/>
   ◦ ctrl-D exit the shell.<br/>
-  ◦ ctrl-\ do nothing.<br/> </p>
+  ◦ ctrl-\ do nothing.<br/>
+
 readline function can produce some leak you don’t need to fix this.<br/>
 But beware your own code should not produce leaks.<br/>
 You should limit yourself to the subject description.<br/>
