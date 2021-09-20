@@ -42,7 +42,6 @@ Your shell should:
   - ctrl-C print a new prompt on a newline.<br/>
   - ctrl-D exit the shell.<br/>
   - ctrl-\ do nothing.<br/>
-
 readline function can produce some leak you don’t need to fix this.<br/>
 But beware your own code should not produce leaks.<br/>
 You should limit yourself to the subject description.<br/>
